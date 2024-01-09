@@ -8,7 +8,7 @@ function LoginPage() {
             <div className='login-block'>
                 <div className="login-title">登录</div>
                 <Input placeholder="输入账号" className='mt-2' />
-                <Input placeholder="输入密码" className='mt-2' />
+                <Input.Password placeholder="输入密码" className='mt-2' />
                 <div className="login-action mt-2 w-full">
                     <Checkbox className='login-remember'>记住密码</Checkbox>
                     <div className='login-forget'>忘记密码 <QuestionCircleOutlined /></div>
