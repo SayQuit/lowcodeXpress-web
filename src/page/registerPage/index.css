@@ -1,0 +1,23 @@
+.register{
+    background-color: #EEE;
+    width: 100vw;
+    height: 100vh;
+}
+.register-block {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 270px;
+}
+
+.register-title {
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
+}
+
+.register-button {
+    background: #54229b;
+    color: white;
+}
