@@ -1,0 +1,51 @@
+.login{
+    background-color: #EEE;
+    width: 100vw;
+    height: 100vh;
+}
+.login-block {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 270px;
+}
+
+.login-title {
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
+}
+
+.login-button {
+    background: #54229b;
+    color: white;
+}
+
+.login-action {
+    display: flex;
+}
+
+.login-remember {
+    font-size: 10px;
+    flex: 1;
+}
+
+.login-forget {
+    font-size: 10px;
+    line-height: 1.5714285714285714;
+    flex: 1;
+    text-align: right;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.login-register {
+    font-size: 10px;
+    text-align: center;
+}
+
+.login-register span {
+    cursor: pointer;
+    font-weight: 700;
+}
