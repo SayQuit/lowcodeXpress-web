@@ -1,0 +1,31 @@
+.projectSetup-header {
+    height: 60px;
+    border-bottom: 1px solid #d0d0d0;
+    line-height: 60px;
+    padding: 0 30px;
+    font-size: large;
+    box-sizing: border-box;
+}
+
+.projectSetup-header-icon {
+    height: 30px;
+    margin: 15px 0;
+    width: 10px;
+    background-color: var(--theme-color);
+    display: inline-block;
+    vertical-align: top;
+}
+
+.projectSetup-header-name {
+    height: 100%;
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: top;
+}
+
+.projectSetup-main{
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 50px;
+    box-sizing: border-box;
+}
