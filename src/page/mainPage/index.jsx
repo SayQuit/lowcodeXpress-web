@@ -1,26 +1,31 @@
 import './index.css'
 import { Card } from 'antd'
-import { FileAddOutlined } from '@ant-design/icons';
 
 function MainPage() {
   return (
     <div className='mt-2 mb-2'>
       {
-        [1, 2, 3, 4, 5, 1, 2, 3, 4, 1, 2, 3, 4, 5].map((item,index) =>
+        [1, 2, 3, 4, 5, 1, 2, 3, 4, 1, 2, 3, 4, 5].map((item, index) =>
         (<div className='mainPage-item' key={index}>
           <div className='mainPage-item-block'>
-            <Card title="项目名称" bordered={true}>
-              <div className='mainPage-item-block-content'>项目描述{item}</div>
+            <Card bordered={true}>
+              <div className='mainPage-item-block-img'>
+                <img src="https://gw.alipayobjects.com/zos/bmw-prod/1c363c0b-17c6-4b00-881a-bc774df1ebeb.svg" alt="" />
+              </div>
+              <div className='mainPage-item-block-title'>项目标题</div>
+              <div className='mainPage-item-block-desc'>项目描述{item}</div>
             </Card>
           </div>
         </div>))
       }
       <div className='mainPage-item'>
         <div className='mainPage-item-block'>
-          <Card title="新建项目" bordered={true}>
-            <div className='mainPage-item-block-content'>
-              <FileAddOutlined className='mainPage-addIcon'></FileAddOutlined>
+          <Card bordered={true}>
+            <div className='mainPage-item-block-img'>
+              <img src="https://gw.alipayobjects.com/zos/bmw-prod/1c363c0b-17c6-4b00-881a-bc774df1ebeb.svg" alt="" />
             </div>
+            <div className='mainPage-item-block-title'>新建项目</div>
+            <div className='mainPage-item-block-desc'></div>
           </Card>
         </div>
       </div>
