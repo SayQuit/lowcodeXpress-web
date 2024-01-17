@@ -1,7 +1,7 @@
 .pageHeader {
     height: 100%;
     width: 100%;
-    background: #54229b;
+    background: var(--theme-color);
     box-sizing: border-box;
     color: white;
     font-size: 16px;
@@ -17,7 +17,7 @@
 }
 
 .pageHeader-hover:hover {
-    color: #9767db;
+    color: var(--theme-color-hover);
 }
 
 .pageHeader-button {
@@ -35,6 +35,6 @@
     cursor: pointer;
 }
 
-.pageHeader-avater:hover .ant-avatar{
+.pageHeader-avater:hover .ant-avatar {
     opacity: 0.5;
 }

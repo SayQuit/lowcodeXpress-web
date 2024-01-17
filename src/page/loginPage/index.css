@@ -19,7 +19,7 @@
 }
 
 .login-button {
-    background: #54229b;
+    background: var(--theme-color);
     color: white;
 }
 
