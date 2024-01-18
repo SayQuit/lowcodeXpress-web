@@ -16,7 +16,7 @@
     text-decoration: none;
     display: inline-block;
     height: 50px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .pageHeader-button.active {
@@ -31,7 +31,7 @@
     display: inline-block;
     width: 30px;
     border-radius: 50%;
-    margin: 0 10px;
+    margin: 0 20px;
     cursor: pointer;
     position: relative;
 }
