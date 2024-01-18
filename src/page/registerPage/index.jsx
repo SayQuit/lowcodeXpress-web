@@ -3,7 +3,7 @@ import './index.css'
 import { Button, Input, Alert } from 'antd';
 import { passwordRegExp, usernameRegExp } from '../../utils/regexp';
 import { registerRequest } from '../../request';
-import { useNavigate } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { successMessage } from '../../utils/message';
 
 function RegisterPage() {
@@ -29,14 +29,9 @@ function RegisterPage() {
 
     const copyAccount = () => {
         navigator.clipboard.writeText(account)
-        .then(()=>{
-            successMessage('复制成功')
-        })
-    }
-
-    const navigate = useNavigate()
-    const gotoLogin = () => {
-        navigate('/login')
+            .then(() => {
+                successMessage('复制成功')
+            })
     }
 
     return (
@@ -85,7 +80,9 @@ function RegisterPage() {
                         className='mt-2'
                     />
                     <Button className='mt-2 w-full border' size='large' onClick={copyAccount}>复制账号</Button>
-                    <Button className='mt-2 w-full register-button' size='large' onClick={gotoLogin}>前往登录</Button>
+                    <NavLink to={{ pathname: '/login' }}>
+                        <Button className='mt-2 w-full register-button' size='large'>前往登录</Button>
+                    </NavLink>
                 </div>}
             </div>
         </div>
