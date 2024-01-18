@@ -2,4 +2,7 @@ import { message } from 'antd';
 const errorMessage = (msg) => {
     message.error(msg);
 }
-export { errorMessage }
+const successMessage=(msg)=>{
+    message.success(msg)
+}
+export { errorMessage,successMessage }
