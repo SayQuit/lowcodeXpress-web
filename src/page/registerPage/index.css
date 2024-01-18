@@ -18,3 +18,11 @@
     background: var(--theme-color);
     color: white;
 }
+
+.register-alert{
+    font-size: 14px;
+}
+
+.register-alert .ant-alert-message{
+    font-size: 12px;
+}
