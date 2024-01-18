@@ -3,13 +3,9 @@
     height: 100%;
 }
 .login-block {
-    width: 30%;
-    position: absolute;
-    left: 50%;
-    top: 20%;
-    transform: translateX(-50%);
-    height: 70%;
-    overflow: auto;
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 60px;
 }
 
 .login-title {
