@@ -14,12 +14,12 @@ export const testRequest = () => {
     })
 }
 
-export const loginRequest = () => {
+export const loginRequest = (account, password) => {
     return new Promise((resolve, reject) => {
         service({
             url: '/user/login',
             method: 'post',
-            params: {}
+            params: { account, password }
         }).then((res) => {
             resolve(res.data)
         }).catch((error) => {
@@ -28,12 +28,12 @@ export const loginRequest = () => {
     })
 }
 
-export const registerRequest = () => {
+export const registerRequest = (username, password) => {
     return new Promise((resolve, reject) => {
         service({
             url: '/user/register',
             method: 'post',
-            params: {}
+            params: { username, password }
         }).then((res) => {
             resolve(res.data)
         }).catch((error) => {
@@ -56,12 +56,12 @@ export const tokenLoginRequest = () => {
     })
 }
 
-export const createProjectRequest = () => {
+export const createProjectRequest = (json, name, description) => {
     return new Promise((resolve, reject) => {
         service({
             url: '/project/create',
             method: 'post',
-            params: {}
+            params: { json, name, description }
         }).then((res) => {
             resolve(res.data)
         }).catch((error) => {
@@ -70,12 +70,12 @@ export const createProjectRequest = () => {
     })
 }
 
-export const setProjectRequest = () => {
+export const setProjectRequest = (id, json, name, description) => {
     return new Promise((resolve, reject) => {
         service({
             url: '/project/set',
             method: 'post',
-            params: {}
+            params: {id, json, name, description}
         }).then((res) => {
             resolve(res.data)
         }).catch((error) => {
