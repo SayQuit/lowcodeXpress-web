@@ -1,18 +1,18 @@
+import { HashRouter } from 'react-router-dom';
 import './App.css'
-import LoginPage from './page/loginPage';
-import MainPage from './page/mainPage'
-import RegisterPage from './page/registerPage';
-import ProjectSetup from './page/projectSetup';
 import PageHeader from './component/pageHeader';
+import RouterPage from './router/RouterPage'
 function App() {
   return (
     <div className='app'>
-      <div className='app-header'>
-        <PageHeader></PageHeader>
-      </div>
-      <div className='app-main'>
-        <MainPage></MainPage>
-      </div>
+      <HashRouter>
+        <div className='app-header'>
+          <PageHeader></PageHeader>
+        </div>
+        <div className='app-main'>
+          <RouterPage></RouterPage>
+        </div>
+      </HashRouter>
     </div>
   );
 }

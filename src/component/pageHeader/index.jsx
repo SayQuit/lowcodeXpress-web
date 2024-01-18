@@ -1,15 +1,15 @@
 import './index.css'
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-
+import { NavLink } from 'react-router-dom';
 
 function PageHeader() {
   return (
     <div className="pageHeader">
-      <div className='pageHeader-main pageHeader-hover'>首页</div>
+      <NavLink className='pageHeader-button' to={{ pathname: '/' }}>首页</NavLink>
       <div className='flex'>
-        <div className='pageHeader-button pageHeader-hover'>登录</div>
-        <div className='pageHeader-button pageHeader-hover'>注册</div>
+        <NavLink className='pageHeader-button' to={{ pathname: '/login' }}>登录</NavLink>
+        <NavLink className='pageHeader-button' to={{ pathname: '/register' }}>注册</NavLink>
         <div className='pageHeader-avater'>
           <Avatar shape="square" icon={<UserOutlined />} />
         </div>
