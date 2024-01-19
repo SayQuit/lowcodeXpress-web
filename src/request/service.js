@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { errorMessage } from '../utils/message'
+import { getToken } from '../utils/storage'
 
 const service = axios.create({
   baseURL: 'http://localhost:5507',
@@ -9,7 +10,8 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   config => {
-    // config.headers['Authorization'] = 'Bearer' + ' ' + localStorage.getItem('token')
+    // 这里应该改成用redux内的token，如果redux没有，就不配置
+    config.headers['Authorization'] = `Bearer ${getToken()}`
     return config
   },
   error => {

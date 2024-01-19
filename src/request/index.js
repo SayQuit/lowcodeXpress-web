@@ -1,4 +1,5 @@
 import service from "./service";
+import { getToken, setToken } from "../utils/storage";
 
 export const testRequest = () => {
     return new Promise((resolve, reject) => {
@@ -13,8 +14,11 @@ export const testRequest = () => {
 
 export const loginRequest = (account, password) => {
     return new Promise((resolve, reject) => {
-        service.post('/user/register', { account, password })
+        service.post('/user/login', { account, password })
             .then((res) => {
+                const { account, token, username } = res.data
+                setToken(token)
+                // 更新redux
                 resolve(res.data)
             }).catch((error) => {
                 reject(error)
@@ -37,6 +41,9 @@ export const tokenLoginRequest = () => {
     return new Promise((resolve, reject) => {
         service.post('/user/tokenLogin', {})
             .then((res) => {
+                const { account, username } = res.data
+                const token = getToken()
+                // 更新redux
                 resolve(res.data)
             }).catch((error) => {
                 reject(error)
