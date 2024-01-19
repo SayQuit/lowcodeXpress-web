@@ -12,8 +12,6 @@ function LoginPage() {
     const [password, setPassword] = useState('')
     const [rememberPassword, setRememberPassword] = useState(false)
 
-    const navigate=useNavigate()
-
     const warning = useMemo(() => {
         if (account.trim() === '' || password.trim() === '') return '部分信息未填写'
         else if (!accountRegExp(account)) return '账号不符合要求，必须是不包含空格的4到14位长度的字符串'
@@ -21,6 +19,7 @@ function LoginPage() {
         else return ''
     }, [account, password])
 
+    const navigate=useNavigate()
     const onClickLogin=async ()=>{
         await loginRequest(account, password)
         successMessage('登录成功')
