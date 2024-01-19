@@ -9,3 +9,9 @@ export const usernameRegExp = (username) => {
     if (pattern.test(username)) return true
     else return false
 }
+
+export const accountRegExp = (account) => {
+    const pattern = /^[1-9]\d{4,14}$/;
+    if (pattern.test(account)) return true
+    else return false
+}
