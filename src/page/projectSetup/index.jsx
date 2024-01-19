@@ -1,7 +1,47 @@
+import { useState, useMemo } from 'react';
 import './index.css'
-import { Input, Typography, Flex, Select } from 'antd'
+import { options } from './options';
+import { createProjectRequest } from '../../request';
+import { Input, Typography, Flex, Select, Button, Alert } from 'antd'
+import { successMessage } from '../../utils/message';
+import { useNavigate } from 'react-router-dom';
+const { TextArea } = Input;
 
 function ProjectSetup() {
+    const [setup, setSetup] = useState({
+        name: '',
+        desc: '',
+        type: '',
+        tech: '',
+        lib: [],
+        element: {
+
+        }
+    })
+
+    const onChangeSetup = (value, key) => {
+        setSetup({
+            ...setup,
+            [key]: value
+        })
+    }
+
+    const warning = useMemo(() => {
+        const { name, desc, type, tech } = setup
+        if (name.trim() === '' || desc.trim() === '' || type === '') return '部分信息未填写'
+        else if (type === 'web' && tech === '') return '部分信息未填写'
+        else if (desc.length > 500) return '项目描述字数超过500字'
+        else return ''
+    }, [setup])
+
+    
+    const navigate=useNavigate()
+    const onClickCreat=async ()=>{
+        await createProjectRequest(JSON.stringify(setup),setup.name,setup.desc)
+        successMessage('创建成功')
+        navigate('/')
+    }
+
     return (
         <div>
             <div className='projectSetup-header'>
@@ -13,80 +53,74 @@ function ProjectSetup() {
                     <div>
                         <Typography.Title level={5}>项目名称</Typography.Title>
                         <Input
+                            value={setup.name}
                             count={{
                                 show: true,
                                 max: 8,
                             }}
                             placeholder='输入项目名称'
                             size='large'
+                            key='name'
+                            onChange={(e) => onChangeSetup(e.target.value.trim(), 'name')}
                         />
                     </div>
 
                     <div>
                         <Typography.Title level={5}>项目描述</Typography.Title>
-                        <Input
-                            count={{
-                                show: true,
-                                max: 100,
-                            }}
-                            placeholder='输入项目描述'
+                        <TextArea
+                            value={setup.desc}
+                            placeholder='输入项目描述（500字内）'
+                            autoSize={{ minRows: 3, maxRows: 5 }}
                             size='large'
+                            onChange={(e) => onChangeSetup(e.target.value.trim(), 'desc')}
                         />
                     </div>
 
                     <div>
                         <Typography.Title level={5}>项目类型</Typography.Title>
                         <Select
+                            value={setup.type}
                             style={{ width: '100%' }}
                             size='large'
                             placeholder="选择项目类型"
-                            options={[{
-                                value: 'wechat mini program',
-                                label: '微信小程序'
-                            }, {
-                                value: 'web',
-                                label: 'Web项目'
-                            }]}
+                            options={options.projectType}
+                            onChange={(value) => onChangeSetup(value, 'type')}
                         />
                     </div>
 
-                    <div>
+                    {setup.type === 'web' && <div>
                         <Typography.Title level={5}>项目技术栈</Typography.Title>
                         <Select
+                            value={setup.tech}
                             style={{ width: '100%' }}
                             size='large'
                             placeholder="选择项目技术栈"
-                            options={[{
-                                value: 'normal',
-                                label: '原生'
-                            },{
-                                value: 'vue',
-                                label: 'Vue.js'
-                            }, {
-                                value: 'react',
-                                label: 'React.js'
-                            }]}
+                            options={options.projectTech}
+                            onChange={(value) => onChangeSetup(value, 'tech')}
                         />
-                    </div>
+                    </div>}
 
-                    <div>
+                    {setup.type === 'web' && <div>
                         <Typography.Title level={5}>库</Typography.Title>
                         <Select
+                            value={setup.lib}
                             mode='tags'
                             style={{ width: '100%' }}
                             size='large'
                             placeholder="选择需要引入的库"
-                            options={[{
-                                value: 'element-ui',
-                                label: 'Element-UI'
-                            },{
-                                value: 'ant-design',
-                                label: 'Ant-Design'
-                            }, {
-                                value: 'echarts',
-                                label: 'Echarts'
-                            }]}
+                            options={options.projectLib}
+                            onChange={(value) => onChangeSetup(value, 'lib')}
                         />
+                    </div>}
+
+                    {warning && <Alert
+                        message={warning}
+                        type="warning"
+                        showIcon
+                    />}
+
+                    <div className='flex justify-end'>
+                        <Button size='large' type='primary' disabled={warning} onClick={onClickCreat}>创建项目</Button>
                     </div>
 
                 </Flex>
