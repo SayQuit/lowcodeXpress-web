@@ -6,6 +6,7 @@
     width: 400px;
     margin: 0 auto;
     margin-top: 60px;
+    margin-bottom: 60px;
 }
 
 .login-title {
@@ -44,4 +45,8 @@
 .login-register span {
     cursor: pointer;
     font-weight: 700;
+}
+
+.login-alert .ant-alert-message{
+    font-size: 12px;
 }
