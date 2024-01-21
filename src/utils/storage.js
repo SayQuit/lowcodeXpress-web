@@ -9,12 +9,12 @@ export const getLocalStorage = (key) => {
     return item
 }
 
-export const setToken = (value) => {
+export const setLocalToken = (value) => {
     localStorage.setItem('x_token', value)
     return true
 }
 
-export const getToken = () => {
+export const getLocalToken = () => {
     const item = localStorage.getItem('x_token')
     return item
 }
