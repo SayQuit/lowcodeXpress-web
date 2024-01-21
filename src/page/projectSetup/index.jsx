@@ -3,7 +3,7 @@ import './index.css'
 import { options } from './options';
 import { createProjectRequest } from '../../request';
 import { Input, Typography, Flex, Select, Button, Alert } from 'antd'
-import { successMessage } from '../../utils/message';
+import { errorMessage, successMessage } from '../../utils/message';
 import { useNavigate } from 'react-router-dom';
 const { TextArea } = Input;
 
@@ -34,10 +34,11 @@ function ProjectSetup() {
         else return ''
     }, [setup])
 
-    
-    const navigate=useNavigate()
-    const onClickCreat=async ()=>{
-        await createProjectRequest(JSON.stringify(setup),setup.name,setup.desc)
+
+    const navigate = useNavigate()
+    const onClickCreat = async () => {
+        const res = await createProjectRequest(JSON.stringify(setup), setup.name, setup.desc)
+        if (!res) return
         successMessage('创建成功')
         navigate('/')
     }

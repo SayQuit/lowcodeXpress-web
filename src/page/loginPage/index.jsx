@@ -2,10 +2,12 @@ import './index.css'
 import { useState, useMemo } from 'react';
 import { Button, Input, Checkbox, Alert } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { NavLink,useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { passwordRegExp, accountRegExp } from '../../utils/regexp';
 import { loginRequest } from '../../request';
 import { successMessage } from '../../utils/message';
+import { useDispatch } from 'react-redux';
+import { setLocalToken } from '../../utils/storage';
 
 function LoginPage() {
     const [account, setAccount] = useState('')
@@ -19,9 +21,15 @@ function LoginPage() {
         else return ''
     }, [account, password])
 
-    const navigate=useNavigate()
-    const onClickLogin=async ()=>{
-        await loginRequest(account, password)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const onClickLogin = async () => {
+        const res = await loginRequest(account, password)
+        if (!res) return
+        const { username, token } = res.data
+        dispatch({ type: 'setToken', token })
+        dispatch({ type: 'setUser', user: { username, account } })
+        setLocalToken(token)
         successMessage('登录成功')
         navigate('/')
     }

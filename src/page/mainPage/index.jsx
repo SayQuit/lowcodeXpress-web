@@ -10,7 +10,9 @@ function MainPage() {
     getProjectList()
   }, [])
   const getProjectList = async () => {
-    const { projectList: list } = await getProjectRequest()
+    const res = await getProjectRequest()
+    if (!res) return
+    const { projectList: list } = res.data
     setProjectList(list.map(item => {
       const { createAt, id, json } = item
       return {

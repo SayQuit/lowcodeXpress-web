@@ -1,85 +1,75 @@
 import service from "./service";
-import { getToken, setToken } from "../utils/storage";
+import { errorMessage } from "../utils/message";
 
-export const testRequest = () => {
-    return new Promise((resolve, reject) => {
-        service.post('/test', {})
-            .then((res) => {
-                resolve(res.data)
-            }).catch((error) => {
-                reject(error)
-            })
-    })
+export const testRequest = async () => {
+    let res = null
+    try {
+        res = await service.post('/test', {})
+    } catch (error) {
+        errorMessage('请求失败')
+    } finally {
+        return res || null
+    }
 }
 
-export const loginRequest = (account, password) => {
-    return new Promise((resolve, reject) => {
-        service.post('/user/login', { account, password })
-            .then((res) => {
-                const { account, token, username } = res.data
-                setToken(token)
-                // 更新redux
-                resolve(res.data)
-            }).catch((error) => {
-                reject(error)
-            })
-    })
+export const loginRequest = async (account, password) => {
+    let res = null
+    try {
+        res = await service.post('/user/login', { account, password })
+    } catch (error) {
+        errorMessage('登录失败，请重试')
+    } finally {
+        return res || null
+    }
 }
 
-export const registerRequest = (username, password) => {
-    return new Promise((resolve, reject) => {
-        service.post('/user/register', { username, password })
-            .then((res) => {
-                resolve(res.data)
-            }).catch((error) => {
-                reject(error)
-            })
-    })
+export const registerRequest = async (username, password) => {
+    let res = null
+    try {
+        res = await service.post('/user/register', { username, password })
+    } catch (error) {
+        errorMessage('注册失败，请重试')
+    } finally {
+        return res || null
+    }
 }
 
-export const tokenLoginRequest = () => {
-    return new Promise((resolve, reject) => {
-        service.post('/user/tokenLogin', {})
-            .then((res) => {
-                const { account, username } = res.data
-                const token = getToken()
-                // 更新redux
-                resolve(res.data)
-            }).catch((error) => {
-                reject(error)
-            })
-    })
+export const tokenLoginRequest = async () => {
+    let res = null
+    try {
+        res = await service.post('/user/tokenLogin', {})
+    } finally {
+        return res || null
+    }
 }
 
-export const createProjectRequest = (json, name, description) => {
-    return new Promise((resolve, reject) => {
-        service.post('/project/create', { json, name, description })
-            .then((res) => {
-                resolve(res.data)
-            }).catch((error) => {
-                reject(error)
-            })
-    })
+export const createProjectRequest = async (json, name, description) => {
+    let res = null
+    try {
+        res = await service.post('/project/create', { json, name, description })
+    } catch (error) {
+        errorMessage('创建失败，请重试')
+    } finally {
+        return res || null
+    }
 }
 
-export const setProjectRequest = (id, json, name, description) => {
-    return new Promise((resolve, reject) => {
-        service.post('/project/set', { id, json, name, description })
-            .then((res) => {
-                resolve(res.data)
-            }).catch((error) => {
-                reject(error)
-            })
-    })
+export const setProjectRequest = async (id, json, name, description) => {
+    let res = null
+    try {
+        res = await service.post('/project/set', { id, json, name, description })
+    } catch (error) {
+        errorMessage('保存失败，请重试')
+    } finally {
+        return res || null
+    }
 }
 
-export const getProjectRequest = () => {
-    return new Promise((resolve, reject) => {
-        service.post('/project/get', {})
-            .then((res) => {
-                resolve(res.data)
-            }).catch((error) => {
-                reject(error)
-            })
-    })
+export const getProjectRequest = async () => {
+    let res = null
+    try {
+        res = await service.post('/project/get', {})
+    } finally {
+        return res || null
+    }
 }

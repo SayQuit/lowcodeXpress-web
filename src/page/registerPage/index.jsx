@@ -23,7 +23,8 @@ function RegisterPage() {
 
     const onClickRegister = async () => {
         const res = await registerRequest(username, password)
-        setAccount(res.account)
+        if (!res) return
+        setAccount(res.data.account)
         setIsSuccess(true)
     }
 
