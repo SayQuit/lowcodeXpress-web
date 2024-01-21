@@ -13,10 +13,10 @@ function App() {
     const token = getLocalToken()
     if (!token) return
     dispatch({ type: 'setToken', token })
-    const data = await tokenLoginRequest()
-    dispatch({ type: 'setUser', data })
+    const res = await tokenLoginRequest()
+    dispatch({ type: 'setUser', user: res.data })
   }, [dispatch])
-  
+
   useEffect(() => {
     tokenLogin()
   }, [tokenLogin])
