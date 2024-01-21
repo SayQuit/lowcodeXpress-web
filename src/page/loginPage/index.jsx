@@ -57,7 +57,7 @@ function LoginPage() {
                     onChange={(e) => setPassword(e.target.value.trim())}
                 />
                 <div className="login-action mt-2 w-full">
-                    <Checkbox value={rememberPassword} className='login-remember' onChange={(e) => setRememberPassword(e.target.value)}>记住密码</Checkbox>
+                    <Checkbox checked={rememberPassword} className='login-remember' onChange={(e) => setRememberPassword(e.target.value)}>记住密码</Checkbox>
                     <div className='login-forget'>忘记密码 <QuestionCircleOutlined /></div>
                 </div>
                 {warning && <Alert

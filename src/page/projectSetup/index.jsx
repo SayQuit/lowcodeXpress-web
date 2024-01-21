@@ -3,7 +3,7 @@ import './index.css'
 import { options } from './options';
 import { createProjectRequest } from '../../request';
 import { Input, Typography, Flex, Select, Button, Alert } from 'antd'
-import { errorMessage, successMessage } from '../../utils/message';
+import { successMessage } from '../../utils/message';
 import { useNavigate } from 'react-router-dom';
 const { TextArea } = Input;
 
