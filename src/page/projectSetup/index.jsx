@@ -45,11 +45,11 @@ function ProjectSetup() {
 
     return (
         <div>
-            <div className='projectSetup-header'>
-                <div className='projectSetup-header-icon'></div>
-                <div className='projectSetup-header-name'>设置</div>
+            <div className='setup-header'>
+                <div className='setup-header-icon'></div>
+                <div className='setup-header-name'>设置</div>
             </div>
-            <div className='projectSetup-main'>
+            <div className='setup-main'>
                 <Flex vertical gap={16}>
                     <div>
                         <Typography.Title level={5}>项目名称</Typography.Title>

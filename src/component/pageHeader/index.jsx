@@ -11,10 +11,10 @@ function PageHeader() {
   return (
     <div className="pageHeader">
       <NavLink className='pageHeader-button' to={{ pathname: '/' }}>首页</NavLink>
-      <div className='flex'>
+      <div className='flex mr-4'>
         {!user && <NavLink className='pageHeader-button' to={{ pathname: '/login' }}>登录</NavLink>}
         {!user && <NavLink className='pageHeader-button' to={{ pathname: '/register' }}>注册</NavLink>}
-        <div className='pageHeader-button mr-2'>{user.username}</div>
+        {user &&<div className='pageHeader-button mr-2'>{user.username}</div>}
         {user && <div className='pageHeader-avater'>
           <Avatar shape="square" icon={<UserOutlined />} />
         </div>}

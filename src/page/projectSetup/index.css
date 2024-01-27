@@ -1,4 +1,4 @@
-.projectSetup-header {
+.setup-header {
     height: 60px;
     border-bottom: 1px solid #d0d0d0;
     line-height: 60px;
@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 
-.projectSetup-header-icon {
+.setup-header-icon {
     height: 20px;
     margin: 20px 0;
     width: 6px;
@@ -16,7 +16,7 @@
     vertical-align: top;
 }
 
-.projectSetup-header-name {
+.setup-header-name {
     height: 100%;
     display: inline-block;
     margin-left: 16px;
@@ -24,7 +24,7 @@
     font-size: 18px;
 }
 
-.projectSetup-main{
+.setup-main{
     width: 60%;
     padding: 30px 30px;
     box-sizing: border-box;
