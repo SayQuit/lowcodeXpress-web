@@ -101,7 +101,7 @@ function ProjectSetup() {
                         />
                     </div>}
 
-                    {setup.type === 'web' && <div>
+                    {setup.type === 'web' && setup.tech !== 'normal' && <div>
                         <Typography.Title level={5}>库</Typography.Title>
                         <Select
                             value={setup.lib}
