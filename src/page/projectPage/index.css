@@ -1,0 +1,13 @@
+.projectPage{
+    height: 100%;
+    display: flex;
+}
+.projectPage-leftside{
+    width: 100px;
+}
+.projectPage-main{
+    flex: 1;
+}
+.projectPage-rightside{
+    width: 200px;
+}
