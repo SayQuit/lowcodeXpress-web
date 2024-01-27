@@ -1,60 +1,127 @@
-.project{
+.project {
     height: 100%;
     display: flex;
     background-color: #eee;
+    font-size: 12px;
 }
-.project-left{
+
+
+/* 左边栏 */
+.project-left {
+    padding: 0 8px;
+    box-sizing: border-box;
     width: 40px;
     display: flex;
     flex-direction: column;
     align-content: center;
     background-color: white;
     padding-top: 16px;
+    position: relative;
+    box-shadow: 2px 2px 2px 2px rgba(31, 50, 88, .08);
 }
-.project-left .anticon{
-    margin-top: 10px;
+
+.project .anticon {
+    padding: 6px 4px;
     display: block
 }
-.project .anticon svg{
+
+.project .anticon:hover {
+    background-color: #eee;
+}
+
+.project .anticon svg {
     cursor: pointer;
 }
-.project-main{
+
+
+/* 中间 */
+.project-main {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
-.project-main-header{
+
+
+/* 中间标题头 */
+.project-main-header {
     height: 50px;
-    margin: 0 4px 8px;
+    margin: 0 4px;
     background-color: white;
     display: flex;
     justify-content: space-between;
     padding: 0 20px;
+    box-shadow: 2px 2px 2px 2px rgba(31, 50, 88, .08);
 }
-.project-main-board{
+
+
+/* 中间画布 */
+.project-main-board {
     flex: 1;
     background-color: white;
-    margin: 0 16px;
+    margin: 8px 16px;
+    box-shadow: 2px 2px 2px 2px rgba(31, 50, 88, .08);
 }
-.project-right{
+
+
+
+/* 右侧 */
+.project-right {
     background-color: white;
+    box-shadow: -2px 2px 2px 2px rgba(31, 50, 88, .08);
 }
-.project-right-tab{
+
+.project-right-tab {
     padding: 0 10px;
-    font-size: 14px;
 }
-.project-right-tab-font{
+
+.project-right-tab-font {
     width: 50px;
 }
 
-.line-h-22{
+.line-h-22 {
     line-height: 22px;
 }
 
-.margin-left-4{
+.margin-left-4 {
     margin-left: 4px;
 }
-.project-right-tab  .ant-input-number-group-addon{
-    vertical-align: top; 
+
+.project-right-tab .ant-input-number-group-addon {
+    vertical-align: top;
     line-height: 19px;
+}
+
+/* 左侧选取元素 */
+.element-select {
+    height: 100%;
+    width: 400px;
+    position: absolute;
+    left: 40px;
+    top: 0;
+    box-shadow: 2px 2px 2px 2px rgba(31, 50, 88, .08);
+    background-color: white;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.element-item {
+    width: 25%;
+    height: 120px;
+    display: inline-block;
+    border: 1px solid hsla(0, 0%, 92.9%, .6);
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.element-item:hover {
+    box-shadow: 0px 7px 16px 1px rgba(0, 0, 0, 0.2);
+}
+
+.element-item .anticon:hover {
+    background-color: white;
+}
+
+.element-item .anticon{
+    font-size: 20px;
 }

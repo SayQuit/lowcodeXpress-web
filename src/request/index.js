@@ -70,7 +70,6 @@ export const getProjectListRequest = async () => {
     try {
         res = await service.post('/project/list', {})
     } finally {
-        console.log(res);
         return res || null
     }
 }

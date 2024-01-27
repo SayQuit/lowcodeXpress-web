@@ -15,11 +15,10 @@ function ProjectPage() {
 
   const getProjectDetail = useCallback(async () => {
     const res = null
-    console.log(id);
     if (!res) return
     const { detail } = res.data
     setElement(detail)
-  }, [id])
+  }, [])
 
   useEffect(() => {
     const searchParamsID = searchParams.get('id')

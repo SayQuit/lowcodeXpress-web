@@ -3,7 +3,6 @@ import { Tabs, Flex, InputNumber, Select } from 'antd';
 
 function RightSider() {
     const onChange = (key) => {
-        console.log(key);
     };
     const items = [
         {
