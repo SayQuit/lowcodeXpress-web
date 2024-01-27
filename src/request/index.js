@@ -65,11 +65,12 @@ export const setProjectRequest = async (id, json, name, description) => {
     }
 }
 
-export const getProjectRequest = async () => {
+export const getProjectListRequest = async () => {
     let res = null
     try {
-        res = await service.post('/project/get', {})
+        res = await service.post('/project/list', {})
     } finally {
+        console.log(res);
         return res || null
     }
 }
