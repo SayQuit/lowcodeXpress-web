@@ -14,9 +14,7 @@ function ProjectSetup() {
         type: '',
         tech: '',
         lib: [],
-        element: {
-
-        }
+        element: []
     })
 
     const onChangeSetup = (value, key) => {
@@ -74,7 +72,7 @@ function ProjectSetup() {
                             placeholder='输入项目描述（500字内）'
                             autoSize={{ minRows: 3, maxRows: 5 }}
                             size='large'
-                            onChange={(e) => onChangeSetup(e.target.value.trim(), 'desc')}
+                            onChange={(e) => onChangeSetup(e.target.value.trim(), 'description')}
                         />
                     </div>
 
