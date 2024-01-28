@@ -1,5 +1,5 @@
 
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { getProjectDetailRequest } from '../../../request';
 import { parseObjectToComponent } from '../utils/parser'
@@ -12,7 +12,6 @@ export const ElementProvider = ({ children }) => {
 
     const [detail, setDetail] = useState({})
     const [element, setElement] = useState([])
-    const [component, setComponent] = useState([])
     // const [activeNode, setActiveNode] = useState(null)
 
     const getProjectDetail = useCallback(async (id) => {
@@ -25,8 +24,8 @@ export const ElementProvider = ({ children }) => {
         setElement(res.data.element)
     }, [navigate])
 
-    useEffect(() => {
-        setComponent(parseObjectToComponent(element))
+    const component = useMemo(() => {
+        return parseObjectToComponent(element)
     }, [element])
 
     const elementPush = (type) => {
