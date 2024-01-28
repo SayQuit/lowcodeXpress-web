@@ -109,7 +109,7 @@
     width: 25%;
     height: 120px;
     display: inline-block;
-    border: 1px solid hsla(0, 0%, 92.9%, .6);
+    border: 1px solid hsla(0, 0%, 90.9%, .6);
     box-sizing: border-box;
     cursor: pointer;
 }
