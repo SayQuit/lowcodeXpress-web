@@ -10,7 +10,8 @@ export const ElementProvider = ({ children }) => {
     const navigate = useNavigate();
 
     const [detail, setDetail] = useState([])
-    
+    const [activeNode, setActiveNode] = useState(null)
+
     const getProjectDetail = useCallback(async (id) => {
         const res = await getProjectDetailRequest(id)
         if (!res) {
