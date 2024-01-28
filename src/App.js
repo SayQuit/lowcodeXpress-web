@@ -14,7 +14,7 @@ function App() {
     if (!token) return
     dispatch({ type: 'setToken', token })
     const res = await tokenLoginRequest()
-    dispatch({ type: 'setUser', user: res.data })
+    if (res) dispatch({ type: 'setUser', user: res.data })
   }, [dispatch])
 
   useEffect(() => {
