@@ -3,7 +3,7 @@ import LeftSider from './component/leftSider';
 import RightSider from './component/rightSider';
 import ProjectHeader from './component/projectHeader';
 import ProjectBoard from './component/projectBoard';
-import ProjectPageProvider from './provider/ProjectPageProvider';
+import ProjectPageProvider from './provider/index';
 
 function ProjectPage() {
   return (
