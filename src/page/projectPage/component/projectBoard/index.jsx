@@ -9,7 +9,7 @@ function ProjectBoard() {
 
     return (
         <div className="project-main-board">
-            {component.map((children,index) => {
+            {component.map((children, index) => {
                 return (
                     <BoardConatiner key={index}>
                         {children}

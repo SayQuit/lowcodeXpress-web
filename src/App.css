@@ -7,9 +7,9 @@
 }
 
 .app-main {
-    flex: 1;
+    height: calc(100vh - 50px);
 }
 
 .app-header {
-    
+    height: 50px;
 }

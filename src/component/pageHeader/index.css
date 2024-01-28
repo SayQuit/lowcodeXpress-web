@@ -3,7 +3,7 @@
     width: 100%;
     background: var(--theme-color);
     box-sizing: border-box;
-    height: 50px;
+    height: 100%;
     display: flex;
     justify-content: space-between;
 }
