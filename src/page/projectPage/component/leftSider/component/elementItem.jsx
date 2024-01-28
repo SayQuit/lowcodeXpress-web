@@ -14,7 +14,7 @@ function ElementItem({ item }) {
     return (
         <div className="element-item" ref={dragRef}>
             <Flex vertical className='pl-2 pr-2 content-box h-full' justify='space-evenly'>
-                {item.component}
+                {item.icon}
                 <div className='text-center'>{item.name}</div>
             </Flex>
         </div>
