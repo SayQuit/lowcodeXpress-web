@@ -26,7 +26,6 @@ export const ElementProvider = ({ children }) => {
     }, [navigate])
 
     useEffect(() => {
-        console.log(element);
         setComponent(parseObjectToComponent(element))
     }, [element])
 
@@ -35,7 +34,6 @@ export const ElementProvider = ({ children }) => {
         const newElm = [...element]
         newElm.splice(element.length-1, 1)
         newElm.push({ type }, { type: 'container' })
-        console.log(newElm);
         setElement(newElm)
     }
 

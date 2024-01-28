@@ -10,7 +10,6 @@ array.forEach((item) => {
 export const parseObjectToComponent = (object) => {
     const res = []
     object.forEach((item) => {
-        console.log(item);
         res.push(keyValueElement[item.type]())
     })
     return res
