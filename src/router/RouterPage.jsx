@@ -1,8 +1,8 @@
 import { useRoutes } from 'react-router-dom';
-import element from './element';
+import router from './router';
 
 const GetRoutes = () => {
-    const routes = useRoutes(element);
+    const routes = useRoutes(router);
     return routes;
 }
 

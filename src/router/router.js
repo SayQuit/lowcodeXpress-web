@@ -3,7 +3,7 @@ import MainPage from '../page/mainPage'
 import RegisterPage from '../page/registerPage';
 import ProjectSetup from '../page/projectSetup';
 import ProjectPage from '../page/projectPage';
-const element = [
+const router = [
     {
         path: '/',
         element: <MainPage></MainPage>
@@ -27,4 +27,4 @@ const element = [
 
 ]
 
-export default element
+export default router
