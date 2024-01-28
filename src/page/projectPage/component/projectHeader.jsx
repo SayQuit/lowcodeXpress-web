@@ -11,6 +11,8 @@ function ProjectHeader() {
             <div className='h-full flex items-center'>
                 <Button type="primary" className='mr-2' size='small'>保存</Button>
                 <Button type="primary" className='mr-2' size='small'>预览</Button>
+                <Button type="primary" className='mr-2' size='small'>上线</Button>
+                <Button type="primary" className='mr-2' size='small'>导出文件</Button>
                 <Button className='mr-2' size='small'>左拆分</Button>
                 <Button className='mr-2' size='small'>右拆分</Button>
                 <Button className='mr-2' size='small'>元素上方放置容器</Button>
