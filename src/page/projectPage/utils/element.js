@@ -25,6 +25,7 @@ export const element = [
         items: [
             {
                 name: '容器',
+                id:'container',
                 component: <ContainerOutlined />
             },
         ]
@@ -35,22 +36,27 @@ export const element = [
         items: [
             {
                 name: '文本',
+                id:'text',
                 component: <FontSizeOutlined />
             },
             {
                 name: '按钮',
+                id:'button',
                 component: <BoldOutlined />
             },
             {
                 name: '图片',
+                id:'image',
                 component: <FileImageOutlined />
             },
             {
                 name: '链接',
+                id:'link',
                 component: <LinkOutlined />
             },
             {
                 name: '视频',
+                id:'video',
                 component: <VideoCameraOutlined />
             }
         ]
@@ -62,18 +68,22 @@ export const element = [
         items: [
             {
                 name: '按钮',
+                id:'ant-button',
                 component: <AntButton type='primary' size='small'>BUTTON</AntButton>
             },
             {
                 name: '单选框',
+                id:'ant-radio',
                 component: <AntRadio checked={true}></AntRadio>
             },
             {
                 name: '多选框',
+                id:'ant-checkbox',
                 component: <AntCheckbox checked={true}></AntCheckbox>
             },
             {
                 name: '输入框',
+                id:'ant-input',
                 component: <AntInput placeholder='INPUT' size='small'></AntInput>
             }
         ]
@@ -86,6 +96,7 @@ export const element = [
         items: [
             {
                 name: '按钮',
+                id:'eui-buton',
                 component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
             },
         ]

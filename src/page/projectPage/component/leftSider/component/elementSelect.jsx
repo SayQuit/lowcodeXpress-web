@@ -1,5 +1,5 @@
 import '../../../index.css'
-import { element } from '../utils/element'
+import { element } from '../../../utils/element'
 import { Flex, Input } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import ElementItem from './elementItem';
@@ -17,7 +17,7 @@ function ElementSelect({ onClose }) {
             {element.map((item, index) => (
                 <div key={index}>
                     <div className='mb-2 mt-6'>{item.title}</div>
-                    {item.items.map((el,idx)=>(
+                    {item.items.map((el, idx) => (
                         <ElementItem item={el} key={idx}></ElementItem>
                     ))}
                 </div>
