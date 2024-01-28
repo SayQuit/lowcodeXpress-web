@@ -114,7 +114,7 @@ export const element = [
                 type: 'ant-input',
                 icon: <AntInput placeholder='Input' size='small'></AntInput>,
                 component: () => {
-                    return <AntInput>Input</AntInput>
+                    return <AntInput></AntInput>
                 }
             }
         ]
