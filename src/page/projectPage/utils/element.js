@@ -50,7 +50,7 @@ export const element = [
                 type: 'button',
                 icon: <BoldOutlined />,
                 component: () => {
-                    return <button></button>
+                    return <button>按钮</button>
                 }
             },
             {
@@ -58,7 +58,7 @@ export const element = [
                 type: 'image',
                 icon: <FileImageOutlined />,
                 component: () => {
-                    return <img alt=''></img>
+                    return <img src="https://gw.alipayobjects.com/zos/bmw-prod/1c363c0b-17c6-4b00-881a-bc774df1ebeb.svg" alt="" />
                 }
             },
             {
@@ -88,9 +88,9 @@ export const element = [
             {
                 name: '按钮',
                 type: 'ant-button',
-                icon: <AntButton type='primary' size='small'>BUTTON</AntButton>,
+                icon: <AntButton type='primary' size='small'>Button</AntButton>,
                 component: () => {
-                    return <AntButton></AntButton>
+                    return <AntButton type='primary'>Button</AntButton>
                 }
             },
             {
@@ -112,9 +112,9 @@ export const element = [
             {
                 name: '输入框',
                 type: 'ant-input',
-                icon: <AntInput placeholder='INPUT' size='small'></AntInput>,
+                icon: <AntInput placeholder='Input' size='small'></AntInput>,
                 component: () => {
-                    return <AntInput></AntInput>
+                    return <AntInput>Input</AntInput>
                 }
             }
         ]
@@ -128,9 +128,9 @@ export const element = [
             {
                 name: '按钮',
                 type: 'eui-buton',
-                icon: <EuiButton type='primary' size='small'>BUTTON</EuiButton>,
+                icon: <EuiButton type='primary' size='small'>Button</EuiButton>,
                 component: () => {
-                    return <EuiButton></EuiButton>
+                    return <EuiButton type='primary'>Button</EuiButton>
                 }
             },
         ]
