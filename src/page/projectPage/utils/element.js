@@ -25,8 +25,11 @@ export const element = [
         items: [
             {
                 name: '容器',
-                id:'container',
-                component: <ContainerOutlined />
+                type: 'container',
+                icon: <ContainerOutlined />,
+                component: () => {
+                    return null
+                }
             },
         ]
     },
@@ -36,28 +39,44 @@ export const element = [
         items: [
             {
                 name: '文本',
-                id:'text',
-                component: <FontSizeOutlined />
+                type: 'text',
+                icon: <FontSizeOutlined />,
+                component: () => {
+                    return <div>输入文本</div>
+                }
             },
             {
                 name: '按钮',
-                id:'button',
-                component: <BoldOutlined />
+                type: 'button',
+                icon: <BoldOutlined />,
+                component: () => {
+                    return <button></button>
+                }
             },
             {
                 name: '图片',
-                id:'image',
-                component: <FileImageOutlined />
+                type: 'image',
+                icon: <FileImageOutlined />,
+                component: () => {
+                    return <img alt=''></img>
+                }
             },
             {
                 name: '链接',
-                id:'link',
-                component: <LinkOutlined />
+                type: 'link',
+                icon: <LinkOutlined />,
+                component: () => {
+                    return <a href='/'>链接</a>
+                }
+                
             },
             {
                 name: '视频',
-                id:'video',
-                component: <VideoCameraOutlined />
+                type: 'video',
+                icon: <VideoCameraOutlined />,
+                component: () => {
+                    return <video></video>
+                }
             }
         ]
     },
@@ -68,23 +87,35 @@ export const element = [
         items: [
             {
                 name: '按钮',
-                id:'ant-button',
-                component: <AntButton type='primary' size='small'>BUTTON</AntButton>
+                type: 'ant-button',
+                icon: <AntButton type='primary' size='small'>BUTTON</AntButton>,
+                component: () => {
+                    return <AntButton></AntButton>
+                }
             },
             {
                 name: '单选框',
-                id:'ant-radio',
-                component: <AntRadio checked={true}></AntRadio>
+                type: 'ant-radio',
+                icon: <AntRadio checked={true}></AntRadio>,
+                component: () => {
+                    return <AntRadio></AntRadio>
+                }
             },
             {
                 name: '多选框',
-                id:'ant-checkbox',
-                component: <AntCheckbox checked={true}></AntCheckbox>
+                type: 'ant-checkbox',
+                icon: <AntCheckbox checked={true}></AntCheckbox>,
+                component: () => {
+                    return <AntCheckbox></AntCheckbox>
+                }
             },
             {
                 name: '输入框',
-                id:'ant-input',
-                component: <AntInput placeholder='INPUT' size='small'></AntInput>
+                type: 'ant-input',
+                icon: <AntInput placeholder='INPUT' size='small'></AntInput>,
+                component: () => {
+                    return <AntInput></AntInput>
+                }
             }
         ]
 
@@ -96,8 +127,11 @@ export const element = [
         items: [
             {
                 name: '按钮',
-                id:'eui-buton',
-                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
+                type: 'eui-buton',
+                icon: <EuiButton type='primary' size='small'>BUTTON</EuiButton>,
+                component: () => {
+                    return <EuiButton></EuiButton>
+                }
             },
         ]
 
