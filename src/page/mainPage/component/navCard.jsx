@@ -4,7 +4,7 @@ import { Card } from 'antd'
 
 function NavCard({ pathname, projectID, title, description }) {
     return (
-        <NavLink to={{ pathname, search: `?id=${projectID}` }}>
+        <NavLink to={{ pathname, search: projectID ? `?id=${projectID}` : '' }}>
             <div className='main-item'>
                 <div className='main-item-block'>
                     <Card bordered={true}>
