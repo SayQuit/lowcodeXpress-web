@@ -8,10 +8,10 @@ import { useCallback, useEffect, useState } from 'react';
 
 
 function ProjectPage() {
-  const [id, setID] = useState('')
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [element, setElement] = useState({})
+  console.log(element);
 
   const getProjectDetail = useCallback(async () => {
     const res = null
@@ -23,11 +23,9 @@ function ProjectPage() {
   useEffect(() => {
     const searchParamsID = searchParams.get('id')
     if (!searchParamsID) navigate('/')
-    else {
-      setID(searchParamsID)
-      getProjectDetail()
-    }
+    else getProjectDetail()
   }, [searchParams, navigate, getProjectDetail])
+  
   return (
     <div className='project'>
       <LeftSider></LeftSider>
