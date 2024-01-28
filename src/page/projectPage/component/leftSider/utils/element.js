@@ -1,5 +1,12 @@
-
-import { Button } from 'antd';
+import {
+    Button as AntButton,
+    Radio as AntRadio,
+    Checkbox as AntCheckbox,
+    Input as AntInput,
+} from 'antd';
+import {
+    Button as EuiButton
+} from 'element-react';
 import {
     FontSizeOutlined,
     BoldOutlined,
@@ -39,8 +46,51 @@ export const element = [
         items: [
             {
                 name: '按钮',
-                component: <Button size='small' type='primary'>BUTTON</Button>
+                component: <AntButton type='primary' size='small'>BUTTON</AntButton>
+            },
+            {
+                name: '单选框',
+                component: <AntRadio checked={true}></AntRadio>
+            },
+            {
+                name: '多选框',
+                component: <AntCheckbox checked={true}></AntCheckbox>
+            },
+            {
+                name: '输入框',
+                component: <AntInput placeholder='INPUT' size='small'></AntInput>
             }
+        ]
+
+    },
+
+    {
+        title: 'ELEMENTUI组件',
+        items: [
+            {
+                name: '按钮',
+                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
+            },
+            {
+                name: '按钮',
+                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
+            },
+            {
+                name: '按钮',
+                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
+            },
+            {
+                name: '按钮',
+                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
+            },
+            {
+                name: '按钮',
+                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
+            },
+            {
+                name: '按钮',
+                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
+            },
         ]
 
     }
