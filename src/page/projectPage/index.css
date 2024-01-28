@@ -8,16 +8,19 @@
 
 /* 左边栏 */
 .project-left {
-    padding: 0 8px;
-    box-sizing: border-box;
-    width: 40px;
     display: flex;
-    flex-direction: column;
+    width: fit-content;
     align-content: center;
     background-color: white;
-    padding-top: 16px;
     position: relative;
     box-shadow: 2px 2px 2px 2px rgba(31, 50, 88, .08);
+}
+
+.project-left-tab {
+    width: 40px;
+    padding: 0 8px;
+    box-sizing: border-box;
+    padding-top: 16px;
 }
 
 .project .anticon {
@@ -31,6 +34,43 @@
 
 .project .anticon svg {
     cursor: pointer;
+}
+
+.element-select {
+    z-index: 1;
+    height: 100%;
+    width: 276px;
+    box-shadow: 2px 2px 2px 2px rgba(31, 50, 88, .08);
+    background-color: white;
+    border: 1px solid #eee;
+    box-sizing: content-box;
+    padding: 10px;
+    overflow: auto;
+}
+
+.element-item {
+    width: 33%;
+    height: 100px;
+    display: inline-block;
+    border: 1px solid hsla(0, 0%, 90.9%, .6);
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.element-item:hover {
+    box-shadow: 0px 7px 16px 1px rgba(0, 0, 0, 0.2);
+}
+
+.element-item .anticon:hover {
+    background-color: white;
+}
+
+.element-item .anticon {
+    font-size: 20px;
+}
+
+.element-item label {
+    margin: 0 auto;
 }
 
 
@@ -124,45 +164,4 @@
 .project-right-tab .ant-input-number-group-addon {
     vertical-align: top;
     line-height: 19px;
-}
-
-/* 左侧选取元素 */
-.element-select {
-    z-index: 1;
-    height: 100%;
-    width: 400px;
-    position: absolute;
-    left: 40px;
-    top: 0;
-    box-shadow: 2px 2px 2px 2px rgba(31, 50, 88, .08);
-    background-color: white;
-    border: 1px solid #eee;
-    box-sizing: border-box;
-    padding: 10px;
-    overflow: auto;
-}
-
-.element-item {
-    width: 25%;
-    height: 120px;
-    display: inline-block;
-    border: 1px solid hsla(0, 0%, 90.9%, .6);
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
-.element-item:hover {
-    box-shadow: 0px 7px 16px 1px rgba(0, 0, 0, 0.2);
-}
-
-.element-item .anticon:hover {
-    background-color: white;
-}
-
-.element-item .anticon {
-    font-size: 20px;
-}
-
-.element-item label {
-    margin: 0 auto;
 }

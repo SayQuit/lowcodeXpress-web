@@ -8,11 +8,13 @@ function LeftSider() {
     const { elementSelectVisible, onElementSelectVisibleChange } = useContext(LeftSiderContext);
     return (
         <div className="project-left">
-            {
-                elementSelectVisible
-                    ? <VerticalRightOutlined onClick={onElementSelectVisibleChange} />
-                    : <VerticalLeftOutlined onClick={onElementSelectVisibleChange} />
-            }
+            <div className="project-left-tab">
+                {
+                    elementSelectVisible
+                        ? <VerticalRightOutlined onClick={onElementSelectVisibleChange} />
+                        : <VerticalLeftOutlined onClick={onElementSelectVisibleChange} />
+                }
+            </div>
             {elementSelectVisible && <ElementSelect onClose={onElementSelectVisibleChange}></ElementSelect>}
         </div>
     );
