@@ -119,6 +119,7 @@
 
 /* 左侧选取元素 */
 .element-select {
+    z-index: 1;
     height: 100%;
     width: 400px;
     position: absolute;
