@@ -53,6 +53,9 @@
     box-shadow: 2px 2px 2px 2px rgba(31, 50, 88, .08);
 }
 
+.project-main-header .ant-btn {
+    font-size: 12px;
+}
 
 /* 中间画布 */
 .project-main-board {
@@ -69,7 +72,7 @@
     cursor: pointer;
 }
 
-.board-container:hover{
+.board-container:hover {
     border: 1px solid #1677ff;
 }
 
