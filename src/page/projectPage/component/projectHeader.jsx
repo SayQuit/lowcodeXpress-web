@@ -9,7 +9,10 @@ function ProjectHeader() {
                 <VerticalLeftOutlined />
             </div>
             <div className='h-full flex items-center'>
-                <Button type='primary'>按钮</Button>
+                <Button type="primary" className='mr-2'>保存</Button>
+                <Button className='mr-2'>元素上方放置容器</Button>
+                <Button className='mr-2'>元素下方插入容器</Button>
+                <Button type="primary" danger>删除</Button>
             </div>
         </div>
     );
