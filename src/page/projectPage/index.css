@@ -66,9 +66,15 @@
 .board-container{
     flex: 1;
     width: 100%;
+    min-height: 300px;
 }
 
 .board-container:hover{
+    border: 1px dotted #1677ff;
+    background-color: #1677ff11;
+}
+
+.board-container-hover{
     border: 1px dotted #1677ff;
     background-color: #1677ff11;
 }

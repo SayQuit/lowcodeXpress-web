@@ -3,38 +3,25 @@ import LeftSider from './component/leftSider';
 import RightSider from './component/rightSider';
 import ProjectHeader from './component/projectHeader';
 import ProjectBoard from './component/projectBoard';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { useCallback, useEffect, useState } from 'react';
-
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { ElementProvider } from './provider/useElement';
 
 function ProjectPage() {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const [element, setElement] = useState({})
-  console.log(element);
-
-  const getProjectDetail = useCallback(async () => {
-    const res = null
-    if (!res) return
-    const { detail } = res.data
-    setElement(detail)
-  }, [])
-
-  useEffect(() => {
-    const searchParamsID = searchParams.get('id')
-    if (!searchParamsID) navigate('/')
-    else getProjectDetail()
-  }, [searchParams, navigate, getProjectDetail])
-  
   return (
-    <div className='project'>
-      <LeftSider></LeftSider>
-      <div className="project-main">
-        <ProjectHeader></ProjectHeader>
-        <ProjectBoard></ProjectBoard>
-      </div>
-      <RightSider></RightSider>
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <ElementProvider>
+        <div className='project'>
+          <LeftSider></LeftSider>
+          <div className="project-main">
+            <ProjectHeader></ProjectHeader>
+            <ProjectBoard></ProjectBoard>
+          </div>
+          <RightSider></RightSider>
+        </div>
+      </ElementProvider>
+    </DndProvider>
+
   );
 }
 
