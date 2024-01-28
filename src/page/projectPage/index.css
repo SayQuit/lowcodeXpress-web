@@ -63,17 +63,27 @@
     display: flex;
 }
 
-.board-container{
+.board-container {
     width: 100%;
-    height: 160px;
+    height: fit-content;
+    border: 1px dotted #1677ff;
 }
 
-.board-container:hover{
-    border: 1px dotted #1677ff;
+.board-container-tips {
+    height: 160px;
+    line-height: 160px;
+    text-align: center;
+    color: #1677ff77;
+    font-size: 20px;
+    font-weight: 100;
+    cursor: pointer;
+}
+
+.board-container:hover {
     background-color: #1677ff11;
 }
 
-.board-container-hover{
+.board-container-hover {
     border: 1px dotted #1677ff;
     background-color: #1677ff11;
 }
@@ -139,10 +149,10 @@
     background-color: white;
 }
 
-.element-item .anticon{
+.element-item .anticon {
     font-size: 20px;
 }
 
-.element-item label{
+.element-item label {
     margin: 0 auto;
 }

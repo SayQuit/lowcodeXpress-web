@@ -1,7 +1,9 @@
 import '../../../index.css'
+import { useContext } from 'react';
 import { useDrop } from 'react-dnd';
+import { LeftSiderContext } from '../../../provider/leftSiderProvider';
 
-function BoardConatiner({ handleDrop }) {
+function BoardConatiner({ handleDrop, children }) {
 
     const [{ isOver }, dropRef] = useDrop(() => ({
         accept: 'ELEMENT_ITEM',
@@ -9,12 +11,13 @@ function BoardConatiner({ handleDrop }) {
         collect: (monitor) => ({
             isOver: monitor.isOver(),
         }),
-
     }));
 
-    return (
-        <div className={`board-container ${isOver ? 'board-container-hover' : ''}`} ref={dropRef}>
+    const { onElementSelectVisibleChange } = useContext(LeftSiderContext);
 
+    return (
+        <div className={`board-container ${isOver ? 'board-container-hover' : ''}`} ref={dropRef} onClick={onElementSelectVisibleChange}>
+            <div className="board-container-tips">点击添加元素</div>
         </div>
     );
 }
