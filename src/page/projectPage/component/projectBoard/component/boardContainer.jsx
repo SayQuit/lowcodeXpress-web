@@ -11,7 +11,7 @@ function BoardConatiner({ children }) {
 
     const [{ isOver }, dropRef] = useDrop(() => ({
         accept: 'ELEMENT_ITEM',
-        drop: (item) => elementPush(item),
+        drop: (item) => { if (!children) elementPush(item.type) },
         collect: (monitor) => ({
             isOver: monitor.isOver(),
         }),

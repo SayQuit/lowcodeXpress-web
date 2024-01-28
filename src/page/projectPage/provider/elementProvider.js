@@ -22,19 +22,17 @@ export const ElementProvider = ({ children }) => {
             return
         }
         setDetail(res.data)
-        setElement([{ type: 'text', attr: { style: 'font-size:24px;' } }, { type: 'container' },])
+        setElement(res.data.element)
     }, [navigate])
 
     useEffect(() => {
         setComponent(parseObjectToComponent(element))
     }, [element])
 
-    const elementPush = (item) => {
-        const { type } = item
-        const newElm = [...element]
-        newElm.splice(element.length-1, 1)
-        newElm.push({ type }, { type: 'container' })
-        setElement(newElm)
+    const elementPush = (type) => {
+        setElement((prevElement) => {
+            return [...prevElement, { type }];
+        })
     }
 
     useEffect(() => {
