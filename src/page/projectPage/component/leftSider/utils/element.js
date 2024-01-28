@@ -4,19 +4,34 @@ import {
     Checkbox as AntCheckbox,
     Input as AntInput,
 } from 'antd';
-import {
-    Button as EuiButton
-} from 'element-react';
+
 import {
     FontSizeOutlined,
     BoldOutlined,
     FileImageOutlined,
     LinkOutlined,
-    VideoCameraOutlined
+    VideoCameraOutlined,
+    ContainerOutlined
 } from '@ant-design/icons';
+
+import {
+    Button as EuiButton
+} from 'element-react';
+
 export const element = [
     {
+        title: '基础组件',
+        type: 'basic',
+        items: [
+            {
+                name: '容器',
+                component: <ContainerOutlined />
+            },
+        ]
+    },
+    {
         title: 'HTML标签',
+        type: 'html',
         items: [
             {
                 name: '文本',
@@ -43,6 +58,7 @@ export const element = [
 
     {
         title: 'ANTD组件',
+        type: 'antd',
         items: [
             {
                 name: '按钮',
@@ -66,27 +82,8 @@ export const element = [
 
     {
         title: 'ELEMENTUI组件',
+        type: 'elementUI',
         items: [
-            {
-                name: '按钮',
-                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
-            },
-            {
-                name: '按钮',
-                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
-            },
-            {
-                name: '按钮',
-                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
-            },
-            {
-                name: '按钮',
-                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
-            },
-            {
-                name: '按钮',
-                component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
-            },
             {
                 name: '按钮',
                 component: <EuiButton type='primary' size='small'>BUTTON</EuiButton>
