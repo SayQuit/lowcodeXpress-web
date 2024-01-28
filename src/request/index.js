@@ -54,10 +54,10 @@ export const createProjectRequest = async (element, name, description, type, tec
     }
 }
 
-export const setProjectRequest = async (element, id, name, description,  type, tech, lib) => {
+export const setProjectRequest = async (element, id, name, description, type, tech, lib) => {
     let res = null
     try {
-        res = await service.post('/project/set', { element, id, name, description,  type, tech, lib })
+        res = await service.post('/project/set', { element, id, name, description, type, tech, lib })
     } catch (error) {
         errorMessage('保存失败，请重试')
     } finally {
@@ -69,6 +69,15 @@ export const getProjectListRequest = async () => {
     let res = null
     try {
         res = await service.post('/project/list', {})
+    } finally {
+        return res || null
+    }
+}
+
+export const getProjectDetailRequest = async (id) => {
+    let res = null
+    try {
+        res = await service.post('/project/detail', { id })
     } finally {
         return res || null
     }
