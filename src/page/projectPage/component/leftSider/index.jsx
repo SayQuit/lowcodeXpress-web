@@ -1,18 +1,18 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import '../../index.css'
 import { VerticalLeftOutlined, VerticalRightOutlined } from '@ant-design/icons';
 import ElementSelect from './component/elementSelect';
-
+import { LeftSiderContext } from '../../provider/leftSiderProvider';
 
 function LeftSider() {
-    const [elementSelectVisible, setElementSelectVisible] = useState(false)
-    const onElementSelectVisibleChange = () => {
-        setElementSelectVisible(!elementSelectVisible)
-    }
+    const { elementSelectVisible, onElementSelectVisibleChange } = useContext(LeftSiderContext);
     return (
         <div className="project-left">
-            {!elementSelectVisible && <VerticalLeftOutlined onClick={onElementSelectVisibleChange} />}
-            {elementSelectVisible && <VerticalRightOutlined onClick={onElementSelectVisibleChange} />}
+            {
+                elementSelectVisible
+                    ? <VerticalRightOutlined onClick={onElementSelectVisibleChange} />
+                    : <VerticalLeftOutlined onClick={onElementSelectVisibleChange} />
+            }
             {elementSelectVisible && <ElementSelect onClose={onElementSelectVisibleChange}></ElementSelect>}
         </div>
     );
