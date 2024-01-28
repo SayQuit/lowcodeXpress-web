@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import '../index.css'
 import { Card } from 'antd'
 
-function NavCard({ pathname, projectID, title, desc }) {
+function NavCard({ pathname, projectID, title, description }) {
     return (
         <NavLink to={{ pathname, search: `?id=${projectID}` }}>
             <div className='main-item'>
@@ -12,7 +12,7 @@ function NavCard({ pathname, projectID, title, desc }) {
                             <img src="https://gw.alipayobjects.com/zos/bmw-prod/1c363c0b-17c6-4b00-881a-bc774df1ebeb.svg" alt="" />
                         </div>
                         <div className='main-item-block-title'>{title}</div>
-                        <div className='main-item-block-desc'>{desc}</div>
+                        <div className='main-item-block-desc'>{description}</div>
                     </Card>
                 </div>
             </div>

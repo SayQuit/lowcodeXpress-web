@@ -10,7 +10,7 @@ const { TextArea } = Input;
 function ProjectSetup() {
     const [setup, setSetup] = useState({
         name: '',
-        desc: '',
+        description: '',
         type: '',
         tech: '',
         lib: [],
@@ -27,17 +27,18 @@ function ProjectSetup() {
     }
 
     const warning = useMemo(() => {
-        const { name, desc, type, tech } = setup
-        if (name.trim() === '' || desc.trim() === '' || type === '') return '部分信息未填写'
+        const { name, description, type, tech } = setup
+        if (name.trim() === '' || description.trim() === '' || type === '') return '部分信息未填写'
         else if (type === 'web' && tech === '') return '部分信息未填写'
-        else if (desc.length > 500) return '项目描述字数超过500字'
+        else if (description.length > 500) return '项目描述字数超过500字'
         else return ''
     }, [setup])
 
 
     const navigate = useNavigate()
     const onClickCreat = async () => {
-        const res = await createProjectRequest(JSON.stringify(setup), setup.name, setup.desc)
+        const { element, name, description, type, tech, lib } = setup
+        const res = await createProjectRequest(element, name, description, type, tech, lib)
         if (!res) return
         successMessage('创建成功')
         navigate('/')
@@ -69,7 +70,7 @@ function ProjectSetup() {
                     <div>
                         <Typography.Title level={5}>项目描述</Typography.Title>
                         <TextArea
-                            value={setup.desc}
+                            value={setup.description}
                             placeholder='输入项目描述（500字内）'
                             autoSize={{ minRows: 3, maxRows: 5 }}
                             size='large'

@@ -19,11 +19,11 @@ function MainPage() {
 
   return (
     <div className='mt-2 mb-2'>
-      {user && <NavCard pathname={'/setup'} projectID={''} title={'新建项目'} desc={''}></NavCard>}
-      {!user && <NavCard pathname={'/login'} projectID={''} title={'登录'} desc={''}></NavCard>}
+      {user && <NavCard pathname={'/setup'} projectID={''} title={'新建项目'} description={''}></NavCard>}
+      {!user && <NavCard pathname={'/login'} projectID={''} title={'登录'} description={''}></NavCard>}
       {
         projectList.map((item, index) =>
-          (<NavCard pathname={'/project'} projectID={item.id} title={item.name} desc={item.desc} key={index}></NavCard>))
+          (<NavCard pathname={'/project'} projectID={item.id} title={item.name} description={item.description} key={index}></NavCard>))
       }
     </div>
   );

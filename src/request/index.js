@@ -43,10 +43,10 @@ export const tokenLoginRequest = async () => {
     }
 }
 
-export const createProjectRequest = async (json, name, description) => {
+export const createProjectRequest = async (element, name, description, type, tech, lib) => {
     let res = null
     try {
-        res = await service.post('/project/create', { json, name, description })
+        res = await service.post('/project/create', { element, name, description, type, tech, lib })
     } catch (error) {
         errorMessage('创建失败，请重试')
     } finally {
@@ -54,10 +54,10 @@ export const createProjectRequest = async (json, name, description) => {
     }
 }
 
-export const setProjectRequest = async (id, json, name, description) => {
+export const setProjectRequest = async (element, id, name, description,  type, tech, lib) => {
     let res = null
     try {
-        res = await service.post('/project/set', { id, json, name, description })
+        res = await service.post('/project/set', { element, id, name, description,  type, tech, lib })
     } catch (error) {
         errorMessage('保存失败，请重试')
     } finally {
