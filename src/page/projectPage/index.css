@@ -139,7 +139,15 @@
     background-color: #1677ff11;
 }
 
+.board-container-top {
+    border-top: 3px solid #1677ff;
+    background-color: #1677ff11;
+}
 
+.board-container-bottom {
+    border-bottom: 3px solid #1677ff;
+    background-color: #1677ff11;
+}
 
 /* 右侧 */
 .project-right {

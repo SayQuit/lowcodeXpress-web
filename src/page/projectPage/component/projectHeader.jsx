@@ -9,17 +9,17 @@ function ProjectHeader() {
 
     const { detail } = useContext(ElementContext)
 
-    const tagList=useMemo(()=>{
+    const tagList = useMemo(() => {
         return getTags(detail.tags)
-    },[detail])
+    }, [detail])
 
     return (
         <div className="project-main-header">
-            <div className='flex items-center	'>
+            <div className='flex items-center'>
                 {
-                    tagList.map((item) => {
+                    tagList.map((item, index) => {
                         return (
-                            <div className='mr-2 inline-block'>
+                            <div className='mr-2 inline-block' key={index}>
                                 <TypeTag name={item.name} color={item.color} backgroundColor={item.backgroundColor}></TypeTag>
                             </div>
                         )

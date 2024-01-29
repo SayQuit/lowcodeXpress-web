@@ -11,12 +11,12 @@ function ProjectBoard() {
         <div className="project-main-board">
             {component.map((children, index) => {
                 return (
-                    <BoardConatiner key={index}>
+                    <BoardConatiner key={index} index={index}>
                         {children}
                     </BoardConatiner>
                 )
             })}
-            <BoardConatiner></BoardConatiner>
+            <BoardConatiner index={-1}></BoardConatiner>
         </div>
     );
 }
