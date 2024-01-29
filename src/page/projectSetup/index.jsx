@@ -28,6 +28,7 @@ function ProjectSetup() {
         const { name, description, type, tech } = setup
         if (name.trim() === '' || description.trim() === '' || type === '') return '部分信息未填写'
         else if (type === 'web' && tech === '') return '部分信息未填写'
+        else if (name.length > 16) return '项目标题字数超过16字'
         else if (description.length > 500) return '项目描述字数超过500字'
         else return ''
     }, [setup])
@@ -56,7 +57,7 @@ function ProjectSetup() {
                             value={setup.name}
                             count={{
                                 show: true,
-                                max: 8,
+                                max: 16,
                             }}
                             placeholder='输入项目名称'
                             size='large'
