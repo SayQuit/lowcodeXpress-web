@@ -30,7 +30,6 @@ function RightSider() {
                     <div className='project-right-tab-font line-h-22'>高度</div>
                     <Select size='small' className='flex-1'></Select>
                 </Flex>
-                <div>2</div>
             </Flex>
         </div>
     );

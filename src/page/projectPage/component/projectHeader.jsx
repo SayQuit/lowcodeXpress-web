@@ -1,12 +1,30 @@
 import '../index.css'
-import { VerticalLeftOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import TypeTag from '../../../component/typeTag';
+import { ElementContext } from '../provider/elementProvider';
+import { useContext, useMemo } from 'react';
+import { getTags } from '../../../utils/optionsTags';
 
 function ProjectHeader() {
+
+    const { detail } = useContext(ElementContext)
+
+    const tagList=useMemo(()=>{
+        return getTags(detail.tags)
+    },[detail])
+
     return (
         <div className="project-main-header">
             <div className='flex items-center	'>
-                <VerticalLeftOutlined />
+                {
+                    tagList.map((item) => {
+                        return (
+                            <div className='mr-2 inline-block'>
+                                <TypeTag name={item.name} color={item.color} backgroundColor={item.backgroundColor}></TypeTag>
+                            </div>
+                        )
+                    })
+                }
             </div>
             <div className='h-full flex items-center'>
                 <Button type="primary" className='mr-2' size='small'>保存</Button>
