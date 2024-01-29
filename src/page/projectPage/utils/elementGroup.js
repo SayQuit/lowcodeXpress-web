@@ -18,7 +18,7 @@ import {
     Button as EuiButton
 } from 'element-react';
 
-export const element = [
+export const elementGroup = [
     {
         title: '基础组件',
         type: 'basic',
@@ -27,7 +27,7 @@ export const element = [
                 name: '容器',
                 type: 'container',
                 icon: <ContainerOutlined />,
-                component: () => {
+                getComponent: () => {
                     return null
                 }
             },
@@ -41,7 +41,7 @@ export const element = [
                 name: '文本',
                 type: 'text',
                 icon: <FontSizeOutlined />,
-                component: () => {
+                getComponent: () => {
                     return <div>输入文本</div>
                 }
             },
@@ -49,7 +49,7 @@ export const element = [
                 name: '按钮',
                 type: 'button',
                 icon: <BoldOutlined />,
-                component: () => {
+                getComponent: () => {
                     return <button>按钮</button>
                 }
             },
@@ -57,7 +57,7 @@ export const element = [
                 name: '图片',
                 type: 'image',
                 icon: <FileImageOutlined />,
-                component: () => {
+                getComponent: () => {
                     return <img src="https://gw.alipayobjects.com/zos/bmw-prod/1c363c0b-17c6-4b00-881a-bc774df1ebeb.svg" alt="" />
                 }
             },
@@ -65,16 +65,16 @@ export const element = [
                 name: '链接',
                 type: 'link',
                 icon: <LinkOutlined />,
-                component: () => {
+                getComponent: () => {
                     return <a href='/'>链接</a>
                 }
-                
+
             },
             {
                 name: '视频',
                 type: 'video',
                 icon: <VideoCameraOutlined />,
-                component: () => {
+                getComponent: () => {
                     return <video></video>
                 }
             }
@@ -89,7 +89,7 @@ export const element = [
                 name: '按钮',
                 type: 'ant-button',
                 icon: <AntButton type='primary' size='small'>Button</AntButton>,
-                component: () => {
+                getComponent: () => {
                     return <AntButton type='primary'>Button</AntButton>
                 }
             },
@@ -97,7 +97,7 @@ export const element = [
                 name: '单选框',
                 type: 'ant-radio',
                 icon: <AntRadio checked={true}></AntRadio>,
-                component: () => {
+                getComponent: () => {
                     return <AntRadio></AntRadio>
                 }
             },
@@ -105,7 +105,7 @@ export const element = [
                 name: '多选框',
                 type: 'ant-checkbox',
                 icon: <AntCheckbox checked={true}></AntCheckbox>,
-                component: () => {
+                getComponent: () => {
                     return <AntCheckbox></AntCheckbox>
                 }
             },
@@ -113,7 +113,7 @@ export const element = [
                 name: '输入框',
                 type: 'ant-input',
                 icon: <AntInput placeholder='Input' size='small'></AntInput>,
-                component: () => {
+                getComponent: () => {
                     return <AntInput></AntInput>
                 }
             }
@@ -129,7 +129,7 @@ export const element = [
                 name: '按钮',
                 type: 'eui-buton',
                 icon: <EuiButton type='primary' size='small'>Button</EuiButton>,
-                component: () => {
+                getComponent: () => {
                     return <EuiButton type='primary'>Button</EuiButton>
                 }
             },

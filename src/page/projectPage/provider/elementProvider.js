@@ -2,7 +2,8 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { getProjectDetailRequest } from '../../../request';
-import { parseObjectToComponent } from '../utils/parser'
+import { parseElementToComponent } from '../utils/parser'
+import { getRandomID } from '../../../utils/randomID';
 
 export const ElementContext = createContext();
 
@@ -25,12 +26,13 @@ export const ElementProvider = ({ children }) => {
     }, [navigate])
 
     const component = useMemo(() => {
-        return parseObjectToComponent(element)
+        return parseElementToComponent(element)
     }, [element])
 
     const elementPush = (type) => {
+        const id = getRandomID()
         setElement((prevElement) => {
-            return [...prevElement, { type }];
+            return [...prevElement, { type, id }];
         })
     }
 

@@ -1,16 +1,22 @@
-import { element } from "../element";
-const keyValueElement = {}
+import { elementGroup } from "../elementGroup";
+const getComponentMap = {}
 const array = []
-element.forEach((item) => {
+elementGroup.forEach((item) => {
     array.push(...item.items)
 })
 array.forEach((item) => {
-    keyValueElement[item.type] = item.component
+    getComponentMap[item.type] = item.getComponent
 })
-export const parseObjectToComponent = (object) => {
+const componentMap = {}
+export const parseElementToComponent = (element) => {
     const res = []
-    object.forEach((item) => {
-        res.push(keyValueElement[item.type]())
+    element.forEach((item) => {
+        if (componentMap[item.id]) res.push(componentMap[item.id])
+        else {
+            const component = getComponentMap[item.type]()
+            res.push(component)
+            componentMap[item.id] = component
+        }
     })
     return res
 }
