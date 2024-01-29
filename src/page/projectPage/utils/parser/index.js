@@ -7,16 +7,23 @@ elementGroup.forEach((item) => {
 array.forEach((item) => {
     getComponentMap[item.type] = item.getComponent
 })
-const componentMap = {}
+let componentMap = {}
 export const parseElementToComponent = (element) => {
+    const map = {}
     const res = []
     element.forEach((item) => {
-        if (componentMap[item.id]) res.push(componentMap[item.id])
+        if (componentMap[item.id]) {
+            res.push(componentMap[item.id])
+            map[item.id] = componentMap[item.id]
+        }
         else {
             const component = getComponentMap[item.type]()
             res.push(component)
-            componentMap[item.id] = component
+            map[item.id] = component
         }
+
     })
+    console.log(map);
+    componentMap = map
     return res
 }
