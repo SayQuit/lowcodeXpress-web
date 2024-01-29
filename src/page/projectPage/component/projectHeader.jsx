@@ -19,7 +19,7 @@ function ProjectHeader() {
                 {
                     tagList.map((item, index) => {
                         return (
-                            <div className='mr-2 inline-block' key={index}>
+                            <div className='mr-2 inline-block' key={item.name}>
                                 <TypeTag name={item.name} color={item.color} backgroundColor={item.backgroundColor}></TypeTag>
                             </div>
                         )

@@ -23,7 +23,7 @@ function MainPage() {
       {!user && <NavCard pathname={'/login'} projectID={''} title={'登录'} description={''} tags={[]}></NavCard>}
       {
         projectList.map((item, index) =>
-          (<NavCard pathname={'/project'} projectID={item.id} title={item.name} description={item.description} tags={item.tags} key={index}></NavCard>))
+          (<NavCard pathname={'/project'} projectID={item.id} title={item.name} description={item.description} tags={item.tags} key={item.id}></NavCard>))
       }
     </div>
   );

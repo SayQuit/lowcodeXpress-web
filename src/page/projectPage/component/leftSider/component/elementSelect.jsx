@@ -9,7 +9,7 @@ const { Search } = Input;
 
 function ElementSelect({ onClose }) {
 
-    const { detail } = useContext(ElementContext) 
+    const { detail } = useContext(ElementContext)
 
     return (
         <div className="element-select">
@@ -19,9 +19,9 @@ function ElementSelect({ onClose }) {
             </Flex>
             <Search placeholder="搜索元素" allowClear size='small' className='mt-2' />
 
-            {elementGroup.map((item, index) => (
+            {elementGroup.map((item) => (
                 (detail.dragGroup.includes(item.type)) &&
-                <div key={index}>
+                <div key={item}>
                     <div className='mb-2 mt-6'>{item.title}</div>
                     {item.items.map((el, idx) => (
                         <ElementItem item={el} key={idx}></ElementItem>

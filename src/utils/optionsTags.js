@@ -61,12 +61,12 @@ export const options = {
 
 export const getTags = (tags) => {
     if (!tags) return []
-    const keyValueTags = {}
+    const tagsMap = {}
     const res = []
     for (const key in options) {
         options[key].forEach(item => {
             const { value, backgroundColor, name, color } = item
-            keyValueTags[value] = {
+            tagsMap[value] = {
                 backgroundColor,
                 name,
                 color
@@ -74,7 +74,7 @@ export const getTags = (tags) => {
         });
     }
     tags.forEach(item => {
-        res.push(keyValueTags[item])
+        res.push(tagsMap[item])
     });
     return res
 }

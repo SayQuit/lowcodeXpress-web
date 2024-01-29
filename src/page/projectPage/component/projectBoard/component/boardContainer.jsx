@@ -3,7 +3,7 @@ import { useContext, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { LeftSiderContext } from '../../../provider/leftSiderProvider';
 import { ElementContext } from '../../../provider/elementProvider';
-function BoardConatiner({ children, index }) {
+function BoardConatiner({ children, id }) {
 
     const { onElementSelectVisibleChange } = useContext(LeftSiderContext);
     const { elementPush } = useContext(ElementContext);
@@ -13,7 +13,7 @@ function BoardConatiner({ children, index }) {
     const [offset, setOffset] = useState(0);
 
     const handleInsertElement = (type) => {
-        console.log(type, offset, index);
+        console.log(type, offset, id);
     }
 
     const [{ isOver }, dropRef] = useDrop(() => ({

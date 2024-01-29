@@ -20,9 +20,9 @@ function NavCard({ pathname, projectID, title, description, tags }) {
                         <div className='main-item-block-title'>{title}</div>
                         <div className='main-item-block-desc'>{description}</div>
                         {
-                            tagList.map((item, index) => {
+                            tagList.map((item) => {
                                 return (
-                                    <div className='mr-2 mb-2 inline-block' key={index}>
+                                    <div className='mr-2 mb-2 inline-block' key={item.name}>
                                         <TypeTag name={item.name} color={item.color} backgroundColor={item.backgroundColor}></TypeTag>
                                     </div>
                                 )

@@ -11,7 +11,7 @@ function ProjectBoard() {
         <div className="project-main-board">
             {component.map((children, index) => {
                 return (
-                    <BoardConatiner key={index} index={index}>
+                    <BoardConatiner key={children.id} id={children.id}>
                         {children}
                     </BoardConatiner>
                 )
