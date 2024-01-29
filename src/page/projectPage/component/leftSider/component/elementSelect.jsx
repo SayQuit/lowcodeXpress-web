@@ -20,7 +20,7 @@ function ElementSelect({ onClose }) {
             <Search placeholder="搜索元素" allowClear size='small' className='mt-2' />
 
             {element.map((item, index) => (
-                (detail.tags.includes(item.type) || item.type === 'basic') &&
+                (detail.dragGroup.includes(item.type)) &&
                 <div key={index}>
                     <div className='mb-2 mt-6'>{item.title}</div>
                     {item.items.map((el, idx) => (
