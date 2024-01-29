@@ -6,7 +6,6 @@ import { useContext } from 'react';
 function ProjectBoard() {
 
     const { component } = useContext(ElementContext)
-    console.log(component);
 
     return (
         <div className="project-main-board">
