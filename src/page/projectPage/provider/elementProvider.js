@@ -15,6 +15,10 @@ export const ElementProvider = ({ children }) => {
     const [element, setElement] = useState([])
     // const [activeNode, setActiveNode] = useState(null)
 
+    const component = useMemo(() => {
+        return parseElementToComponent(element)
+    }, [element])
+
     const getProjectDetail = useCallback(async (id) => {
         const res = await getProjectDetailRequest(id)
         if (!res) {
@@ -25,9 +29,11 @@ export const ElementProvider = ({ children }) => {
         setElement(res.data.element)
     }, [navigate])
 
-    const component = useMemo(() => {
-        return parseElementToComponent(element)
-    }, [element])
+    useEffect(() => {
+        const id = searchParams.get('id')
+        if (!id) navigate('/')
+        else getProjectDetail(id)
+    }, [searchParams, navigate, getProjectDetail])
 
     const elementPush = (type) => {
         const id = getRandomID()
@@ -35,12 +41,6 @@ export const ElementProvider = ({ children }) => {
             return [...prevElement, { type, id }];
         })
     }
-
-    useEffect(() => {
-        const id = searchParams.get('id')
-        if (!id) navigate('/')
-        else getProjectDetail(id)
-    }, [searchParams, navigate, getProjectDetail])
 
     return (
         <ElementContext.Provider value={{ detail, elementPush, component }}>
