@@ -28,9 +28,11 @@ function NavCard({ pathname, projectID, title, description, tags }) {
                                 )
                             })
                         }
-                        <div className='mr-2 mb-2 inline-block'>
-                            <TypeTag name={' '} color={'#FFFFFF'} backgroundColor={'#FFFFFF'}></TypeTag>
-                        </div>
+                        {
+                            !tagList.length && <div className='mr-2 mb-2 inline-block'>
+                                <TypeTag name={' '} color={'#FFFFFF'} backgroundColor={'#FFFFFF'}></TypeTag>
+                            </div>
+                        }
                     </Card>
                 </div>
             </div>
