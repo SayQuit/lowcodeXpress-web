@@ -23,7 +23,6 @@ export const parseElementToComponent = (element) => {
         }
 
     })
-    console.log(map);
     componentMap = map
     return res
 }

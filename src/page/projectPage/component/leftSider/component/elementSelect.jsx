@@ -21,10 +21,10 @@ function ElementSelect({ onClose }) {
 
             {elementGroup.map((item) => (
                 (detail.dragGroup.includes(item.type)) &&
-                <div key={item}>
+                <div key={item.type}>
                     <div className='mb-2 mt-6'>{item.title}</div>
                     {item.items.map((el, idx) => (
-                        <ElementItem item={el} key={idx}></ElementItem>
+                        <ElementItem item={el} key={el.type}></ElementItem>
                     ))}
                 </div>
             ))}
