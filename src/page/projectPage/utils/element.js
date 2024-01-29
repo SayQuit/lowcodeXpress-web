@@ -34,8 +34,8 @@ export const element = [
         ]
     },
     {
-        title: 'HTML标签',
-        type: 'html',
+        title: '浏览器标签',
+        type: 'web',
         items: [
             {
                 name: '文本',
@@ -83,7 +83,7 @@ export const element = [
 
     {
         title: 'ANTD组件',
-        type: 'antd',
+        type: 'ant-design',
         items: [
             {
                 name: '按钮',
@@ -123,7 +123,7 @@ export const element = [
 
     {
         title: 'ELEMENTUI组件',
-        type: 'elementUI',
+        type: 'element-ui',
         items: [
             {
                 name: '按钮',
