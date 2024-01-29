@@ -19,12 +19,18 @@ export const parseElementToComponent = (element) => {
     const res = []
     element.forEach((item) => {
         if (componentMap[item.id]) {
-            res.push(componentMap[item.id])
+            res.push({
+                value: componentMap[item.id],
+                id: item.id
+            })
             map[item.id] = componentMap[item.id]
         }
         else {
             const component = getComponentMap[item.type]()
-            res.push(component)
+            res.push({
+                value: component,
+                id: item.id
+            })
             map[item.id] = component
         }
 

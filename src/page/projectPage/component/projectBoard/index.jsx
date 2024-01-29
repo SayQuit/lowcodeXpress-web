@@ -6,17 +6,18 @@ import { useContext } from 'react';
 function ProjectBoard() {
 
     const { component } = useContext(ElementContext)
+    console.log(component);
 
     return (
         <div className="project-main-board">
-            {component.map((children, index) => {
+            {component.map((children) => {
                 return (
                     <BoardConatiner key={children.id} id={children.id}>
-                        {children}
+                        {children.value}
                     </BoardConatiner>
                 )
             })}
-            <BoardConatiner index={-1}></BoardConatiner>
+            <BoardConatiner id={-1}></BoardConatiner>
         </div>
     );
 }
