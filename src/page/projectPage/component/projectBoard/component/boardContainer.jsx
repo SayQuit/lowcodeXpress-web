@@ -5,7 +5,7 @@ import { LeftSiderContext } from '../../../provider/leftSiderProvider';
 import { ElementContext } from '../../../provider/elementProvider';
 function BoardConatiner({ children, index }) {
 
-    const { onElementSelectVisibleChange } = useContext(LeftSiderContext);
+    const { onElementSelectVisibleChange, elementSelectVisible } = useContext(LeftSiderContext);
     const { elementPush, elementInsert, element } = useContext(ElementContext);
 
     const itemRef = useRef(null)
@@ -43,7 +43,7 @@ function BoardConatiner({ children, index }) {
                     <div
                         className='board-container-tips'
                         onClick={onElementSelectVisibleChange}>
-                        点击添加元素
+                        {elementSelectVisible ? '点击隐藏左边选取栏' : '点击添加元素'}
                     </div>}
             </div>
         </div>
