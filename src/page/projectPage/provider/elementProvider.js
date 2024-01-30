@@ -35,15 +35,23 @@ export const ElementProvider = ({ children }) => {
         else getProjectDetail(id)
     }, [searchParams, navigate, getProjectDetail])
 
-    const elementPush = (type) => {
+    const createElement = (type) => {
         const id = getRandomID()
-        setElement((prevElement) => {
-            return [...prevElement, { type, id }];
-        })
+        return { type, id }
+    }
+
+    const elementPush = (type) => {
+        setElement([...element, createElement(type)])
+    }
+
+    const elementInsert = (type, index) => {
+        const prev = element.slice(0, index)
+        const next = element.slice(index)
+        setElement([...prev, createElement(type), ...next])
     }
 
     return (
-        <ElementContext.Provider value={{ detail, elementPush, component }}>
+        <ElementContext.Provider value={{ detail, component, element, elementPush, elementInsert }}>
             {children}
         </ElementContext.Provider>
     );

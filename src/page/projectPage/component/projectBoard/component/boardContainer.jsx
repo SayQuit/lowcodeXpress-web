@@ -3,17 +3,17 @@ import { useContext, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { LeftSiderContext } from '../../../provider/leftSiderProvider';
 import { ElementContext } from '../../../provider/elementProvider';
-function BoardConatiner({ children, id }) {
+function BoardConatiner({ children, index }) {
 
     const { onElementSelectVisibleChange } = useContext(LeftSiderContext);
-    const { elementPush } = useContext(ElementContext);
+    const { elementPush, elementInsert, element } = useContext(ElementContext);
 
     const itemRef = useRef(null)
 
     const [offset, setOffset] = useState(0);
 
     const handleInsertElement = (type) => {
-        console.log(type, offset, id);
+        elementInsert(type, index + offset)
     }
 
     const [{ isOver }, dropRef] = useDrop(() => ({
@@ -32,7 +32,7 @@ function BoardConatiner({ children, id }) {
         collect: (monitor) => ({
             isOver: monitor.isOver(),
         }),
-    }));
+    }), [element, handleInsertElement, elementPush]);
 
     return (
         <div className={`board-container ${isOver ? 'board-container-hover' : ''} ${isOver && children ? `${offset === 0 ? 'board-container-top' : 'board-container-bottom'}` : ''}`} ref={dropRef}>
