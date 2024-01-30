@@ -1,18 +1,5 @@
-import { elementGroup } from "../elementGroup";
-const getComponentMap = {}
-let componentMap = {}
-
-const initGetComponentMap = () => {
-    const array = []
-    elementGroup.forEach((item) => {
-        array.push(...item.items)
-    })
-    array.forEach((item) => {
-        getComponentMap[item.type] = item.getComponent
-    })
-}
-
-initGetComponentMap()
+import { getComponentMap } from "./getComponentMap";
+import { componentMap,setComponentMap } from "./componentMap";
 
 export const parseElementToComponent = (element) => {
     const map = {}
@@ -35,6 +22,6 @@ export const parseElementToComponent = (element) => {
         }
 
     })
-    componentMap = map
+    setComponentMap(map)
     return res
 }

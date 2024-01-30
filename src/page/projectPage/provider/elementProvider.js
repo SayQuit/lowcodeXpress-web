@@ -2,7 +2,7 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { getProjectDetailRequest } from '../../../request';
-import { parseElementToComponent } from '../utils/parser'
+import { parseElementToComponent } from '../utils/componentParser'
 import { getRandomID } from '../../../utils/randomID';
 
 export const ElementContext = createContext();
