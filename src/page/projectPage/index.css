@@ -112,6 +112,7 @@
     width: 100%;
     height: fit-content;
     cursor: pointer;
+    box-sizing: border-box
 }
 
 .board-container:hover {
