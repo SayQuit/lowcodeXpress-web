@@ -7,7 +7,7 @@ import { getTags } from '../../../utils/optionsTags';
 
 function ProjectHeader() {
 
-    const { detail, activeIndex, elementDispatch } = useContext(ElementContext)
+    const { detail, activeIndex, elementDispatch, setProjectDetail } = useContext(ElementContext)
 
     const tagList = useMemo(() => {
         return getTags(detail.tags)
@@ -27,7 +27,7 @@ function ProjectHeader() {
                 }
             </div>
             <div className='h-full flex items-center'>
-                <Button type="primary" className='mr-2' size='small'>保存</Button>
+                <Button type="primary" className='mr-2' size='small' onClick={setProjectDetail}>保存</Button>
                 <Button type="primary" className='mr-2' size='small'>预览</Button>
                 <Button type="primary" className='mr-2' size='small'>上线</Button>
                 <Button type="primary" className='mr-2' size='small'>导出文件</Button>

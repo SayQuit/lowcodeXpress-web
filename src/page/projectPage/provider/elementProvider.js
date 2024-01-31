@@ -1,9 +1,10 @@
 
 import React, { createContext, useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { getProjectDetailRequest } from '../../../request';
+import { getProjectDetailRequest, setProjectDetailRequest } from '../../../request';
 import { parseElementToComponent } from '../utils/componentParser'
 import { getRandomID } from '../../../utils/randomID';
+import { successMessage } from '../../../utils/message';
 
 export const ElementContext = createContext();
 
@@ -19,7 +20,7 @@ export const ElementProvider = ({ children }) => {
     }
 
     const [activeElementID, setActiveElementID] = useState('')
-    
+
     const [element, elementDispatch] = useReducer((state, action) => {
         switch (action.type) {
             case 'set':
@@ -81,6 +82,12 @@ export const ElementProvider = ({ children }) => {
         elementDispatch({ type: 'set', value: res.data.element })
     }, [navigate])
 
+    const setProjectDetail = useCallback(async (id) => {
+        const res = await setProjectDetailRequest(detail, element)
+        if (!res) return
+        successMessage('保存成功')
+    }, [element, detail])
+
     useEffect(() => {
         const id = searchParams.get('id')
         if (!id) navigate('/')
@@ -88,7 +95,7 @@ export const ElementProvider = ({ children }) => {
     }, [searchParams, navigate, getProjectDetail])
 
     return (
-        <ElementContext.Provider value={{ detail, component, element, elementDispatch, activeElementID, setActiveElementID, activeIndex, activeElement, activeComponent }}>
+        <ElementContext.Provider value={{ detail, component, element, elementDispatch, activeElementID, setActiveElementID, activeIndex, activeElement, activeComponent, setProjectDetail }}>
             {children}
         </ElementContext.Provider>
     );

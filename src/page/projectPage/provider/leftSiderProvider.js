@@ -1,6 +1,5 @@
 
 import React, { createContext, useState } from 'react';
-import { ElementContext } from './elementProvider';
 
 export const LeftSiderContext = createContext();
 
