@@ -27,7 +27,7 @@ function ProjectHeader() {
                 }
             </div>
             <div className='h-full flex items-center'>
-                {activeIndex !== -1 && <Button type="primary" className='mr-2' size='small'>保存</Button>}
+                <Button type="primary" className='mr-2' size='small'>保存</Button>
                 <Button type="primary" className='mr-2' size='small'>预览</Button>
                 <Button type="primary" className='mr-2' size='small'>上线</Button>
                 <Button type="primary" className='mr-2' size='small'>导出文件</Button>

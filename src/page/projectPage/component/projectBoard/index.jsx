@@ -5,12 +5,12 @@ import { useContext } from 'react';
 
 function ProjectBoard() {
 
-    const { component } = useContext(ElementContext)
+    const { component,setActiveElementID } = useContext(ElementContext)
 
 
 
     return (
-        <div className="project-main-board">
+        <div className="project-main-board" onClickCapture={()=>{setActiveElementID('')}}>
             {component.map((children, index) => {
                 return (
                     <BoardConatiner key={children.id} id={children.id} index={index}>

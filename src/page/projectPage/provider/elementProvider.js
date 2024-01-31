@@ -17,22 +17,34 @@ export const ElementProvider = ({ children }) => {
         const id = getRandomID()
         return { type, id }
     }
+
+    const [activeElementID, setActiveElementID] = useState('')
+    
     const [element, elementDispatch] = useReducer((state, action) => {
         switch (action.type) {
             case 'set':
                 return action.value
             case 'push':
-                return [...state, createElement(action.elementType)]
+                {
+                    setActiveElementID('')
+                    return [...state, createElement(action.elementType)]
+                }
             case 'insert':
-                return [...state.slice(0, action.index), createElement(action.elementType), ...state.slice(action.index)]
+                {
+                    setActiveElementID('')
+                    return [...state.slice(0, action.index), createElement(action.elementType), ...state.slice(action.index)]
+                }
             case 'delete':
-                return [...state.slice(0, action.index), ...state.slice(action.index + 1)]
+                {
+                    setActiveElementID('')
+                    return [...state.slice(0, action.index), ...state.slice(action.index + 1)]
+                }
             default:
                 return state
         }
     }, [])
 
-    const [activeElementID, setActiveElementID] = useState('')
+
     const activeIndex = useMemo(() => {
         let idx = -1
         element.forEach((item, index) => {
@@ -51,6 +63,13 @@ export const ElementProvider = ({ children }) => {
     const component = useMemo(() => {
         return parseElementToComponent(element)
     }, [element])
+    const activeComponent = useMemo(() => {
+        let comp = null
+        component.forEach(item => {
+            if (item.id === activeElementID) comp = item
+        });
+        return comp
+    }, [component, activeElementID])
 
     const getProjectDetail = useCallback(async (id) => {
         const res = await getProjectDetailRequest(id)
@@ -69,7 +88,7 @@ export const ElementProvider = ({ children }) => {
     }, [searchParams, navigate, getProjectDetail])
 
     return (
-        <ElementContext.Provider value={{ detail, component, element, elementDispatch, activeElementID, setActiveElementID, activeIndex, activeElement }}>
+        <ElementContext.Provider value={{ detail, component, element, elementDispatch, activeElementID, setActiveElementID, activeIndex, activeElement, activeComponent }}>
             {children}
         </ElementContext.Provider>
     );
