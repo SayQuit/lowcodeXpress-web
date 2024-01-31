@@ -25,11 +25,28 @@ export const ElementProvider = ({ children }) => {
                 return [...state, createElement(action.elementType)]
             case 'insert':
                 return [...state.slice(0, action.index), createElement(action.elementType), ...state.slice(action.index)]
+            case 'delete':
+                return [...state.slice(0, action.index), ...state.slice(action.index + 1)]
             default:
                 return state
         }
     }, [])
 
+    const [activeElementID, setActiveElementID] = useState('')
+    const activeIndex = useMemo(() => {
+        let idx = -1
+        element.forEach((item, index) => {
+            if (item.id === activeElementID) idx = index
+        });
+        return idx
+    }, [element, activeElementID])
+    const activeElement = useMemo(() => {
+        let node = null
+        element.forEach(item => {
+            if (item.id === activeElementID) node = item
+        });
+        return node
+    }, [element, activeElementID])
 
     const component = useMemo(() => {
         return parseElementToComponent(element)
@@ -52,7 +69,7 @@ export const ElementProvider = ({ children }) => {
     }, [searchParams, navigate, getProjectDetail])
 
     return (
-        <ElementContext.Provider value={{ detail, component, element, elementDispatch }}>
+        <ElementContext.Provider value={{ detail, component, element, elementDispatch, activeElementID, setActiveElementID, activeIndex, activeElement }}>
             {children}
         </ElementContext.Provider>
     );

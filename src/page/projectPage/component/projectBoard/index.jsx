@@ -7,6 +7,8 @@ function ProjectBoard() {
 
     const { component } = useContext(ElementContext)
 
+
+
     return (
         <div className="project-main-board">
             {component.map((children, index) => {
@@ -16,7 +18,7 @@ function ProjectBoard() {
                     </BoardConatiner>
                 )
             })}
-            <BoardConatiner id={-1}></BoardConatiner>
+            <BoardConatiner id={''}></BoardConatiner>
         </div>
     );
 }

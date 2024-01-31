@@ -3,10 +3,10 @@ import { useContext, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { LeftSiderContext } from '../../../provider/leftSiderProvider';
 import { ElementContext } from '../../../provider/elementProvider';
-function BoardConatiner({ children, index }) {
+function BoardConatiner({ children, index, id }) {
 
     const { onElementSelectVisibleChange, elementSelectVisible } = useContext(LeftSiderContext);
-    const { elementDispatch, element } = useContext(ElementContext);
+    const { elementDispatch, element, setActiveElementID, activeElementID } = useContext(ElementContext);
 
     const itemRef = useRef(null)
 
@@ -31,8 +31,15 @@ function BoardConatiner({ children, index }) {
     }), [element, elementDispatch, offset]);
 
     return (
-        <div className={`board-container ${isOver ? 'board-container-hover' : ''} ${isOver && children ? `${offset === 0 ? 'board-container-top' : 'board-container-bottom'}` : ''}`} ref={dropRef}>
-            <div ref={itemRef}>
+        <div
+            className=
+            {`board-container ${isOver ? 'board-container-hover' : ''} 
+            ${isOver && children ? `${offset === 0 ? 'board-container-top' : 'board-container-bottom'}` : ''}
+            ${isOver && children ? `${offset === 0 ? 'board-container-top' : 'board-container-bottom'}` : ''}
+            ${activeElementID === id && children ? 'board-container-active' : ''}`}
+            ref={dropRef}
+        >
+            <div ref={itemRef} onClick={() => setActiveElementID(id)}>
                 {children
                     ? children
                     :
