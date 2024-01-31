@@ -1,5 +1,5 @@
 
-import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { getProjectDetailRequest } from '../../../request';
 import { parseElementToComponent } from '../utils/componentParser'
@@ -10,10 +10,26 @@ export const ElementContext = createContext();
 export const ElementProvider = ({ children }) => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
-
     const [detail, setDetail] = useState({})
-    const [element, setElement] = useState([])
-    // const [activeNode, setActiveNode] = useState(null)
+
+
+    const createElement = (type) => {
+        const id = getRandomID()
+        return { type, id }
+    }
+    const [element, elementDispatch] = useReducer((state, action) => {
+        switch (action.type) {
+            case 'set':
+                return action.value
+            case 'push':
+                return [...state, createElement(action.elementType)]
+            case 'insert':
+                return [...state.slice(0, action.index), createElement(action.elementType), ...state.slice(action.index)]
+            default:
+                return state
+        }
+    }, [])
+
 
     const component = useMemo(() => {
         return parseElementToComponent(element)
@@ -26,7 +42,7 @@ export const ElementProvider = ({ children }) => {
             return
         }
         setDetail(res.data)
-        setElement(res.data.element)
+        elementDispatch({ type: 'set', value: res.data.element })
     }, [navigate])
 
     useEffect(() => {
@@ -35,23 +51,8 @@ export const ElementProvider = ({ children }) => {
         else getProjectDetail(id)
     }, [searchParams, navigate, getProjectDetail])
 
-    const createElement = (type) => {
-        const id = getRandomID()
-        return { type, id }
-    }
-
-    const elementPush = (type) => {
-        setElement([...element, createElement(type)])
-    }
-
-    const elementInsert = (type, index) => {
-        const prev = element.slice(0, index)
-        const next = element.slice(index)
-        setElement([...prev, createElement(type), ...next])
-    }
-
     return (
-        <ElementContext.Provider value={{ detail, component, element, elementPush, elementInsert }}>
+        <ElementContext.Provider value={{ detail, component, element, elementDispatch }}>
             {children}
         </ElementContext.Provider>
     );

@@ -6,21 +6,17 @@ import { ElementContext } from '../../../provider/elementProvider';
 function BoardConatiner({ children, index }) {
 
     const { onElementSelectVisibleChange, elementSelectVisible } = useContext(LeftSiderContext);
-    const { elementPush, elementInsert, element } = useContext(ElementContext);
+    const { elementDispatch, element } = useContext(ElementContext);
 
     const itemRef = useRef(null)
 
     const [offset, setOffset] = useState(0);
 
-    const handleInsertElement = (type) => {
-        elementInsert(type, index + offset)
-    }
-
     const [{ isOver }, dropRef] = useDrop(() => ({
         accept: 'ELEMENT_ITEM',
         drop: (item) => {
-            if (!children) elementPush(item.type)
-            else handleInsertElement(item.type)
+            if (!children) elementDispatch({ type: 'push', elementType: item.type })
+            else elementDispatch({ type: 'insert', elementType: item.type, index: index + offset })
         },
         hover: (_, monitor) => {
             const y = monitor.getClientOffset().y;
@@ -32,7 +28,7 @@ function BoardConatiner({ children, index }) {
         collect: (monitor) => ({
             isOver: monitor.isOver(),
         }),
-    }), [element, handleInsertElement, elementPush]);
+    }), [element, elementDispatch, offset]);
 
     return (
         <div className={`board-container ${isOver ? 'board-container-hover' : ''} ${isOver && children ? `${offset === 0 ? 'board-container-top' : 'board-container-bottom'}` : ''}`} ref={dropRef}>
