@@ -1,8 +1,23 @@
-import { message } from 'antd';
+import { message, Modal } from 'antd';
+const { confirm } = Modal;
+
 const errorMessage = (msg) => {
     message.error(msg);
 }
-const successMessage=(msg)=>{
+const successMessage = (msg) => {
     message.success(msg)
 }
-export { errorMessage,successMessage }
+const confirmMessage = (msg) => {
+    return new Promise((resolve, reject) => {
+        confirm({
+            content: msg,
+            onOk() {
+                resolve(true)
+            },
+            onCancel() {
+                reject(false)
+            },
+        });
+    })
+}
+export { errorMessage, successMessage, confirmMessage }

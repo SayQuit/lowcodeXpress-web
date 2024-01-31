@@ -4,6 +4,7 @@ import TypeTag from '../../../component/typeTag';
 import { ElementContext } from '../provider/elementProvider';
 import { useContext, useMemo } from 'react';
 import { getTags } from '../../../utils/optionsTags';
+import { confirmMessage } from '../../../utils/message';
 
 function ProjectHeader() {
 
@@ -12,6 +13,16 @@ function ProjectHeader() {
     const tagList = useMemo(() => {
         return getTags(detail.tags)
     }, [detail])
+
+    const handleDeleteElement = async () => {
+        confirmMessage('确认删除吗')
+        .then(() => {
+            elementDispatch({ type: 'delete', index: activeIndex })
+        })
+        .catch(()=>{
+
+        })
+    }
 
     return (
         <div className="project-main-header">
@@ -35,7 +46,7 @@ function ProjectHeader() {
                 {activeIndex !== -1 && <Button className='mr-2' size='small'>右拆分</Button>}
                 {activeIndex !== -1 && <Button className='mr-2' size='small'>元素上方放置容器</Button>}
                 {activeIndex !== -1 && <Button className='mr-2' size='small'>元素下方插入容器</Button>}
-                {activeIndex !== -1 && <Button type="primary" danger size='small' onClick={() => { elementDispatch({ type: 'delete', index: activeIndex }) }}>删除</Button>}
+                {activeIndex !== -1 && <Button type="primary" danger size='small' onClick={() => { handleDeleteElement() }}>删除</Button>}
             </div>
         </div>
     );

@@ -82,7 +82,7 @@ export const ElementProvider = ({ children }) => {
         elementDispatch({ type: 'set', value: res.data.element })
     }, [navigate])
 
-    const setProjectDetail = useCallback(async (id) => {
+    const setProjectDetail = useCallback(async () => {
         const res = await setProjectDetailRequest(detail, element)
         if (!res) return
         successMessage('保存成功')
