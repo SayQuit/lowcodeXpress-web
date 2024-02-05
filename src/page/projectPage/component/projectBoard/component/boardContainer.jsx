@@ -1,4 +1,4 @@
-import '../../../index.css'
+import '../../../style/main.css'
 import { useContext, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { LeftSiderContext } from '../../../provider/leftSiderProvider';

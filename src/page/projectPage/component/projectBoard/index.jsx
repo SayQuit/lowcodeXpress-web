@@ -1,4 +1,4 @@
-import '../../index.css'
+import '../../style/main.css'
 import BoardConatiner from './component/boardContainer';
 import { ElementContext } from '../../provider/elementProvider';
 import { useContext } from 'react';
@@ -10,7 +10,7 @@ function ProjectBoard() {
 
 
     return (
-        <div className="project-main-board" onClickCapture={()=>{setActiveElementID('')}}>
+        <div className="main-board" onClickCapture={()=>{setActiveElementID('')}}>
             {component.map((children, index) => {
                 return (
                     <BoardConatiner key={children.id} id={children.id} index={index}>

@@ -1,0 +1,25 @@
+.right {
+    background-color: white;
+    box-shadow: -2px 2px 2px 2px rgba(31, 50, 88, .08);
+}
+
+.right-tab {
+    padding: 0 10px;
+}
+
+.right-tab-font {
+    width: 50px;
+}
+
+.line-h-22 {
+    line-height: 22px;
+}
+
+.margin-left-4 {
+    margin-left: 4px;
+}
+
+.right-tab .ant-input-number-group-addon {
+    vertical-align: top;
+    line-height: 19px;
+}

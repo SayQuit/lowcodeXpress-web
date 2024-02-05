@@ -1,0 +1,56 @@
+.main-board {
+    flex: 1;
+    background-color: white;
+    margin: 8px 16px;
+    box-shadow: 2px 2px 2px 2px rgba(31, 50, 88, .08);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.board-container {
+    display: block;
+    width: 100%;
+    height: fit-content;
+    cursor: pointer;
+    box-sizing: border-box
+}
+
+.board-container:hover {
+    border: 1px solid #1677ff;
+}
+
+.board-container-tips {
+    height: 160px;
+    line-height: 160px;
+    text-align: center;
+    color: #1677ff77;
+    font-size: 20px;
+    font-weight: 100;
+    cursor: pointer;
+    border: 1px dotted #1677ff;
+}
+
+.board-container-tips:hover {
+    background-color: #1677ff11;
+    border: 0;
+}
+
+.board-container-hover {
+    border: 1px dotted #1677ff;
+    background-color: #1677ff11;
+}
+
+.board-container-active {
+    border: 1px solid #1677ff;
+    background-color: #1677ff11;
+}
+
+.board-container-top {
+    border-top: 3px solid #1677ff;
+    background-color: #1677ff11;
+}
+
+.board-container-bottom {
+    border-bottom: 3px solid #1677ff;
+    background-color: #1677ff11;
+}

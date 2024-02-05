@@ -1,4 +1,4 @@
-import '../../../index.css'
+import '../../../style/left.css'
 import { elementGroup } from '../../../utils/elementGroup'
 import { useContext } from 'react';
 import { Flex, Input } from 'antd';
@@ -23,7 +23,7 @@ function ElementSelect({ onClose }) {
                 (detail.dragGroup.includes(item.type)) &&
                 <div key={item.type}>
                     <div className='mb-2 mt-6'>{item.title}</div>
-                    {item.items.map((el, idx) => (
+                    {item.items.map(el => (
                         <ElementItem item={el} key={el.type}></ElementItem>
                     ))}
                 </div>

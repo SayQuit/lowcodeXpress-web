@@ -1,4 +1,4 @@
-import '../index.css'
+import '../style/right.css'
 import { Tabs, Flex, InputNumber, Select } from 'antd';
 
 function RightSider() {
@@ -19,15 +19,15 @@ function RightSider() {
         },
     ];
     return (
-        <div className="project-right">
+        <div className="right">
             <Tabs defaultActiveKey="1" items={items} onChange={onChange} size='large' type="card" centered />
-            <Flex gap="small" vertical className='project-right-tab'>
+            <Flex gap="small" vertical className='right-tab'>
                 <Flex>
-                    <div className='project-right-tab-font line-h-22'>高度</div>
+                    <div className='right-tab-font line-h-22'>高度</div>
                     <InputNumber size='small' className='flex-1' addonAfter="px"></InputNumber>
                 </Flex>
                 <Flex>
-                    <div className='project-right-tab-font line-h-22'>高度</div>
+                    <div className='right-tab-font line-h-22'>高度</div>
                     <Select size='small' className='flex-1'></Select>
                 </Flex>
             </Flex>

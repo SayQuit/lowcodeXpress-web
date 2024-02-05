@@ -1,4 +1,4 @@
-import '../index.css'
+import '../style/header.css'
 import { Button } from 'antd';
 import TypeTag from '../../../component/typeTag';
 import { ElementContext } from '../provider/elementProvider';
@@ -42,7 +42,7 @@ function ProjectHeader() {
     }
 
     return (
-        <div className="project-main-header">
+        <div className="header">
             <div className='flex items-center'>
                 {
                     tagList.map(item => {

@@ -1,4 +1,4 @@
-import '../../../index.css'
+import '../../../style/left.css'
 import { Flex } from 'antd';
 import { useDrag } from 'react-dnd';
 

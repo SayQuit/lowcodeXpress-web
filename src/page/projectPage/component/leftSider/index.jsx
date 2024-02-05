@@ -1,5 +1,6 @@
 import { useContext } from 'react';
-import '../../index.css'
+import '../../index'
+import '../../style/left.css'
 import { VerticalLeftOutlined, VerticalRightOutlined } from '@ant-design/icons';
 import ElementSelect from './component/elementSelect';
 import { LeftSiderContext } from '../../provider/leftSiderProvider';
@@ -7,8 +8,8 @@ import { LeftSiderContext } from '../../provider/leftSiderProvider';
 function LeftSider() {
     const { elementSelectVisible, onElementSelectVisibleChange } = useContext(LeftSiderContext);
     return (
-        <div className="project-left">
-            <div className="project-left-tab">
+        <div className="left">
+            <div className="left-tab">
                 {
                     elementSelectVisible
                         ? <VerticalRightOutlined onClick={onElementSelectVisibleChange} />
