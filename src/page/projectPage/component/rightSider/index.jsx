@@ -1,36 +1,29 @@
 import '../../style/right.css'
-import { Tabs, Flex, InputNumber, Select } from 'antd';
+import ComponentSelector from './componentSelector';
+import { Tabs } from 'antd';
 
 function RightSider() {
     const onChange = (key) => {
+
     };
     const items = [
         {
-            key: '1',
-            label: 'Tab 1',
+            key: 'container-style',
+            label: '容器样式',
         },
         {
-            key: '2',
-            label: 'Tab 2',
+            key: 'style',
+            label: '样式',
         },
         {
-            key: '3',
-            label: 'Tab 3',
+            key: 'attr',
+            label: '属性',
         },
     ];
     return (
         <div className="right">
-            <Tabs defaultActiveKey="1" items={items} onChange={onChange} size='large' type="card" centered />
-            <Flex gap="small" vertical className='right-tab'>
-                <Flex>
-                    <div className='right-tab-font line-h-22'>高度</div>
-                    <InputNumber size='small' className='flex-1' addonAfter="px"></InputNumber>
-                </Flex>
-                <Flex>
-                    <div className='right-tab-font line-h-22'>高度</div>
-                    <Select size='small' className='flex-1'></Select>
-                </Flex>
-            </Flex>
+            <Tabs defaultActiveKey="container-style" items={items} onChange={onChange} size='large' type="card" centered />
+            <ComponentSelector></ComponentSelector>
         </div>
     );
 }
