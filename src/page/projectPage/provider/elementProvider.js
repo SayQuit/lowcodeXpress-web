@@ -40,6 +40,11 @@ export const ElementProvider = ({ children }) => {
                     setActiveElementID('')
                     return [...state.slice(0, action.index), ...state.slice(action.index + 1)]
                 }
+            case 'replace':
+                {
+                    setActiveElementID('')
+                    return [...state.slice(0, action.index), createElement(action.elementType), ...state.slice(action.index + 1)]
+                }
             default:
                 return state
         }
@@ -61,6 +66,10 @@ export const ElementProvider = ({ children }) => {
         return node
     }, [element, activeElementID])
 
+    const isElementActive = useMemo(() => {
+        return activeElement
+    }, [activeElement])
+
     const component = useMemo(() => {
         return parseElementToComponent(element)
     }, [element])
@@ -71,6 +80,9 @@ export const ElementProvider = ({ children }) => {
         });
         return comp
     }, [component, activeElementID])
+
+
+    const [copyElement, setCopyElement] = useState(null)
 
     const getProjectDetail = useCallback(async (id) => {
         const res = await getProjectDetailRequest(id)
@@ -95,7 +107,22 @@ export const ElementProvider = ({ children }) => {
     }, [searchParams, navigate, getProjectDetail])
 
     return (
-        <ElementContext.Provider value={{ detail, component, element, elementDispatch, activeElementID, setActiveElementID, activeIndex, activeElement, activeComponent, setProjectDetail }}>
+        <ElementContext.Provider
+            value={{
+                detail,
+                component,
+                element,
+                elementDispatch,
+                activeElementID,
+                setActiveElementID,
+                activeIndex,
+                activeElement,
+                activeComponent,
+                setProjectDetail,
+                isElementActive,
+                copyElement,
+                setCopyElement
+            }}>
             {children}
         </ElementContext.Provider>
     );

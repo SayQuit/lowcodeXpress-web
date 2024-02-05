@@ -28,7 +28,7 @@ export const elementGroup = [
                 type: 'container',
                 icon: <ContainerOutlined />,
                 getComponent: () => {
-                    return null
+                    return ''
                 }
             },
         ]

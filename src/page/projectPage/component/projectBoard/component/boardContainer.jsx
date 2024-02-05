@@ -15,7 +15,10 @@ function BoardConatiner({ children, index, id }) {
     const [{ isOver }, dropRef] = useDrop(() => ({
         accept: 'ELEMENT_ITEM',
         drop: (item) => {
-            if (!children) elementDispatch({ type: 'push', elementType: item.type })
+            if (!children) {
+                if (id === '') elementDispatch({ type: 'push', elementType: item.type })
+                else elementDispatch({ type: 'replace', elementType: item.type, index })
+            }
             else elementDispatch({ type: 'insert', elementType: item.type, index: index + offset })
         },
         hover: (_, monitor) => {
