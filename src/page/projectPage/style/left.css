@@ -39,7 +39,7 @@
     box-shadow: 0px 7px 16px 1px rgba(0, 0, 0, 0.2);
 }
 
-.element-item .anticon:hover {
+.left .element-item .anticon:hover {
     background-color: white;
 }
 
