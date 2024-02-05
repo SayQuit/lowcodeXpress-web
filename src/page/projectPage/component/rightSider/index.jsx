@@ -1,4 +1,4 @@
-import '../style/right.css'
+import '../../style/right.css'
 import { Tabs, Flex, InputNumber, Select } from 'antd';
 
 function RightSider() {
