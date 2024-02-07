@@ -16,7 +16,8 @@ function ProjectHeader() {
         elementDispatch,
         setProjectDetail,
         setCopyElement,
-        copyElement
+        copyElement,
+        setActiveElementID
     } = useContext(ElementContext)
 
     const tagList = useMemo(() => {
@@ -26,12 +27,14 @@ function ProjectHeader() {
     const handleDeleteElement = async () => {
         confirmMessage('确认删除吗')
             .then(() => {
+                setActiveElementID('')
                 elementDispatch({ type: 'delete', index: activeIndex })
             })
             .catch(() => { })
     }
 
     const handlePasteElement = () => {
+        setActiveElementID('')
         elementDispatch({ type: 'replace', elementType: copyElement.type, index: activeIndex })
         successMessage('粘贴成功')
     }

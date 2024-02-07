@@ -16,7 +16,12 @@ export const ElementProvider = ({ children }) => {
 
     const createElement = (type) => {
         const id = getRandomID()
-        return { type, id }
+        return {
+            type,
+            id,
+            style: '',
+            styleObject: {}
+        }
     }
 
     const [activeElementID, setActiveElementID] = useState('')
@@ -27,23 +32,19 @@ export const ElementProvider = ({ children }) => {
                 return action.value
             case 'push':
                 {
-                    setActiveElementID('')
-                    return [...state, createElement(action.elementType)]
+                    return [...state, action.element || createElement(action.elementType)]
                 }
             case 'insert':
                 {
-                    setActiveElementID('')
-                    return [...state.slice(0, action.index), createElement(action.elementType), ...state.slice(action.index)]
+                    return [...state.slice(0, action.index), action.element || createElement(action.elementType), ...state.slice(action.index)]
                 }
             case 'delete':
                 {
-                    setActiveElementID('')
                     return [...state.slice(0, action.index), ...state.slice(action.index + 1)]
                 }
             case 'replace':
                 {
-                    setActiveElementID('')
-                    return [...state.slice(0, action.index), createElement(action.elementType), ...state.slice(action.index + 1)]
+                    return [...state.slice(0, action.index), action.element || createElement(action.elementType), ...state.slice(action.index + 1)]
                 }
             default:
                 return state

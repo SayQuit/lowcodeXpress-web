@@ -1,5 +1,5 @@
 import '../../style/right.css'
-import ComponentSelector from './componentSelector';
+import StyleSelector from './styleSelector';
 import { Tabs } from 'antd';
 
 function RightSider() {
@@ -23,7 +23,7 @@ function RightSider() {
     return (
         <div className="right">
             <Tabs defaultActiveKey="container-style" items={items} onChange={onChange} size='large' type="card" centered />
-            <ComponentSelector></ComponentSelector>
+            <StyleSelector></StyleSelector>
         </div>
     );
 }
