@@ -4,7 +4,7 @@ import { convertToHyphenated, removePxFromString } from '../../../../../utils/st
 import { ElementContext } from '../../../provider/elementProvider';
 import { useContext } from 'react';
 import { styleGroup } from '../utils/styleGroup';
-import StyleInputNumber from '../component/styleInputNumber';
+import InputNumberMode from '../component/inputNumberMode';
 function StyleSelector() {
 
     const { elementDispatch, activeElement, activeIndex, isElementActive } = useContext(ElementContext);
@@ -35,26 +35,29 @@ function StyleSelector() {
         isElementActive && <Flex gap="small" vertical className='right-tab'>
             {styleGroup.map(item => {
                 return (
-                    (item.componentType === 'inputNumber' &&
-                        <StyleInputNumber
+                    (
+                        item.componentType === 'inputNumber' &&
+                        <InputNumberMode
                             onChange={onChange}
-                            value={removePxFromString(activeElement.styleObject[item.type] || '')}
+                            defaultValue={removePxFromString(activeElement.styleObject[item.type] || '')}
                             addonAfter={item.addonAfter}
                             name={item.name}
                             type={item.type}
+                            key={item.type}
                         >
-                        </StyleInputNumber>)
-                        // (
-                        //     item.componentType === 'inputNumber' &&
-                        //     <StyleInputNumber
-                        //         onChange={onChange}
-                        //         value={removePxFromString(activeElement.styleObject[item.type] || '')}
-                        //         addonAfter={item.addonAfter}
-                        //         name={item.name}
-                        //         type={item.type}
-                        //     >
-                        //     </StyleInputNumber>
-                        // )
+                        </InputNumberMode>
+                    )
+                    // (
+                    //     item.componentType === 'inputNumber' &&
+                    //     <StyleInputNumber
+                    //         onChange={onChange}
+                    //         value={removePxFromString(activeElement.styleObject[item.type] || '')}
+                    //         addonAfter={item.addonAfter}
+                    //         name={item.name}
+                    //         type={item.type}
+                    //     >
+                    //     </StyleInputNumber>
+                    // )
                 )
             })}
         </Flex>
