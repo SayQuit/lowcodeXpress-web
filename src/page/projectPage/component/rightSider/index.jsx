@@ -8,12 +8,12 @@ function RightSider() {
     };
     const items = [
         {
-            key: 'container-style',
-            label: '容器样式',
-        },
-        {
             key: 'style',
             label: '样式',
+        },
+        {
+            key: 'container-style',
+            label: '容器样式',
         },
         {
             key: 'attr',
