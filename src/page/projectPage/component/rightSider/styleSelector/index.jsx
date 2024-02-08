@@ -8,6 +8,7 @@ import { styleGroup } from '../utils/styleGroup';
 import InputNumberMode from '../component/inputNumberMode';
 import SelectMode from '../component/selectMode'
 import ColorPickerMode from '../component/colorPickerMode';
+import { elementMap } from '../../../utils/elementGroup';
 function StyleSelector() {
 
     const { elementDispatch, activeElement, activeIndex, isElementActive } = useContext(ElementContext);
@@ -41,34 +42,35 @@ function StyleSelector() {
     return (
         isElementActive && <Flex gap="small" vertical className='right-tab'>
             {styleGroup.map(item => {
-                return <React.Fragment key={item.type}>
-                    {item.componentType === 'inputNumber' && (
-                        <InputNumberMode
-                            onChange={onChange}
-                            defaultValue={removePxFromString(activeElement.styleObject[item.type] || '')}
-                            addonAfter={item.addonAfter}
-                            name={item.name}
-                            type={item.type}
-                        />
-                    )}
-                    {item.componentType === 'select' && (
-                        <SelectMode
-                            onChange={onChange}
-                            defaultValue={activeElement.styleObject[item.type] || ''}
-                            name={item.name}
-                            type={item.type}
-                            options={item.options}
-                        />
-                    )}
-                    {item.componentType === 'colorPicker' && (
-                        <ColorPickerMode
-                            onChange={onChange}
-                            defaultValue={activeElement.styleObject[item.type] || item.defaultValue}
-                            name={item.name}
-                            type={item.type}
-                        />
-                    )}
-                </React.Fragment>
+                return elementMap[activeElement.type].styleSelector.includes(item.type) &&
+                    <React.Fragment key={item.type}>
+                        {item.componentType === 'inputNumber' && (
+                            <InputNumberMode
+                                onChange={onChange}
+                                defaultValue={removePxFromString(activeElement.styleObject[item.type] || '')}
+                                addonAfter={item.addonAfter}
+                                name={item.name}
+                                type={item.type}
+                            />
+                        )}
+                        {item.componentType === 'select' && (
+                            <SelectMode
+                                onChange={onChange}
+                                defaultValue={activeElement.styleObject[item.type] || ''}
+                                name={item.name}
+                                type={item.type}
+                                options={item.options}
+                            />
+                        )}
+                        {item.componentType === 'colorPicker' && (
+                            <ColorPickerMode
+                                onChange={onChange}
+                                defaultValue={activeElement.styleObject[item.type] || item.defaultValue}
+                                name={item.name}
+                                type={item.type}
+                            />
+                        )}
+                    </React.Fragment>
             })}
         </Flex>
     );

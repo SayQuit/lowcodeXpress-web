@@ -44,9 +44,9 @@ export const elementGroup = [
                 getComponent: () => {
                     return <div>输入文本</div>
                 },
-                styleSelector:[],
-                attrSelector:[],
-                containerStyleSelector:[]
+                styleSelector: ['display', 'width', 'height', 'fontSize', 'textAlign', 'color', 'backgroundColor'],
+                attrSelector: [],
+                containerStyleSelector: []
             },
             {
                 name: '按钮',
@@ -55,9 +55,9 @@ export const elementGroup = [
                 getComponent: () => {
                     return <button>按钮</button>
                 },
-                styleSelector:[],
-                attrSelector:[],
-                containerStyleSelector:[]
+                styleSelector: ['display', 'width', 'height', 'fontSize', 'color', 'backgroundColor'],
+                attrSelector: [],
+                containerStyleSelector: []
             },
             {
                 name: '图片',
@@ -66,9 +66,9 @@ export const elementGroup = [
                 getComponent: () => {
                     return <img src="https://gw.alipayobjects.com/zos/bmw-prod/1c363c0b-17c6-4b00-881a-bc774df1ebeb.svg" alt="" />
                 },
-                styleSelector:[],
-                attrSelector:[],
-                containerStyleSelector:[]
+                styleSelector: ['display', 'width', 'height'],
+                attrSelector: [],
+                containerStyleSelector: []
             },
             {
                 name: '链接',
@@ -77,9 +77,9 @@ export const elementGroup = [
                 getComponent: () => {
                     return <a href='/'>链接</a>
                 },
-                styleSelector:[],
-                attrSelector:[],
-                containerStyleSelector:[]
+                styleSelector: ['display', 'width', 'height', 'fontSize', 'textAlign', 'color', 'backgroundColor'],
+                attrSelector: [],
+                containerStyleSelector: []
 
             },
             {
@@ -87,11 +87,13 @@ export const elementGroup = [
                 type: 'video',
                 icon: <VideoCameraOutlined />,
                 getComponent: () => {
-                    return <video></video>
+                    return <video controls autoplay
+                        src="https://tbexpand.alicdn.com/772ed1822eb4802f/1639051391463/84f3e18ec27edd1d_mov_340612418368_mp4_264_hd_aliyun.mp4?auth_key=1707399841-0-0-91332558237d4c903510eab1f6c84b98&biz=publish-2f31420cf7951f0d&t=2106dfc017073971416145166e14ba&t=2106dfc017073971416145166e14ba&b=publish&p=cloudvideo_http_video_extranet_publish&i=340612418368">
+                    </video>
                 },
-                styleSelector:[],
-                attrSelector:[],
-                containerStyleSelector:[]
+                styleSelector: ['display', 'width', 'height'],
+                attrSelector: [],
+                containerStyleSelector: []
             }
         ]
     },
@@ -107,9 +109,9 @@ export const elementGroup = [
                 getComponent: () => {
                     return <AntButton type='primary'>Button</AntButton>
                 },
-                styleSelector:[],
-                attrSelector:[],
-                containerStyleSelector:[]
+                styleSelector: [],
+                attrSelector: [],
+                containerStyleSelector: []
             },
             {
                 name: '单选框',
@@ -118,9 +120,9 @@ export const elementGroup = [
                 getComponent: () => {
                     return <AntRadio></AntRadio>
                 },
-                styleSelector:[],
-                attrSelector:[],
-                containerStyleSelector:[]
+                styleSelector: [],
+                attrSelector: [],
+                containerStyleSelector: []
             },
             {
                 name: '多选框',
@@ -129,9 +131,9 @@ export const elementGroup = [
                 getComponent: () => {
                     return <AntCheckbox></AntCheckbox>
                 },
-                styleSelector:[],
-                attrSelector:[],
-                containerStyleSelector:[]
+                styleSelector: [],
+                attrSelector: [],
+                containerStyleSelector: []
             },
             {
                 name: '输入框',
@@ -140,9 +142,9 @@ export const elementGroup = [
                 getComponent: () => {
                     return <AntInput></AntInput>
                 },
-                styleSelector:[],
-                attrSelector:[],
-                containerStyleSelector:[]
+                styleSelector: [],
+                attrSelector: [],
+                containerStyleSelector: []
             }
         ]
 
@@ -154,16 +156,27 @@ export const elementGroup = [
         items: [
             {
                 name: '按钮',
-                type: 'eui-buton',
+                type: 'eui-button',
                 icon: <EuiButton type='primary' size='small'>Button</EuiButton>,
                 getComponent: () => {
                     return <EuiButton type='primary'>Button</EuiButton>
                 },
-                styleSelector:[],
-                attrSelector:[],
-                containerStyleSelector:[]
+                styleSelector: [],
+                attrSelector: [],
+                containerStyleSelector: []
             },
         ]
 
     }
 ]
+
+const getElementMap = () => {
+    const res = {}
+    elementGroup.forEach((item) => {
+        item.items.forEach((value) => {
+            res[value.type] = value
+        })
+    })
+    return res
+}
+export const elementMap = getElementMap()
