@@ -2,11 +2,10 @@ import '../../../style/right.css'
 import { Flex, Select } from 'antd';
 
 function SelectMode({ onChange, defaultValue, name, type, options }) {
-    // 文字位置、盒子布局
     const handleOnChange = (value) => {
         onChange({
             type,
-            value,
+            value
         })
     }
     return (

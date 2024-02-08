@@ -28,3 +28,7 @@
     vertical-align: top;
     line-height: 19px;
 }
+
+.right-tab .ant-select-selection-item{
+    font-size: 12px;
+}

@@ -5,8 +5,7 @@ function InputNumberMode({ onChange, defaultValue, addonAfter, name, type }) {
     const handleOnChange = (value) => {
         onChange({
             type,
-            value: `${value}px`,
-            realVal: value
+            value
         })
     }
     return (
