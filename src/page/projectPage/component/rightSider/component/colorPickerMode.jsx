@@ -5,7 +5,7 @@ function ColorPickerMode({ onChange, defaultValue, name, type }) {
     const handleOnChange = (value) => {
         onChange({
             type,
-            value: `#${value.toHex()}`
+            value: value.toHexString()
         })
     }
     return (
