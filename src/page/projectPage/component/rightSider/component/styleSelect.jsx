@@ -1,7 +1,7 @@
-import '../../../../style/right.css'
+import '../../../style/right.css'
 import { Flex, Select } from 'antd';
 
-function FontPosition() {
+function StyleSelect() {
     return (
         <Flex>
             <div className='right-tab-font line-h-22'>文字位置</div>
@@ -10,4 +10,4 @@ function FontPosition() {
     );
 }
 
-export default FontPosition;
+export default StyleSelect;

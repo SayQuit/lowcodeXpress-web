@@ -1,23 +1,20 @@
 import '../../../style/right.css'
 import { Flex } from 'antd';
-import HeightInput from '../component/style/heightInput';
-import WidthInput from '../component/style/widthInput';
-import FontSize from '../component/style/fontSize';
-import FontPosition from '../component/style/fontPosition'
-import DisplayWay from '../component/style/displayWay';
 import { convertToHyphenated, removePxFromString } from '../../../../../utils/style';
 import { ElementContext } from '../../../provider/elementProvider';
 import { useContext } from 'react';
+import { styleGroup } from '../utils/styleGroup';
+import StyleInputNumber from '../component/styleInputNumber';
 function StyleSelector() {
 
     const { elementDispatch, activeElement, activeIndex, isElementActive } = useContext(ElementContext);
 
     const onChange = (e) => {
-        const { type, value } = e;
+        const { type, value, realVal } = e;
         const newStyleObject = {
             ...activeElement.styleObject,
         }
-        if (removePxFromString(value)) newStyleObject[type] = value
+        if (realVal) newStyleObject[type] = value
         else if (newStyleObject[type]) delete newStyleObject[type]
 
         let style = ''
@@ -36,11 +33,30 @@ function StyleSelector() {
 
     return (
         isElementActive && <Flex gap="small" vertical className='right-tab'>
-            <DisplayWay></DisplayWay>
-            <HeightInput onChange={onChange} value={removePxFromString(activeElement.styleObject.height || '')}></HeightInput>
-            <WidthInput onChange={onChange} value={removePxFromString(activeElement.styleObject.width || '')}></WidthInput>
-            <FontSize onChange={onChange} value={removePxFromString(activeElement.styleObject.fontSize || '')}></FontSize>
-            <FontPosition></FontPosition>
+            {styleGroup.map(item => {
+                return (
+                    (item.componentType === 'inputNumber' &&
+                        <StyleInputNumber
+                            onChange={onChange}
+                            value={removePxFromString(activeElement.styleObject[item.type] || '')}
+                            addonAfter={item.addonAfter}
+                            name={item.name}
+                            type={item.type}
+                        >
+                        </StyleInputNumber>)
+                        // (
+                        //     item.componentType === 'inputNumber' &&
+                        //     <StyleInputNumber
+                        //         onChange={onChange}
+                        //         value={removePxFromString(activeElement.styleObject[item.type] || '')}
+                        //         addonAfter={item.addonAfter}
+                        //         name={item.name}
+                        //         type={item.type}
+                        //     >
+                        //     </StyleInputNumber>
+                        // )
+                )
+            })}
         </Flex>
     );
 }

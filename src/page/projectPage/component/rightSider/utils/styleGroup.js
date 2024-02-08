@@ -1,0 +1,20 @@
+export const styleGroup=[
+    {
+        type:'width',
+        componentType:'inputNumber',
+        name:'宽度',
+        addonAfter:'px'
+    },
+    {
+        type:'height',
+        componentType:'inputNumber',
+        name:'高度',
+        addonAfter:'px'
+    },
+    {
+        type:'fontSize',
+        componentType:'inputNumber',
+        name:'字体大小',
+        addonAfter:'px'
+    }
+]
