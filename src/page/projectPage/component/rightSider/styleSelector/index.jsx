@@ -14,15 +14,16 @@ function StyleSelector() {
 
     const onChange = (e) => {
         const { type, value } = e;
-        if (!value) return
         const newStyleObject = {
             ...activeElement.styleObject,
-            [type]: value
         }
+        if (removePxFromString(value)) newStyleObject[type] = value
+        else if (newStyleObject[type]) delete newStyleObject[type]
+
         let style = ''
         for (const key in newStyleObject) {
-            const value = newStyleObject[key]
-            style += `${convertToHyphenated(key)}:${value};`
+            const val = newStyleObject[key]
+            style += `${convertToHyphenated(key)}:${val};`
         }
         const newElement = {
             ...activeElement,
