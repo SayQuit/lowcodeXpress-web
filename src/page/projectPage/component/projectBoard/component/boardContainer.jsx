@@ -50,7 +50,7 @@ function BoardConatiner({ children, index, id }) {
                     <div
                         className='board-container-tips'
                         onClick={onElementSelectVisibleChange}>
-                        {elementSelectVisible ? '点击隐藏左边选取栏或拖拽元素至此处' : '点击添加元素'}
+                        {elementSelectVisible ? '拖拽元素至此处' : '点击添加元素'}
                     </div>}
             </div>
         </div>
