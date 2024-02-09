@@ -34,33 +34,11 @@
     border: 1px solid hsla(0, 0%, 90.9%, .6);
     box-sizing: border-box;
     cursor: pointer;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 30px;
 }
 
 .element-item:hover {
     box-shadow: 0px 7px 16px 1px rgba(0, 0, 0, 0.2);
-}
-
-.left .element-item .anticon:hover {
-    background-color: white;
-}
-
-.element-item .anticon {
-    font-size: 20px;
-}
-
-.element-item label {
-    margin: 0 auto;
-}
-
-.left .anticon {
-    padding: 6px 4px;
-    display: block
-}
-
-.left .anticon:hover {
-    background-color: #eee;
-}
-
-.left .anticon svg {
-    cursor: pointer;
 }

@@ -12,6 +12,10 @@ function RightSider() {
             label: '样式',
         },
         {
+            key: 'config',
+            label: '配置',
+        },
+        {
             key: 'container-style',
             label: '容器样式',
         },

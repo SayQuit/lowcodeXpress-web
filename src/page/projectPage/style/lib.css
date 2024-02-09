@@ -1,0 +1,87 @@
+.left .element-item .anticon:hover {
+    background-color: white;
+}
+
+.element-item .anticon {
+    font-size: 20px;
+}
+
+.element-item label {
+    margin: 0 auto;
+}
+
+.element-item div{
+    margin: 0 auto;
+}
+
+.element-item span{
+    margin: 0 auto;
+}
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-steps.ant-steps-small .ant-steps-item-icon{
+    margin-inline-end: 0;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-cascader{
+    width: 100%;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-input-number {
+    width: 100%;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-rate{
+    display: flex;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-rate .ant-rate-star{
+    margin: 0 auto;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-rate .ant-rate-star:not(:last-child){
+    display: none;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-select-single{
+    margin: 0;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-switch.ant-switch-small{
+    margin: 0 auto;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-qrcode{
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-timeline .ant-timeline-item-last >.ant-timeline-item-content{
+    display: none;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-timeline .ant-timeline-item{
+    width: fit-content;
+    padding-left: 0 ;
+    padding-right: 0 ;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-timeline{
+    width: fit-content;
+}
+
+.element-item :where(.css-dev-only-do-not-override-dkbvqv).ant-alert-success{
+    width: 100%;
+}
+
+.left .anticon {
+    padding: 6px 4px;
+    display: block
+}
+
+.left .anticon:hover {
+    background-color: #eee;
+}
+
+.left .anticon svg {
+    cursor: pointer;
+}
