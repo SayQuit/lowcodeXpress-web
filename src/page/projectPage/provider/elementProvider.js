@@ -68,7 +68,7 @@ export const ElementProvider = ({ children }) => {
     }, [element, activeElementID])
 
     const isElementActive = useMemo(() => {
-        return activeElement
+        return activeElement ? true : false
     }, [activeElement])
 
     const component = useMemo(() => {
