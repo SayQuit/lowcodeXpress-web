@@ -143,7 +143,11 @@ export const elementGroup = [
                 icon: <ContainerOutlined />,
                 getComponent: () => {
                     return ''
-                }
+                },
+                styleSelector: [],
+                attrSelector: [],
+                containerStyleSelector: [],
+                default: {}
             },
         ]
     },

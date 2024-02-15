@@ -18,6 +18,13 @@ export const ElementProvider = ({ children }) => {
 
     const createElement = (type) => {
         const id = getRandomID()
+        console.log({
+            type,
+            id,
+            style: '',
+            styleObject: {},
+            attr: elementMap[type].default
+        });
         return {
             type,
             id,

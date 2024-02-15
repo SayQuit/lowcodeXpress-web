@@ -4,14 +4,17 @@ import React from "react";
 export const parseElementToComponent = (element) => {
     const res = []
     element.forEach((item) => {
-        const component = React.cloneElement(
-            getComponentMap[item.type](),
-            {
-                style: item.styleObject,
-                key: item.id,
-                ...item.attr
-            }
-        );
+        let component = ''
+        if (item.type !== 'container') {
+            component = React.cloneElement(
+                getComponentMap[item.type](),
+                {
+                    style: item.styleObject,
+                    key: item.id,
+                    ...item.attr
+                }
+            );
+        }
         res.push({
             value: component,
             id: item.id
