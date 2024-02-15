@@ -274,8 +274,6 @@ export const styleGroup = [
         type: 'background',
         componentType: 'input',
         name: '背景',
-        prev: "",
-        next: "",
     },
 
     {
@@ -329,40 +327,30 @@ export const styleGroup = [
             },
         ]
     },
-    {
-        type: 'backgroundPosition',
-        componentType: 'input',
-        prev: "",
-        next: "",
-        name: '背景位置',
-    },
+    // {
+    //     type: 'backgroundPosition',
+    //     componentType: 'input',
+    //     name: '背景位置',
+    // },
     {
         type: 'backgroundImage',
         componentType: 'input',
-        prev: "url('",
-        next: "')",
         name: '背景图片',
     },
 
     {
         type: 'margin',
         componentType: 'input',
-        prev: "",
-        next: "",
         name: '外边距',
     },
     {
         type: 'padding',
         componentType: 'input',
-        prev: "",
-        next: "",
         name: '内边距',
     },
     {
         type: 'border',
         componentType: 'input',
-        prev: "",
-        next: "",
         name: '边框',
     },
 
