@@ -11,10 +11,12 @@
 
 .right-tab {
     padding: 0 10px;
+    overflow: auto;
+    height: 92.5%;
 }
 
 .right-tab-font {
-    width: 60px;
+    width: 100px;
 }
 
 .line-h-22 {
@@ -30,6 +32,6 @@
     line-height: 19px;
 }
 
-.right-tab .ant-select-selection-item{
+.right-tab .ant-select-selection-item {
     font-size: 12px;
 }
