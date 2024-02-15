@@ -11,7 +11,7 @@ function SelectMode({ onChange, defaultValue, name, type, options }) {
     return (
         <Flex>
             <div className='right-tab-font line-h-22'>{name}</div>
-            <Select size='small' className='flex-1' options={options} defaultValue={defaultValue} onChange={handleOnChange}></Select>
+            <Select size='small' className='flex-1' options={options} defaultValue={defaultValue} onChange={handleOnChange} allowClear></Select>
         </Flex>
     );
 }
