@@ -22,6 +22,7 @@ export const ElementProvider = ({ children }) => {
             id,
             style: '',
             styleObject: {},
+            attr: {}
             // ...elementMap[type].default
         }
     }

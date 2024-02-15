@@ -156,48 +156,57 @@ export const elementGroup = [
                 type: 'text',
                 icon: <FontSizeOutlined />,
                 getComponent: () => {
-                    return <div>输入文本</div>
+                    return <div></div>
                 },
                 styleSelector: ['display', 'width', 'height', 'fontSize', 'textAlign', 'color', 'backgroundColor'],
-                attrSelector: [],
+                attrSelector: ['children', 'html'],
                 containerStyleSelector: [],
-                default: {}
+                default: {
+                    children: '文本'
+                }
             },
             {
                 name: '按钮',
                 type: 'button',
                 icon: <BoldOutlined />,
                 getComponent: () => {
-                    return <button>按钮</button>
+                    return <button></button>
                 },
                 styleSelector: ['display', 'width', 'height', 'fontSize', 'color', 'backgroundColor'],
-                attrSelector: [],
+                attrSelector: ['children'],
                 containerStyleSelector: [],
-                default: {}
+                default: {
+                    children: '按钮'
+                }
             },
             {
                 name: '图片',
                 type: 'image',
                 icon: <FileImageOutlined />,
                 getComponent: () => {
-                    return <img src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" alt="" />
+                    return <img alt="" />
                 },
                 styleSelector: ['display', 'width', 'height'],
-                attrSelector: [],
+                attrSelector: ['src'],
                 containerStyleSelector: [],
-                default: {}
+                default: {
+                    src: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+                }
             },
             {
                 name: '链接',
                 type: 'link',
                 icon: <LinkOutlined />,
                 getComponent: () => {
-                    return <a href='/'>链接</a>
+                    return <a href='/'> </a>
                 },
                 styleSelector: ['display', 'width', 'height', 'fontSize', 'textAlign', 'color', 'backgroundColor'],
-                attrSelector: [],
+                attrSelector: ['children', 'href'],
                 containerStyleSelector: [],
-                default: {}
+                default: {
+                    href: '/',
+                    children: '链接'
+                }
 
             },
             {
@@ -205,14 +214,16 @@ export const elementGroup = [
                 type: 'video',
                 icon: <VideoCameraOutlined />,
                 getComponent: () => {
-                    return <video controls autoplay
-                        src="https://tbexpand.alicdn.com/772ed1822eb4802f/1639051391463/84f3e18ec27edd1d_mov_340612418368_mp4_264_hd_aliyun.mp4?auth_key=1707399841-0-0-91332558237d4c903510eab1f6c84b98&biz=publish-2f31420cf7951f0d&t=2106dfc017073971416145166e14ba&t=2106dfc017073971416145166e14ba&b=publish&p=cloudvideo_http_video_extranet_publish&i=340612418368">
-                    </video>
+                    return <video></video>
                 },
                 styleSelector: ['display', 'width', 'height'],
-                attrSelector: [],
+                attrSelector: ['src', 'autoPlay', 'controls', 'loop'],
                 containerStyleSelector: [],
-                default: {}
+                default: {
+                    src: 'https://terra-1-g.djicdn.com/851d20f7b9f64838a34cd02351370894/skypixel-2024/PC.mp4',
+                    controls: true,
+                    autoPlay: true
+                }
             }
         ]
     },
@@ -636,7 +647,7 @@ export const elementGroup = [
                 type: 'ant-result',
                 icon: <CheckCircleOutlined />,
                 getComponent: () => {
-                    return <AntResult status="success"/>
+                    return <AntResult status="success" />
                 },
                 styleSelector: [],
                 attrSelector: [],
@@ -645,7 +656,7 @@ export const elementGroup = [
             },
             {
                 name: '骨架',
-                type: 'ant-result',
+                type: 'ant-skeleton',
                 icon: <SketchOutlined />,
                 getComponent: () => {
                     return <AntSkeleton />

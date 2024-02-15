@@ -4,7 +4,7 @@ import { Flex } from 'antd';
 import { convertToHyphenated, removePxFromString } from '../../../../../utils/style';
 import { ElementContext } from '../../../provider/elementProvider';
 import { useContext } from 'react';
-import { styleGroup } from '../utils/styleGroup';
+import { styleGroup } from '../utils/group/styleGroup';
 import InputMode from '../component/inputMode'
 import InputNumberMode from '../component/inputNumberMode';
 import SelectMode from '../component/selectMode'
