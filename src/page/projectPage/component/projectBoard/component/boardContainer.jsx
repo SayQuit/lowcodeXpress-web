@@ -1,5 +1,5 @@
 import '../../../style/main.css'
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { LeftSiderContext } from '../../../provider/leftSiderProvider';
 import { ElementContext } from '../../../provider/elementProvider';
@@ -12,6 +12,26 @@ function BoardConatiner({ children, index, id, childrenElement }) {
     const itemRef = useRef(null)
 
     const [dropArea, setDropArea] = useState('');
+
+    const [height, setHeight] = useState(0)
+    const [width, setWidth] = useState(0)
+
+    useEffect(() => {
+        setHeight(itemRef.current.clientHeight)
+        setWidth(itemRef.current.offsetWidth)
+    }, [itemRef, element, elementSelectVisible])
+
+    const handleResize = () => {
+        setHeight(itemRef.current.clientHeight)
+        setWidth(itemRef.current.offsetWidth)
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const [{ isOver }, dropRef] = useDrop(() => ({
         accept: 'ELEMENT_ITEM',
@@ -48,16 +68,20 @@ function BoardConatiner({ children, index, id, childrenElement }) {
     }), [element, elementDispatch, dropArea]);
 
     return (
-        <div
-            className=
-            {`board-container ${isOver ? 'board-container-hover' : ''} 
-            ${isOver && children ? `${dropArea === 'top' ? 'board-container-top' : ''}` : ''}
-            ${isOver && children ? `${dropArea === 'bottom' ? 'board-container-bottom' : ''}` : ''}
-            ${isOver && children ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''}
-            ${activeElementID === id && children ? 'board-container-active' : ''}`}
-            ref={dropRef}
-        >
-            <div ref={itemRef} onClick={() => { if (!childrenElement) setActiveElementID(id) }}>
+        <>
+            <div
+                className=
+                {`board-container ${isOver ? 'board-container-hover' : ''} 
+                ${isOver && children ? `${dropArea === 'top' ? 'board-container-top' : ''}` : ''}
+                ${isOver && children ? `${dropArea === 'bottom' ? 'board-container-bottom' : ''}` : ''}
+                ${isOver && children ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''}
+                ${activeElementID === id && children ? 'board-container-active' : ''}`}
+                ref={dropRef}
+                style={{ height: height + 'px', width: width + 'px'}}
+                onClick={() => { if (!childrenElement) setActiveElementID(id) }}
+            >
+            </div>
+            <div ref={itemRef}>
                 {children && children}
                 {childrenElement &&
                     childrenElement.map((item) => {
@@ -72,7 +96,7 @@ function BoardConatiner({ children, index, id, childrenElement }) {
                     </div>
                 }
             </div>
-        </div>
+        </>
     );
 }
 
