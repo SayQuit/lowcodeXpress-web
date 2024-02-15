@@ -693,12 +693,12 @@ export const elementGroup = [
 ]
 
 const getElementMap = () => {
-    const res = {}
+    const map = {}
     elementGroup.forEach((item) => {
         item.items.forEach((value) => {
-            res[value.type] = value
+            map[value.type] = value
         })
     })
-    return res
+    return map
 }
 export const elementMap = getElementMap()
