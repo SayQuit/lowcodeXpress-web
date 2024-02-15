@@ -31,7 +31,7 @@ function RightSider() {
             <Tabs defaultActiveKey={activeKey} items={items} onChange={(key) => { setActiveKey(key) }} size='large' type="card" centered />
             {activeKey === 'style' && <StyleSelector></StyleSelector>}
             {activeKey === 'attr' && <AttrSelector></AttrSelector>}
-            {!isElementActive && <Empty></Empty>}
+            {!isElementActive && <Empty className='right-empty'></Empty>}
         </div>
     );
 }

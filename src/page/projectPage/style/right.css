@@ -3,6 +3,7 @@
     box-shadow: -2px 2px 2px 2px rgba(31, 50, 88, .08);
     font-size: 12px;
     width: 270px;
+    position: relative;
 }
 
 .right .ant-tabs-tab-btn {
@@ -13,6 +14,13 @@
     padding: 0 10px;
     overflow: auto;
     height: 92.5%;
+}
+
+.right-empty {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%,-50%);
 }
 
 .right-tab-font {
