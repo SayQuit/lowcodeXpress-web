@@ -3,8 +3,7 @@ import { useContext, useRef, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { LeftSiderContext } from '../../../provider/leftSiderProvider';
 import { ElementContext } from '../../../provider/elementProvider';
-import InnerConatiner from './innerContainer';
-function BoardConatiner({ children, index, id, childrenElement }) {
+function InnerConatiner({ childrenElement, children, id }) {
 
     const { onElementSelectVisibleChange, elementSelectVisible } = useContext(LeftSiderContext);
     const { elementDispatch, element, setActiveElementID, activeElementID } = useContext(ElementContext);
@@ -16,18 +15,8 @@ function BoardConatiner({ children, index, id, childrenElement }) {
     const [{ isOver }, dropRef] = useDrop(() => ({
         accept: 'ELEMENT_ITEM',
         drop: (item) => {
-            if (childrenElement) return
             setActiveElementID('')
-            if (!children) {
-                if (id === '') elementDispatch({ type: 'push', elementType: item.type })
-                else elementDispatch({ type: 'replace', elementType: item.type, index })
-            }
-            else {
-                if (dropArea === 'top') elementDispatch({ type: 'insert', elementType: item.type, index: index })
-                else if (dropArea === 'bottom') elementDispatch({ type: 'insert', elementType: item.type, index: index + 1 })
-                else if (dropArea === 'middle') elementDispatch({ type: 'merge', elementType: item.type, index: index })
-                else { }
-            }
+            // 直接添加最内部，外部的添加一个按钮获取父元素
         },
         hover: (_, monitor) => {
             const y = monitor.getClientOffset().y;
@@ -51,19 +40,16 @@ function BoardConatiner({ children, index, id, childrenElement }) {
         <div
             className=
             {`board-container ${isOver ? 'board-container-hover' : ''} 
-            ${isOver && children ? `${dropArea === 'top' ? 'board-container-top' : ''}` : ''}
-            ${isOver && children ? `${dropArea === 'bottom' ? 'board-container-bottom' : ''}` : ''}
-            ${isOver && children ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''}
-            ${activeElementID === id && children ? 'board-container-active' : ''}`}
+                    ${isOver && children ? `${dropArea === 'top' ? 'board-container-top' : ''}` : ''}
+                    ${isOver && children ? `${dropArea === 'bottom' ? 'board-container-bottom' : ''}` : ''}
+                    ${isOver && children ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''}
+                    ${activeElementID === id && children ? 'board-container-active' : ''}`}
             ref={dropRef}
+            key={id}
         >
-            <div ref={itemRef} onClick={() => { if (!childrenElement) setActiveElementID(id) }}>
+            <div ref={itemRef} onClick={() => setActiveElementID(id)}>
                 {children && children}
-                {childrenElement &&
-                    childrenElement.map((item) => {
-                        return <InnerConatiner childrenElement={item.childrenElement} id={item.id}>{item.value}</InnerConatiner>
-                    })
-                }
+                {childrenElement && <InnerConatiner childrenElement={childrenElement} />}
                 {
                     (!childrenElement && !children) && <div
                         className='board-container-tips'
@@ -73,7 +59,8 @@ function BoardConatiner({ children, index, id, childrenElement }) {
                 }
             </div>
         </div>
-    );
+    )
+
 }
 
-export default BoardConatiner;
+export default InnerConatiner;

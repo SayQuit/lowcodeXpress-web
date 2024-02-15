@@ -9,10 +9,11 @@ import InputMode from '../component/inputMode'
 import InputNumberMode from '../component/inputNumberMode';
 import SelectMode from '../component/selectMode'
 import ColorPickerMode from '../component/colorPickerMode';
+import { replaceElement } from '../../../utils/dispatchUtil';
 // import { elementMap } from '../../../utils/elementGroup';
 function StyleSelector() {
 
-    const { elementDispatch, activeElement, activeIndex, isElementActive } = useContext(ElementContext);
+    const { elementDispatch, activeElement, activeIndex, isElementActive, element, activeElementID } = useContext(ElementContext);
 
     const onChange = (e) => {
         const { type, value } = e;
@@ -31,17 +32,17 @@ function StyleSelector() {
         let style = ''
         for (const key in newStyleObject) {
             const val = newStyleObject[key]
-            if (val) continue
+            if (!val) continue
             style += `${convertToHyphenated(key)}:${val};`
         }
-        
+
         const newElement = {
             ...activeElement,
             styleObject: newStyleObject,
             style
 
         }
-        elementDispatch({ type: 'replace', element: newElement, index: activeIndex })
+        elementDispatch({ type: 'replace', element: replaceElement(element, activeElementID, newElement)[activeIndex], index: activeIndex })
     }
 
     return (

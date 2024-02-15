@@ -10,8 +10,6 @@
 
 .board-container {
     display: block;
-    width: 100%;
-    height: fit-content;
     cursor: pointer;
     box-sizing: border-box
 }
@@ -53,5 +51,10 @@
 
 .board-container-bottom {
     border-bottom: 3px solid #1677ff;
+    background-color: #1677ff11;
+}
+
+.board-container-right{
+    border-right: 3px solid #1677ff;
     background-color: #1677ff11;
 }

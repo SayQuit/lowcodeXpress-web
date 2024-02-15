@@ -6,6 +6,7 @@ import { parseElementToComponent } from '../utils/componentParser'
 import { getRandomID } from '../../../utils/randomID';
 import { successMessage } from '../../../utils/message';
 import { elementMap } from '../utils/elementGroup';
+import { findActiveElement, findActiveComponent, findActiveIndex } from '../utils/findActive';
 // import { elementMap } from '../utils/elementGroup';
 
 export const ElementContext = createContext();
@@ -18,13 +19,6 @@ export const ElementProvider = ({ children }) => {
 
     const createElement = (type) => {
         const id = getRandomID()
-        console.log({
-            type,
-            id,
-            style: '',
-            styleObject: {},
-            attr: elementMap[type].default
-        });
         return {
             type,
             id,
@@ -56,6 +50,14 @@ export const ElementProvider = ({ children }) => {
                 {
                     return [...state.slice(0, action.index), action.element || createElement(action.elementType), ...state.slice(action.index + 1)]
                 }
+            case 'merge':
+                {
+                    return [...state.slice(0, action.index), { id: getRandomID(), childrenElement: [state[action.index], action.element || createElement(action.elementType)] }, ...state.slice(action.index + 1)]
+                }
+            case 'inject':
+                {
+                    return [...state.slice(0, action.index), { ...state[action.index], childrenElement: [...state[action.index].childrenElement, action.element || createElement(action.elementType)] }, ...state.slice(action.index + 1)]
+                }
             default:
                 return state
         }
@@ -63,18 +65,11 @@ export const ElementProvider = ({ children }) => {
 
 
     const activeIndex = useMemo(() => {
-        let idx = -1
-        element.forEach((item, index) => {
-            if (item.id === activeElementID) idx = index
-        });
-        return idx
+        return findActiveIndex(element, activeElementID)
     }, [element, activeElementID])
+
     const activeElement = useMemo(() => {
-        let node = null
-        element.forEach(item => {
-            if (item.id === activeElementID) node = item
-        });
-        return node
+        return findActiveElement(element, activeElementID)
     }, [element, activeElementID])
 
     const isElementActive = useMemo(() => {
@@ -85,11 +80,7 @@ export const ElementProvider = ({ children }) => {
         return parseElementToComponent(element)
     }, [element])
     const activeComponent = useMemo(() => {
-        let comp = null
-        component.forEach(item => {
-            if (item.id === activeElementID) comp = item
-        });
-        return comp
+        return findActiveComponent(component, activeElementID)
     }, [component, activeElementID])
 
 
