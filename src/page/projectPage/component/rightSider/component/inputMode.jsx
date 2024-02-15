@@ -1,9 +1,12 @@
 import '../../../style/right.css'
 import { Flex, Input } from 'antd';
 
-function InputMode({ onChange, defaultValue, name, prev, next }) {
+function InputMode({ onChange, defaultValue, name,type }) {
     const handleOnChange = (value) => {
-        onChange(prev + value + next)
+        onChange({
+            type,
+            value
+        })
     }
     return (
         <Flex>

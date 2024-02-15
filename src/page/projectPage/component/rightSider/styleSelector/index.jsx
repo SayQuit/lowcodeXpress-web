@@ -5,6 +5,7 @@ import { convertToHyphenated, removePxFromString } from '../../../../../utils/st
 import { ElementContext } from '../../../provider/elementProvider';
 import { useContext } from 'react';
 import { styleGroup } from '../utils/styleGroup';
+import InputMode from '../component/inputMode'
 import InputNumberMode from '../component/inputNumberMode';
 import SelectMode from '../component/selectMode'
 import ColorPickerMode from '../component/colorPickerMode';
@@ -44,6 +45,14 @@ function StyleSelector() {
             {styleGroup.map(item => {
                 //  elementMap[activeElement.type].styleSelector.includes(item.type) &&
                 return <React.Fragment key={item.type}>
+                    {item.componentType === 'input' && (
+                        <InputMode
+                            onChange={onChange}
+                            defaultValue={''}
+                            name={item.name}
+                            type={item.type}
+                        />
+                    )}
                     {item.componentType === 'inputNumber' && (
                         <InputNumberMode
                             onChange={onChange}
