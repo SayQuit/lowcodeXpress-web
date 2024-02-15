@@ -1,5 +1,4 @@
 import { getComponentMap } from "./getComponentMap";
-import { elementMap } from '../elementGroup'
 import React from "react";
 
 export const parseElementToComponent = (element) => {
@@ -10,14 +9,9 @@ export const parseElementToComponent = (element) => {
             {
                 style: item.styleObject,
                 key: item.id,
-                ...elementMap[item.type].default,
                 ...item.attr
             }
         );
-        item.attr = {
-            ...elementMap[item.type].default,
-            ...item.attr
-        }
         res.push({
             value: component,
             id: item.id

@@ -5,6 +5,7 @@ import { getProjectDetailRequest, setProjectDetailRequest } from '../../../reque
 import { parseElementToComponent } from '../utils/componentParser'
 import { getRandomID } from '../../../utils/randomID';
 import { successMessage } from '../../../utils/message';
+import { elementMap } from '../utils/elementGroup';
 // import { elementMap } from '../utils/elementGroup';
 
 export const ElementContext = createContext();
@@ -22,8 +23,7 @@ export const ElementProvider = ({ children }) => {
             id,
             style: '',
             styleObject: {},
-            attr: {}
-            // ...elementMap[type].default
+            attr: elementMap[type].default
         }
     }
 
