@@ -22,15 +22,19 @@ function StyleSelector() {
         if (value) newStyleObject[type] = value
         else if (newStyleObject[type]) delete newStyleObject[type]
 
-        styleGroup.forEach(item => {
-            if (item.type === type && item.addonAfter) newStyleObject[type] += item.addonAfter
-        })
+        if (value) {
+            styleGroup.forEach(item => {
+                if (item.type === type && item.addonAfter) newStyleObject[type] += item.addonAfter
+            })
+        }
 
         let style = ''
         for (const key in newStyleObject) {
             const val = newStyleObject[key]
+            if (val) continue
             style += `${convertToHyphenated(key)}:${val};`
         }
+        
         const newElement = {
             ...activeElement,
             styleObject: newStyleObject,
