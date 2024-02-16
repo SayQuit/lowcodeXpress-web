@@ -508,9 +508,8 @@ export const styleGroup = [
 
     {
         type: 'flex',
-        componentType: 'inputNumber',
+        componentType: 'input',
         name: '弹性长度',
-        addonAfter: 'px'
     },
     {
         type: 'flexShrink',
