@@ -7,6 +7,9 @@ const errorMessage = (msg) => {
 const successMessage = (msg) => {
     message.success(msg)
 }
+const warningMessage = (msg) => {
+    message.warning(msg)
+}
 const confirmMessage = (msg) => {
     return new Promise((resolve, reject) => {
         confirm({
@@ -20,4 +23,4 @@ const confirmMessage = (msg) => {
         });
     })
 }
-export { errorMessage, successMessage, confirmMessage }
+export { errorMessage, successMessage, confirmMessage,warningMessage }
