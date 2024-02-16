@@ -6,7 +6,14 @@ export const parseElementToComponent = (element) => {
     element.forEach((item) => {
         let value = null
         let childrenElement = null
-        if (item.childrenElement) childrenElement = parseElementToComponent(item.childrenElement)
+        let containerStyle={}
+        if (item.childrenElement) {
+            childrenElement = parseElementToComponent(item.childrenElement)
+            containerStyle={
+                style:item.style,
+                styleObject:item.styleObject
+            }
+        }
         else {
             if (item.type !== 'container') {
                 value = React.cloneElement(
@@ -22,7 +29,8 @@ export const parseElementToComponent = (element) => {
         res.push({
             value,
             id: item.id,
-            childrenElement
+            childrenElement,
+            ...containerStyle
         })
     })
     return res
