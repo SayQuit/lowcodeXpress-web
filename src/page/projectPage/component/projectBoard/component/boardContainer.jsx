@@ -71,11 +71,7 @@ function BoardConatiner({ children, index, id, childrenElement }) {
         <>
             <div
                 className=
-                {`board-container ${isOver ? 'board-container-hover' : ''} 
-                ${isOver && children ? `${dropArea === 'top' ? 'board-container-top' : ''}` : ''}
-                ${isOver && children ? `${dropArea === 'bottom' ? 'board-container-bottom' : ''}` : ''}
-                ${isOver && children ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''}
-                ${activeElementID === id && children ? 'board-container-active' : ''}`}
+                {`board-container ${isOver ? 'board-container-hover' : ''} ${isOver && children ? `${dropArea === 'top' ? 'board-container-top' : ''}` : ''} ${isOver && children ? `${dropArea === 'bottom' ? 'board-container-bottom' : ''}` : ''} ${isOver && children ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''} ${activeElementID === id && children ? 'board-container-active' : ''}`}
                 ref={dropRef}
                 style={{ height: height + 'px', width: width + 'px' }}
                 onClick={() => { if (!childrenElement) setActiveElementID(id) }}

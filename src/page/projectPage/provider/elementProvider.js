@@ -7,7 +7,7 @@ import { getRandomID } from '../../../utils/randomID';
 import { successMessage } from '../../../utils/message';
 import { elementMap } from '../utils/elementGroup';
 import { findActiveElement, findActiveComponent, findActiveIndex } from '../utils/findActive';
-import { pushElement, replaceElement, insertElement, deleteElement,mergeElement } from '../utils/dispatchUtil';
+import { pushElement, replaceElement, insertElement, deleteElement, mergeElement } from '../utils/dispatchUtil';
 
 export const ElementContext = createContext();
 

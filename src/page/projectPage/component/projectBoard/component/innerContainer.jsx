@@ -36,8 +36,15 @@ function InnerConatiner({ childrenElement, children, id }) {
     const [{ isOver }, dropRef] = useDrop(() => ({
         accept: 'ELEMENT_ITEM',
         drop: (item) => {
+            if (childrenElement) return
             setActiveElementID('')
-            // 直接添加最内部，外部的添加功能 加一个按钮获取父元素
+            if (!children) elementDispatch({ type: 'replace', elementType: item.type, id })
+            else {
+                if (dropArea === 'top') elementDispatch({ type: 'insert', elementType: item.type, id, offset: 0 })
+                else if (dropArea === 'bottom') elementDispatch({ type: 'insert', elementType: item.type, id, offset: 1 })
+                else if (dropArea === 'middle') elementDispatch({ type: 'merge', elementType: item.type, id })
+                else { }
+            }
         },
         hover: (_, monitor) => {
             const y = monitor.getClientOffset().y;
@@ -61,11 +68,7 @@ function InnerConatiner({ childrenElement, children, id }) {
         <>
             <div
                 className=
-                {`board-container ${isOver ? 'board-container-hover' : ''} 
-                    ${isOver && children ? `${dropArea === 'top' ? 'board-container-top' : ''}` : ''}
-                    ${isOver && children ? `${dropArea === 'bottom' ? 'board-container-bottom' : ''}` : ''}
-                    ${isOver && children ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''}
-                    ${activeElementID === id && children ? 'board-container-active' : ''}`}
+                {`board-container ${isOver ? 'board-container-hover' : ''} ${isOver && children ? `${dropArea === 'top' ? 'board-container-top' : ''}` : ''} ${isOver && children ? `${dropArea === 'bottom' ? 'board-container-bottom' : ''}` : ''} ${isOver && children ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''} ${activeElementID === id && children ? 'board-container-active' : ''}`}
                 ref={dropRef}
                 style={{ height: height + 'px', width: width + 'px' }}
                 onClick={() => { if (!childrenElement) setActiveElementID(id) }}
@@ -73,7 +76,9 @@ function InnerConatiner({ childrenElement, children, id }) {
             </div>
             <div ref={itemRef}>
                 {children && children}
-                {childrenElement && <InnerConatiner childrenElement={childrenElement} />}
+                {childrenElement && childrenElement.map((item) => {
+                    return <InnerConatiner childrenElement={item.childrenElement} id={item.id} key={item.id}>{item.value}</InnerConatiner>
+                })}
                 {
                     (!childrenElement && !children) && <div
                         className='board-container-tips'
