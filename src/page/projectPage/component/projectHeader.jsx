@@ -48,7 +48,7 @@ function ProjectHeader() {
     }
 
     const handleBubble = () => {
-        if(!activeElementParent){
+        if (!activeElementParent) {
             warningMessage('已到顶部元素')
             return
         }
@@ -74,8 +74,8 @@ function ProjectHeader() {
                 <Button type="primary" className='mr-2' size='small'>上线</Button>
                 <Button type="primary" className='mr-2' size='small'>导出文件</Button>
                 {isElementActive && <Button className='mr-2' size='small' onClick={() => { handleBubble() }}>冒泡</Button>}
-                {isElementActive && activeElement.type !== 'container' && <Button className='mr-2' size='small' onClick={() => { handleCopyElement(activeElement) }}>复制</Button>}
-                {isElementActive && activeElement.type === 'container' && copyElement && <Button className='mr-2' size='small' onClick={handlePasteElement}>粘贴</Button>}
+                {isElementActive && activeElement.type !== 'container' && !activeElement.childrenElement && <Button className='mr-2' size='small' onClick={() => { handleCopyElement(activeElement) }}>复制</Button>}
+                {isElementActive && (activeElement.type === 'container' || activeElement.childrenElement) && copyElement && <Button className='mr-2' size='small' onClick={handlePasteElement}>粘贴</Button>}
                 {isElementActive && <Button className='mr-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 0 }) }}>上方放置</Button>}
                 {isElementActive && <Button className='mr-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 1 }) }}>下方放置</Button>}
                 {isElementActive && <Button type="primary" danger size='small' onClick={handleDeleteElement}>删除</Button>}

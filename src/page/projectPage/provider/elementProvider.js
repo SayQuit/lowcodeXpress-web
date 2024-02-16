@@ -57,7 +57,7 @@ export const ElementProvider = ({ children }) => {
                 }
             case 'replace':
                 {
-                    return replaceElement(state, action.id, action.element || createElementByType(action.elementType))
+                    return replaceElement({ childrenElement: state }, action.id, action.element || createElementByType(action.elementType))
                 }
             case 'merge':
                 {

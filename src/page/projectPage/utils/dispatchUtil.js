@@ -1,19 +1,18 @@
 import { getRandomID } from "../../../utils/randomID"
 export const replaceElement = (element, id, newElement) => {
     let res = []
-    for (let i = 0; i < element.length; i++) {
-        const item = element[i]
-        if (item.childrenElement) {
-            if (item.id === id) res.push(newElement)
-            else {
-                res.push({
-                    ...item,
-                    childrenElement: replaceElement(item.childrenElement, id, newElement),
-                })
-            }
+    for (let i = 0; i < element.childrenElement.length; i++) {
+        const item = element.childrenElement[i]
+        if (item.id === id) {
+            res.push(newElement)
         }
         else {
-            if (item.id === id) res.push(newElement)
+            if(item.childrenElement){
+                res.push({
+                    ...item,
+                    childrenElement: pushElement(item.childrenElement, id, newElement)
+                })
+            }
             else res.push(item)
         }
     }
