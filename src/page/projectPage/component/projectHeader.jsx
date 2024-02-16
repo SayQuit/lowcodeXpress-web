@@ -4,7 +4,7 @@ import TypeTag from '../../../component/typeTag';
 import { ElementContext } from '../provider/elementProvider';
 import { useContext, useMemo } from 'react';
 import { getTags } from '../../../utils/optionsTags';
-import { confirmMessage, successMessage } from '../../../utils/message';
+import { confirmMessage, successMessage, warningMessage } from '../../../utils/message';
 
 function ProjectHeader() {
 
@@ -18,7 +18,8 @@ function ProjectHeader() {
         copyElement,
         setActiveElementID,
         activeElementID,
-        createElementByElement
+        createElementByElement,
+        activeElementParent
     } = useContext(ElementContext)
 
     const tagList = useMemo(() => {
@@ -29,7 +30,7 @@ function ProjectHeader() {
         confirmMessage('确认删除吗')
             .then(() => {
                 setActiveElementID('')
-                elementDispatch({ type: 'delete', id:activeElementID })
+                elementDispatch({ type: 'delete', id: activeElementID })
             })
             .catch(() => { })
     }
@@ -44,6 +45,14 @@ function ProjectHeader() {
     const handleCopyElement = () => {
         setCopyElement(createElementByElement(activeElement))
         successMessage('复制成功')
+    }
+
+    const handleBubble = () => {
+        if(!activeElementParent){
+            warningMessage('已到顶部元素')
+            return
+        }
+        setActiveElementID(activeElementParent.id)
     }
 
     return (
@@ -64,10 +73,9 @@ function ProjectHeader() {
                 <Button type="primary" className='mr-2' size='small'>预览</Button>
                 <Button type="primary" className='mr-2' size='small'>上线</Button>
                 <Button type="primary" className='mr-2' size='small'>导出文件</Button>
+                {isElementActive && <Button className='mr-2' size='small' onClick={() => { handleBubble() }}>冒泡</Button>}
                 {isElementActive && activeElement.type !== 'container' && <Button className='mr-2' size='small' onClick={() => { handleCopyElement(activeElement) }}>复制</Button>}
                 {isElementActive && activeElement.type === 'container' && copyElement && <Button className='mr-2' size='small' onClick={handlePasteElement}>粘贴</Button>}
-                {isElementActive && <Button className='mr-2' size='small'>左拆分</Button>}
-                {isElementActive && <Button className='mr-2' size='small'>右拆分</Button>}
                 {isElementActive && <Button className='mr-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 0 }) }}>上方放置</Button>}
                 {isElementActive && <Button className='mr-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 1 }) }}>下方放置</Button>}
                 {isElementActive && <Button type="primary" danger size='small' onClick={handleDeleteElement}>删除</Button>}

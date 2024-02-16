@@ -6,7 +6,7 @@ import { Tabs, Empty } from 'antd';
 import { ElementContext } from '../../provider/elementProvider';
 
 function RightSider() {
-    const { isElementActive } = useContext(ElementContext)
+    const { isElementActive, activeElement,activeElementID } = useContext(ElementContext)
     const [activeKey, setActiveKey] = useState('style')
     const items = [
         {
@@ -18,8 +18,8 @@ function RightSider() {
             label: '配置',
         },
         {
-            key: 'container-style',
-            label: '容器样式',
+            key: 'props',
+            label: '组件参数',
         },
         {
             key: 'attr',
@@ -27,10 +27,10 @@ function RightSider() {
         },
     ];
     return (
-        <div className="right">
+        <div className="right" key={activeElementID}>
             <Tabs defaultActiveKey={activeKey} items={items} onChange={(key) => { setActiveKey(key) }} size='large' type="card" centered />
-            {activeKey === 'style' && <StyleSelector></StyleSelector>}
-            {activeKey === 'attr' && <AttrSelector></AttrSelector>}
+            {activeKey === 'style' && isElementActive && <StyleSelector></StyleSelector>}
+            {activeKey === 'attr' && isElementActive && !activeElement.childrenElement && <AttrSelector></AttrSelector>}
             {!isElementActive && <Empty className='right-empty'></Empty>}
         </div>
     );

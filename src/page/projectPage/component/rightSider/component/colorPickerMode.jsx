@@ -11,7 +11,7 @@ function ColorPickerMode({ onChange, defaultValue, name, type }) {
     return (
         <Flex>
             <div className='right-tab-font line-h-22'>{name}</div>
-            <ColorPicker defaultValue={defaultValue} className='flex-1' onChange={handleOnChange} size="small" showText disabledAlpha></ColorPicker>
+            <ColorPicker defaultValue={defaultValue} className='flex-1' onChange={handleOnChange} size="small" showText disabledAlpha allowClear></ColorPicker>
         </Flex>
     );
 }

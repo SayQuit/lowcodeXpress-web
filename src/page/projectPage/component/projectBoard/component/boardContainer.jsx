@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useRef, useState, useCallback } from 'rea
 import { useDrop } from 'react-dnd';
 import { LeftSiderContext } from '../../../provider/leftSiderProvider';
 import { ElementContext } from '../../../provider/elementProvider';
-import InnerConatiner from './innerContainer';
-function BoardConatiner({ children,  id, childrenElement }) {
+function BoardConatiner({ componentNode, boardRef }) {
+
 
     const { onElementSelectVisibleChange, elementSelectVisible } = useContext(LeftSiderContext);
     const { elementDispatch, element, setActiveElementID, activeElementID } = useContext(ElementContext);
@@ -19,15 +19,15 @@ function BoardConatiner({ children,  id, childrenElement }) {
     const [left, setLeft] = useState(0)
 
     const setContainerRect = useCallback(() => {
-        if (!itemRef || !itemRef.current) return;
-        const parentElement = itemRef.current.parentNode;
-        const parentRect = parentElement.getBoundingClientRect();
+        if (!itemRef || !itemRef.current || !boardRef || !boardRef.current) return;
+        const parentRect = boardRef.current.getBoundingClientRect();
         const { top, left } = itemRef.current.getBoundingClientRect();
+        const scrollTop = boardRef.current.scrollTop
         setHeight(itemRef.current.clientHeight);
         setWidth(itemRef.current.offsetWidth);
-        setTop(top - parentRect.top);
+        setTop(top - parentRect.top + scrollTop);
         setLeft(left - parentRect.left);
-    }, [itemRef]);
+    }, [itemRef, boardRef]);
 
     useEffect(() => {
         setContainerRect()
@@ -46,18 +46,20 @@ function BoardConatiner({ children,  id, childrenElement }) {
     const [{ isOver }, dropRef] = useDrop(() => ({
         accept: 'ELEMENT_ITEM',
         drop: (item) => {
-            if (childrenElement) return
+            if (!componentNode) {
+                elementDispatch({ type: 'push', elementType: item.type })
+                return
+            }
+            if (componentNode.childrenElement) return
+            if (!componentNode.value && !componentNode.childrenElement) {
+                elementDispatch({ type: 'replace', elementType: item.type, id: componentNode.id })
+                return 
+            }
             setActiveElementID('')
-            if (!children) {
-                if (id === '') elementDispatch({ type: 'push', elementType: item.type })
-                else elementDispatch({ type: 'replace', elementType: item.type, id })
-            }
-            else {
-                if (dropArea === 'top') elementDispatch({ type: 'insert', elementType: item.type, id, offset: 0 })
-                else if (dropArea === 'bottom') elementDispatch({ type: 'insert', elementType: item.type, id, offset: 1 })
-                else if (dropArea === 'middle') elementDispatch({ type: 'merge', elementType: item.type, id })
-                else { }
-            }
+            if (dropArea === 'top') elementDispatch({ type: 'insert', elementType: item.type, id: componentNode.id, offset: 0 })
+            else if (dropArea === 'bottom') elementDispatch({ type: 'insert', elementType: item.type, id: componentNode.id, offset: 1 })
+            else if (dropArea === 'middle') elementDispatch({ type: 'merge', elementType: item.type, id: componentNode.id })
+            else return
         },
         hover: (_, monitor) => {
             const y = monitor.getClientOffset().y;
@@ -81,26 +83,42 @@ function BoardConatiner({ children,  id, childrenElement }) {
         <>
             <div
                 className=
-                {`board-container ${isOver ? 'board-container-hover' : ''} ${isOver && children ? `${dropArea === 'top' ? 'board-container-top' : ''}` : ''} ${isOver && children ? `${dropArea === 'bottom' ? 'board-container-bottom' : ''}` : ''} ${isOver && children ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''} ${activeElementID === id && children ? 'board-container-active' : ''}`}
+                {`board-container ${isOver ? 'board-container-hover' : ''} 
+                ${componentNode && (componentNode.value || componentNode.childrenElement) && isOver ? `${dropArea === 'top' ? 'board-container-top' : ''}` : ''} 
+                ${componentNode && (componentNode.value || componentNode.childrenElement) && isOver ? `${dropArea === 'bottom' ? 'board-container-bottom' : ''}` : ''} 
+                ${componentNode && (componentNode.value || componentNode.childrenElement) && isOver ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''} 
+                ${isOver || (componentNode && activeElementID === componentNode.id) ? 'board-container-active' : ''}`}
                 ref={dropRef}
                 style={{ height: height + 'px', width: width + 'px', top: top + 'px', left: left + 'px' }}
-                onClick={() => { if (!childrenElement) setActiveElementID(id) }}
+                onClick={() => { if (componentNode) setActiveElementID(componentNode.id) }}
             >
             </div>
-            {children && React.cloneElement(children, { ref: itemRef })}
-            {childrenElement &&
-                childrenElement.map((item) => {
-                    return <InnerConatiner childrenElement={item.childrenElement} id={item.id} key={item.id}>{item.value}</InnerConatiner>
-                })
+            {
+                componentNode &&
+                <React.Fragment>
+                    {componentNode.value && React.cloneElement(componentNode.value, { ref: itemRef })}
+                    {componentNode.childrenElement &&
+                        <div ref={itemRef} style={componentNode.styleObject}>
+                            {
+                                componentNode.childrenElement.map((item) => {
+                                    return <BoardConatiner componentNode={item} key={item.id} boardRef={boardRef}></BoardConatiner>
+                                })
+                            }
+                        </div>
+                    }
+
+                </React.Fragment>
             }
             {
-                (!childrenElement && !children) && <div
+                (!componentNode || (!componentNode.value && !componentNode.childrenElement)) &&
+                <div
                     ref={itemRef}
                     className='board-container-tips'
                     onClick={onElementSelectVisibleChange}>
                     {elementSelectVisible ? '拖拽元素至此处' : '点击添加元素'}
                 </div>
             }
+
         </>
     );
 }

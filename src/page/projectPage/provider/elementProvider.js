@@ -49,11 +49,11 @@ export const ElementProvider = ({ children }) => {
                 }
             case 'insert':
                 {
-                    return insertElement(state, action.id, action.element || createElementByType(action.elementType), action.offset)
+                    return insertElement({ childrenElement: state }, action.id, action.element || createElementByType(action.elementType), action.offset)
                 }
             case 'delete':
                 {
-                    return deleteElement(state, action.id)
+                    return deleteElement({ childrenElement: state }, action.id)
                 }
             case 'replace':
                 {
@@ -113,6 +113,29 @@ export const ElementProvider = ({ children }) => {
         else getProjectDetail(id)
     }, [searchParams, navigate, getProjectDetail])
 
+    const getActiveElementParent = useCallback((el) => {
+        let res = null
+        for (let i = 0; i < el.childrenElement.length; i++) {
+            const item = el.childrenElement[i]
+            if (item.id === activeElementID) {
+                res = el
+                break
+            }
+            if (item.childrenElement) {
+                res = getActiveElementParent(item)
+                if (res) break
+            }
+        }
+        return res
+    }, [activeElementID])
+
+    const activeElementParent = useMemo(() => {
+        let res = getActiveElementParent({ childrenElement: element })
+        if (res && !res.id) res = null
+        return res
+    }, [element, getActiveElementParent])
+
+
     return (
         <ElementContext.Provider
             value={{
@@ -129,7 +152,8 @@ export const ElementProvider = ({ children }) => {
                 isElementActive,
                 copyElement,
                 setCopyElement,
-                createElementByElement
+                createElementByElement,
+                activeElementParent
             }}>
             {children}
         </ElementContext.Provider>
