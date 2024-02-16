@@ -5,7 +5,6 @@ import { ElementContext } from '../provider/elementProvider';
 import { useContext, useMemo } from 'react';
 import { getTags } from '../../../utils/optionsTags';
 import { confirmMessage, successMessage } from '../../../utils/message';
-import { getRandomID } from '../../../utils/randomID';
 
 function ProjectHeader() {
 
@@ -18,7 +17,8 @@ function ProjectHeader() {
         setCopyElement,
         copyElement,
         setActiveElementID,
-        activeElementID
+        activeElementID,
+        createElementByElement
     } = useContext(ElementContext)
 
     const tagList = useMemo(() => {
@@ -37,17 +37,12 @@ function ProjectHeader() {
     const handlePasteElement = () => {
         setActiveElementID('')
         elementDispatch({ type: 'replace', element: copyElement, id: activeElementID })
+        setCopyElement(createElementByElement(copyElement))
         successMessage('粘贴成功')
     }
 
     const handleCopyElement = () => {
-        // 改到provider里面
-        setCopyElement({
-            ...activeElement,
-            id: getRandomID(),
-            styleObject: { ...activeElement.styleObject },
-            attr: { ...activeElement.attr }
-        })
+        setCopyElement(createElementByElement(activeElement))
         successMessage('复制成功')
     }
 

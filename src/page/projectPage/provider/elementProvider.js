@@ -17,7 +17,7 @@ export const ElementProvider = ({ children }) => {
     const [detail, setDetail] = useState({})
 
 
-    const createElement = (type) => {
+    const createElementByType = (type) => {
         const id = getRandomID()
         return {
             type,
@@ -25,6 +25,14 @@ export const ElementProvider = ({ children }) => {
             style: '',
             styleObject: {},
             attr: elementMap[type].default
+        }
+    }
+    const createElementByElement = (el) => {
+        return {
+            ...el,
+            id: getRandomID(),
+            styleObject: { ...el.styleObject },
+            attr: { ...el.attr }
         }
     }
 
@@ -36,12 +44,12 @@ export const ElementProvider = ({ children }) => {
                 return action.value
             case 'push':
                 {
-                    if (!action.id) return [...state, action.element || createElement(action.elementType)]
-                    else return pushElement(state, action.id, action.element || createElement(action.elementType))
+                    if (!action.id) return [...state, action.element || createElementByType(action.elementType)]
+                    else return pushElement(state, action.id, action.element || createElementByType(action.elementType))
                 }
             case 'insert':
                 {
-                    return insertElement(state, action.id, action.element || createElement(action.elementType), action.offset)
+                    return insertElement(state, action.id, action.element || createElementByType(action.elementType), action.offset)
                 }
             case 'delete':
                 {
@@ -49,11 +57,11 @@ export const ElementProvider = ({ children }) => {
                 }
             case 'replace':
                 {
-                    return replaceElement(state, action.id, action.element || createElement(action.elementType))
+                    return replaceElement(state, action.id, action.element || createElementByType(action.elementType))
                 }
             case 'merge':
                 {
-                    return mergeElement(state, action.id, action.element || createElement(action.elementType))
+                    return mergeElement(state, action.id, action.element || createElementByType(action.elementType))
                 }
             default:
                 return state
@@ -120,7 +128,8 @@ export const ElementProvider = ({ children }) => {
                 setProjectDetail,
                 isElementActive,
                 copyElement,
-                setCopyElement
+                setCopyElement,
+                createElementByElement
             }}>
             {children}
         </ElementContext.Provider>

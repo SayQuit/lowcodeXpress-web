@@ -65,7 +65,7 @@ export const deleteElement = (element, id) => {
         const item = element[i]
         if (item.childrenElement) {
             const childrenElement = deleteElement(item.childrenElement, id)
-            // 这里后面要改吗？
+            // 待定修改
             if (childrenElement.length === 0) continue
             else if (childrenElement.length === 1) res.push(childrenElement[0])
             else {
