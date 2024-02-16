@@ -40,12 +40,12 @@ function BoardConatiner({ children, index, id, childrenElement }) {
             setActiveElementID('')
             if (!children) {
                 if (id === '') elementDispatch({ type: 'push', elementType: item.type })
-                else elementDispatch({ type: 'replace', elementType: item.type, index })
+                else elementDispatch({ type: 'replace', elementType: item.type, id })
             }
             else {
-                if (dropArea === 'top') elementDispatch({ type: 'insert', elementType: item.type, index: index })
-                else if (dropArea === 'bottom') elementDispatch({ type: 'insert', elementType: item.type, index: index + 1 })
-                else if (dropArea === 'middle') elementDispatch({ type: 'merge', elementType: item.type, index: index })
+                if (dropArea === 'top') elementDispatch({ type: 'insert', elementType: item.type, id, offset: 0 })
+                else if (dropArea === 'bottom') elementDispatch({ type: 'insert', elementType: item.type, id, offset: 1 })
+                else if (dropArea === 'middle') elementDispatch({ type: 'merge', elementType: item.type, id })
                 else { }
             }
         },
@@ -77,7 +77,7 @@ function BoardConatiner({ children, index, id, childrenElement }) {
                 ${isOver && children ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''}
                 ${activeElementID === id && children ? 'board-container-active' : ''}`}
                 ref={dropRef}
-                style={{ height: height + 'px', width: width + 'px'}}
+                style={{ height: height + 'px', width: width + 'px' }}
                 onClick={() => { if (!childrenElement) setActiveElementID(id) }}
             >
             </div>
@@ -85,7 +85,7 @@ function BoardConatiner({ children, index, id, childrenElement }) {
                 {children && children}
                 {childrenElement &&
                     childrenElement.map((item) => {
-                        return <InnerConatiner childrenElement={item.childrenElement} id={item.id}>{item.value}</InnerConatiner>
+                        return <InnerConatiner childrenElement={item.childrenElement} id={item.id} key={item.id}>{item.value}</InnerConatiner>
                     })
                 }
                 {

@@ -5,19 +5,20 @@ import { ElementContext } from '../provider/elementProvider';
 import { useContext, useMemo } from 'react';
 import { getTags } from '../../../utils/optionsTags';
 import { confirmMessage, successMessage } from '../../../utils/message';
+import { getRandomID } from '../../../utils/randomID';
 
 function ProjectHeader() {
 
     const {
         detail,
-        activeIndex,
         activeElement,
         isElementActive,
         elementDispatch,
         setProjectDetail,
         setCopyElement,
         copyElement,
-        setActiveElementID
+        setActiveElementID,
+        activeElementID
     } = useContext(ElementContext)
 
     const tagList = useMemo(() => {
@@ -28,19 +29,25 @@ function ProjectHeader() {
         confirmMessage('确认删除吗')
             .then(() => {
                 setActiveElementID('')
-                elementDispatch({ type: 'delete', index: activeIndex })
+                elementDispatch({ type: 'delete', id:activeElementID })
             })
             .catch(() => { })
     }
 
     const handlePasteElement = () => {
         setActiveElementID('')
-        elementDispatch({ type: 'replace', elementType: copyElement.type, index: activeIndex })
+        elementDispatch({ type: 'replace', element: copyElement, id: activeElementID })
         successMessage('粘贴成功')
     }
 
     const handleCopyElement = () => {
-        setCopyElement(activeElement)
+        // 改到provider里面
+        setCopyElement({
+            ...activeElement,
+            id: getRandomID(),
+            styleObject: { ...activeElement.styleObject },
+            attr: { ...activeElement.attr }
+        })
         successMessage('复制成功')
     }
 
@@ -66,8 +73,8 @@ function ProjectHeader() {
                 {isElementActive && activeElement.type === 'container' && copyElement && <Button className='mr-2' size='small' onClick={handlePasteElement}>粘贴</Button>}
                 {isElementActive && <Button className='mr-2' size='small'>左拆分</Button>}
                 {isElementActive && <Button className='mr-2' size='small'>右拆分</Button>}
-                {isElementActive && <Button className='mr-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', index: activeIndex }) }}>上方放置</Button>}
-                {isElementActive && <Button className='mr-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', index: activeIndex + 1 }) }}>下方放置</Button>}
+                {isElementActive && <Button className='mr-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 0 }) }}>上方放置</Button>}
+                {isElementActive && <Button className='mr-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 1 }) }}>下方放置</Button>}
                 {isElementActive && <Button type="primary" danger size='small' onClick={handleDeleteElement}>删除</Button>}
             </div>
         </div>

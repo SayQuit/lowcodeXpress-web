@@ -9,11 +9,10 @@ import InputMode from '../component/inputMode'
 import InputNumberMode from '../component/inputNumberMode';
 import SelectMode from '../component/selectMode'
 import ColorPickerMode from '../component/colorPickerMode';
-import { replaceElement } from '../../../utils/dispatchUtil';
 // import { elementMap } from '../../../utils/elementGroup';
 function StyleSelector() {
 
-    const { elementDispatch, activeElement, activeIndex, isElementActive, element, activeElementID } = useContext(ElementContext);
+    const { elementDispatch, activeElement, isElementActive, activeElementID } = useContext(ElementContext);
 
     const onChange = (e) => {
         const { type, value } = e;
@@ -42,7 +41,7 @@ function StyleSelector() {
             style
 
         }
-        elementDispatch({ type: 'replace', element: replaceElement(element, activeElementID, newElement)[activeIndex], index: activeIndex })
+        elementDispatch({ type: 'replace', element: newElement, id: activeElementID })
     }
 
     return (

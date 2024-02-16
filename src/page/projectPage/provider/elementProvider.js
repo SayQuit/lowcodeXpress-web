@@ -7,7 +7,7 @@ import { getRandomID } from '../../../utils/randomID';
 import { successMessage } from '../../../utils/message';
 import { elementMap } from '../utils/elementGroup';
 import { findActiveElement, findActiveComponent, findActiveIndex } from '../utils/findActive';
-// import { elementMap } from '../utils/elementGroup';
+import { pushElement, replaceElement, insertElement, deleteElement,mergeElement } from '../utils/dispatchUtil';
 
 export const ElementContext = createContext();
 
@@ -36,27 +36,24 @@ export const ElementProvider = ({ children }) => {
                 return action.value
             case 'push':
                 {
-                    return [...state, action.element || createElement(action.elementType)]
+                    if (!action.id) return [...state, action.element || createElement(action.elementType)]
+                    else return pushElement(state, action.id, action.element || createElement(action.elementType))
                 }
             case 'insert':
                 {
-                    return [...state.slice(0, action.index), action.element || createElement(action.elementType), ...state.slice(action.index)]
+                    return insertElement(state, action.id, action.element || createElement(action.elementType), action.offset)
                 }
             case 'delete':
                 {
-                    return [...state.slice(0, action.index), ...state.slice(action.index + 1)]
+                    return deleteElement(state, action.id)
                 }
             case 'replace':
                 {
-                    return [...state.slice(0, action.index), action.element || createElement(action.elementType), ...state.slice(action.index + 1)]
+                    return replaceElement(state, action.id, action.element || createElement(action.elementType))
                 }
             case 'merge':
                 {
-                    return [...state.slice(0, action.index), { id: getRandomID(), childrenElement: [state[action.index], action.element || createElement(action.elementType)] }, ...state.slice(action.index + 1)]
-                }
-            case 'inject':
-                {
-                    return [...state.slice(0, action.index), { ...state[action.index], childrenElement: [...state[action.index].childrenElement, action.element || createElement(action.elementType)] }, ...state.slice(action.index + 1)]
+                    return mergeElement(state, action.id, action.element || createElement(action.elementType))
                 }
             default:
                 return state

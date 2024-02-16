@@ -9,7 +9,7 @@ import CheckoutMode from '../component/checkoutMode'
 import { elementMap } from '../../../utils/elementGroup';
 function AttrSelector() {
 
-    const { elementDispatch, activeElement, activeIndex, isElementActive } = useContext(ElementContext);
+    const { elementDispatch, activeElement, activeElementID, isElementActive } = useContext(ElementContext);
 
     const onChange = (e) => {
         const { type, value } = e;
@@ -26,7 +26,7 @@ function AttrSelector() {
             attr: newAttr
 
         }
-        elementDispatch({ type: 'replace', element: newElement, index: activeIndex })
+        elementDispatch({ type: 'replace', element: newElement, id: activeElementID })
     }
 
     return (
