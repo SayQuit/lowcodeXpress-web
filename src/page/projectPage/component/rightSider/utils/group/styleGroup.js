@@ -327,6 +327,7 @@ export const styleGroup = [
             },
         ]
     },
+    // todo
     // {
     //     type: 'backgroundPosition',
     //     componentType: 'input',

@@ -72,6 +72,7 @@ export const deleteElement = (element, id) => {
         else {
             if (item.childrenElement) {
                 const childrenElement = deleteElement(item, id)
+                // todo
                 // 待定修改
                 if (childrenElement.length === 0) continue
                 else if (childrenElement.length === 1) res.push(childrenElement[0])

@@ -6,7 +6,6 @@ const service = axios.create({
   timeout: 10000
 })
 
-// 请求拦截器
 service.interceptors.request.use(
   config => {
     const token = store.getState().token
@@ -18,7 +17,6 @@ service.interceptors.request.use(
   }
 )
 
-// 响应拦截器
 service.interceptors.response.use(
   response => {
     if (response.status === 200 && response.data.msg === 'success') {

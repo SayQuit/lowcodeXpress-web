@@ -47,6 +47,7 @@ function StyleSelector() {
     return (
         isElementActive && <Flex gap="small" vertical className='right-tab'>
             {styleGroup.map(item => {
+                // todo
                 //  elementMap[activeElement.type].styleSelector.includes(item.type) &&
                 return <React.Fragment key={item.type}>
                     {item.componentType === 'input' && (
