@@ -1,10 +1,10 @@
 import '../../../style/main.css'
-import { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState, useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import { LeftSiderContext } from '../../../provider/leftSiderProvider';
 import { ElementContext } from '../../../provider/elementProvider';
 import InnerConatiner from './innerContainer';
-function BoardConatiner({ children, index, id, childrenElement }) {
+function BoardConatiner({ children,  id, childrenElement }) {
 
     const { onElementSelectVisibleChange, elementSelectVisible } = useContext(LeftSiderContext);
     const { elementDispatch, element, setActiveElementID, activeElementID } = useContext(ElementContext);
@@ -15,23 +15,33 @@ function BoardConatiner({ children, index, id, childrenElement }) {
 
     const [height, setHeight] = useState(0)
     const [width, setWidth] = useState(0)
+    const [top, setTop] = useState(0)
+    const [left, setLeft] = useState(0)
+
+    const setContainerRect = useCallback(() => {
+        if (!itemRef || !itemRef.current) return;
+        const parentElement = itemRef.current.parentNode;
+        const parentRect = parentElement.getBoundingClientRect();
+        const { top, left } = itemRef.current.getBoundingClientRect();
+        setHeight(itemRef.current.clientHeight);
+        setWidth(itemRef.current.offsetWidth);
+        setTop(top - parentRect.top);
+        setLeft(left - parentRect.left);
+    }, [itemRef]);
 
     useEffect(() => {
-        setHeight(itemRef.current.clientHeight)
-        setWidth(itemRef.current.offsetWidth)
-    }, [itemRef, element, elementSelectVisible])
-
-    const handleResize = () => {
-        setHeight(itemRef.current.clientHeight)
-        setWidth(itemRef.current.offsetWidth)
-    }
+        setContainerRect()
+    }, [itemRef, element, elementSelectVisible, setContainerRect])
 
     useEffect(() => {
-        window.addEventListener('resize', handleResize);
+        window.addEventListener('resize', setContainerRect);
+        setTimeout(() => {
+            setContainerRect()
+        }, 1000);
         return () => {
-            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('resize', setContainerRect);
         };
-    }, []);
+    }, [setContainerRect]);
 
     const [{ isOver }, dropRef] = useDrop(() => ({
         accept: 'ELEMENT_ITEM',
@@ -73,25 +83,24 @@ function BoardConatiner({ children, index, id, childrenElement }) {
                 className=
                 {`board-container ${isOver ? 'board-container-hover' : ''} ${isOver && children ? `${dropArea === 'top' ? 'board-container-top' : ''}` : ''} ${isOver && children ? `${dropArea === 'bottom' ? 'board-container-bottom' : ''}` : ''} ${isOver && children ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''} ${activeElementID === id && children ? 'board-container-active' : ''}`}
                 ref={dropRef}
-                style={{ height: height + 'px', width: width + 'px' }}
+                style={{ height: height + 'px', width: width + 'px', top: top + 'px', left: left + 'px' }}
                 onClick={() => { if (!childrenElement) setActiveElementID(id) }}
             >
             </div>
-            <div ref={itemRef}>
-                {children && children}
-                {childrenElement &&
-                    childrenElement.map((item) => {
-                        return <InnerConatiner childrenElement={item.childrenElement} id={item.id} key={item.id}>{item.value}</InnerConatiner>
-                    })
-                }
-                {
-                    (!childrenElement && !children) && <div
-                        className='board-container-tips'
-                        onClick={onElementSelectVisibleChange}>
-                        {elementSelectVisible ? '拖拽元素至此处' : '点击添加元素'}
-                    </div>
-                }
-            </div>
+            {children && React.cloneElement(children, { ref: itemRef })}
+            {childrenElement &&
+                childrenElement.map((item) => {
+                    return <InnerConatiner childrenElement={item.childrenElement} id={item.id} key={item.id}>{item.value}</InnerConatiner>
+                })
+            }
+            {
+                (!childrenElement && !children) && <div
+                    ref={itemRef}
+                    className='board-container-tips'
+                    onClick={onElementSelectVisibleChange}>
+                    {elementSelectVisible ? '拖拽元素至此处' : '点击添加元素'}
+                </div>
+            }
         </>
     );
 }
