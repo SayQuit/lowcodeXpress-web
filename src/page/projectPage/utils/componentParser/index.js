@@ -6,25 +6,28 @@ export const parseElementToComponent = (element) => {
     element.forEach((item) => {
         let value = null
         let childrenElement = null
-        let containerStyle={}
+        let containerStyle = {}
         if (item.childrenElement) {
             childrenElement = parseElementToComponent(item.childrenElement)
-            containerStyle={
-                style:item.style,
-                styleObject:item.styleObject
+            containerStyle = {
+                style: item.style,
+                styleObject: item.styleObject
             }
         }
-        else {
-            if (item.type !== 'container') {
-                value = React.cloneElement(
-                    getComponentMap[item.type](),
-                    {
-                        style: item.styleObject,
-                        key: item.id,
-                        ...item.attr
-                    }
-                );
+        else if (item.type !== 'container') {
+            const attribute = {
+                style: item.styleObject,
+                key: item.id,
+                ...item.attr,
             }
+            if (item.attr.html && attribute['children']) {
+                delete attribute['children']
+                attribute['dangerouslySetInnerHTML'] = { __html: item.attr.html }
+            }
+            value = React.cloneElement(
+                getComponentMap[item.type](),
+                attribute
+            );
         }
         res.push({
             value,
