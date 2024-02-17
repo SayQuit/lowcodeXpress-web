@@ -45,7 +45,7 @@ function StyleSelector() {
     }
 
     return (
-        isElementActive && <Flex gap="small" vertical className='right-tab'>
+        isElementActive && <Flex gap="small" vertical className='right-tab' key={activeElementID}>
             {styleGroup.map(item => {
                 // todo
                 //  elementMap[activeElement.type].styleSelector.includes(item.type) &&
@@ -53,7 +53,7 @@ function StyleSelector() {
                     {item.componentType === 'input' && (
                         <InputMode
                             onChange={onChange}
-                            defaultValue={''}
+                            defaultValue={activeElement.styleObject[item.type] || ''}
                             name={item.name}
                             type={item.type}
                         />

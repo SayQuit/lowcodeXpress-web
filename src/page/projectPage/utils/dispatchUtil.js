@@ -4,13 +4,14 @@ export const replaceElement = (element, id, newElement) => {
     for (let i = 0; i < element.childrenElement.length; i++) {
         const item = element.childrenElement[i]
         if (item.id === id) {
+            console.log(newElement);
             res.push(newElement)
         }
         else {
             if(item.childrenElement){
                 res.push({
                     ...item,
-                    childrenElement: pushElement(item.childrenElement, id, newElement)
+                    childrenElement: replaceElement(item, id, newElement)
                 })
             }
             else res.push(item)
