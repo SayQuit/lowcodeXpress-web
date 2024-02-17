@@ -37,6 +37,7 @@ export const ElementProvider = ({ children }) => {
     }
 
     const [activeElementID, setActiveElementID] = useState('')
+    const [unnestWhenDelete, setUnnestWhenDelete] = useState(false)
 
     const [element, elementDispatch] = useReducer((state, action) => {
         switch (action.type) {
@@ -53,7 +54,7 @@ export const ElementProvider = ({ children }) => {
                 }
             case 'delete':
                 {
-                    return deleteElement({ childrenElement: state }, action.id)
+                    return deleteElement({ childrenElement: state }, action.id, unnestWhenDelete)
                 }
             case 'replace':
                 {
@@ -153,7 +154,9 @@ export const ElementProvider = ({ children }) => {
                 copyElement,
                 setCopyElement,
                 createElementByElement,
-                activeElementParent
+                activeElementParent,
+                setUnnestWhenDelete,
+                unnestWhenDelete
             }}>
             {children}
         </ElementContext.Provider>

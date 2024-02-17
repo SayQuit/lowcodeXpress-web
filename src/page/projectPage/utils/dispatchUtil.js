@@ -8,7 +8,7 @@ export const replaceElement = (element, id, newElement) => {
             res.push(newElement)
         }
         else {
-            if(item.childrenElement){
+            if (item.childrenElement) {
                 res.push({
                     ...item,
                     childrenElement: replaceElement(item, id, newElement)
@@ -64,18 +64,16 @@ export const insertElement = (element, id, newElement, offset) => {
 
 
 
-export const deleteElement = (element, id) => {
+export const deleteElement = (element, id, unnest) => {
     let res = []
     for (let i = 0; i < element.childrenElement.length; i++) {
         const item = element.childrenElement[i]
         if (item.id === id) continue
         else {
             if (item.childrenElement) {
-                const childrenElement = deleteElement(item, id)
-                // todo
-                // 待定修改
+                const childrenElement = deleteElement(item, id, unnest)
                 if (childrenElement.length === 0) continue
-                else if (childrenElement.length === 1) res.push(childrenElement[0])
+                else if (childrenElement.length === 1 && unnest) res.push(childrenElement[0])
                 else {
                     res.push({
                         ...item,
