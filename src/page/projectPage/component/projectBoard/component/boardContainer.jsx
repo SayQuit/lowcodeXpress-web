@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useRef, useState, useCallback } from 'rea
 import { useDrop } from 'react-dnd';
 import { LeftSiderContext } from '../../../provider/leftSiderProvider';
 import { ElementContext } from '../../../provider/elementProvider';
+import { warningMessage } from '../../../../../utils/message';
 function BoardConatiner({ componentNode, boardRef }) {
 
 
@@ -52,8 +53,12 @@ function BoardConatiner({ componentNode, boardRef }) {
             }
             if (componentNode.childrenElement) return
             if (!componentNode.value && !componentNode.childrenElement) {
+                if (item.type === 'container') {
+                    warningMessage('请勿重复防止容器')
+                    return
+                }
                 elementDispatch({ type: 'replace', elementType: item.type, id: componentNode.id })
-                return 
+                return
             }
             setActiveElementID('')
             if (dropArea === 'top') elementDispatch({ type: 'insert', elementType: item.type, id: componentNode.id, offset: 0 })
