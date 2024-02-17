@@ -14,6 +14,8 @@ const confirmMessage = (msg) => {
     return new Promise((resolve, reject) => {
         confirm({
             content: msg,
+            okText: '确认',
+            cancelText: '取消',
             onOk() {
                 resolve(true)
             },
@@ -23,4 +25,4 @@ const confirmMessage = (msg) => {
         });
     })
 }
-export { errorMessage, successMessage, confirmMessage,warningMessage }
+export { errorMessage, successMessage, confirmMessage, warningMessage }

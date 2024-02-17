@@ -123,6 +123,23 @@ export const nestElement = (element, id) => {
     return res
 }
 
-export const unnestElement = () => {
-
+export const unnestElement = (element, id) => {
+    let res = []
+    for (let i = 0; i < element.childrenElement.length; i++) {
+        const item = element.childrenElement[i]
+        if (item.id === id) {
+            if (!item.childrenElement) throw new Error()
+            else res.push(...item.childrenElement)
+        }
+        else {
+            if (item.childrenElement) {
+                res.push({
+                    ...item,
+                    childrenElement: unnestElement(item, id)
+                })
+            }
+            else res.push(item)
+        }
+    }
+    return res
 }
