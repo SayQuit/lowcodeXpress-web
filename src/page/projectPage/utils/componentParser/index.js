@@ -11,7 +11,7 @@ export const parseElementToComponent = (element) => {
             childrenElement = parseElementToComponent(item.childrenElement)
             containerStyle = {
                 style: item.style,
-                styleObject: item.styleObject
+                styleObject: item.styleObject,
             }
         }
         else if (item.type !== 'container') {
@@ -20,8 +20,8 @@ export const parseElementToComponent = (element) => {
                 key: item.id,
                 ...item.attr,
             }
-            if (item.attr.html && attribute['children']) {
-                delete attribute['children']
+            if (item.attr.html) {
+                if (attribute['children']) delete attribute['children']
                 attribute['dangerouslySetInnerHTML'] = { __html: item.attr.html }
             }
             value = React.cloneElement(

@@ -1,5 +1,5 @@
 .header {
-    height: 50px;
+    height: auto;
     margin: 0 4px;
     background-color: white;
     display: flex;
@@ -7,6 +7,7 @@
     padding: 0 20px;
     box-shadow: 2px 2px 2px 2px rgba(31, 50, 88, .08);
     font-size: 12px;
+    flex-wrap: wrap;
 }
 
 .header .ant-btn {

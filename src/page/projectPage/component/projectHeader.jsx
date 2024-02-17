@@ -1,5 +1,5 @@
 import '../style/header.css'
-import { Button } from 'antd';
+import { Button, Checkbox } from 'antd';
 import TypeTag from '../../../component/typeTag';
 import { ElementContext } from '../provider/elementProvider';
 import { useContext, useMemo } from 'react';
@@ -57,7 +57,7 @@ function ProjectHeader() {
 
     return (
         <div className="header">
-            <div className='flex items-center'>
+            <div className='flex items-center mb-2 mt-2'>
                 {
                     tagList.map(item => {
                         return (
@@ -68,17 +68,20 @@ function ProjectHeader() {
                     })
                 }
             </div>
-            <div className='h-full flex items-center'>
-                <Button type="primary" className='mr-2' size='small' onClick={setProjectDetail}>保存</Button>
-                <Button type="primary" className='mr-2' size='small'>预览</Button>
-                <Button type="primary" className='mr-2' size='small'>上线</Button>
-                <Button type="primary" className='mr-2' size='small'>导出文件</Button>
-                {isElementActive && <Button className='mr-2' size='small' onClick={() => { handleBubble() }}>冒泡</Button>}
-                {isElementActive && activeElement.type !== 'container' && !activeElement.childrenElement && <Button className='mr-2' size='small' onClick={() => { handleCopyElement(activeElement) }}>复制</Button>}
-                {isElementActive && (activeElement.type === 'container' || activeElement.childrenElement) && copyElement && <Button className='mr-2' size='small' onClick={handlePasteElement}>粘贴</Button>}
-                {isElementActive && <Button className='mr-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 0 }) }}>上方放置</Button>}
-                {isElementActive && <Button className='mr-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 1 }) }}>下方放置</Button>}
-                {isElementActive && <Button type="primary" danger size='small' onClick={handleDeleteElement}>删除</Button>}
+            <div className='flex items-center flex-wrap'>
+                <Button type="primary" className='mr-2 mb-2 mt-2' size='small' onClick={setProjectDetail}>保存</Button>
+                <Button type="primary" className='mr-2 mb-2 mt-2' size='small'>预览</Button>
+                <Button type="primary" className='mr-2 mb-2 mt-2' size='small'>上线</Button>
+                <Button type="primary" className='mr-2 mb-2 mt-2' size='small'>导出文件</Button>
+                {isElementActive && <Checkbox onChange={() => { }} className='mt-2 mb-2'>删除时解除嵌套</Checkbox>}
+                {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { handleBubble() }}>冒泡</Button>}
+                {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { }}>嵌套</Button>}
+                {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { }}>解除嵌套</Button>}
+                {isElementActive && activeElement.type !== 'container' && !activeElement.childrenElement && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { handleCopyElement(activeElement) }}>复制</Button>}
+                {isElementActive && (activeElement.type === 'container' || activeElement.childrenElement) && copyElement && <Button className='mr-2 mb-2 mt-2' size='small' onClick={handlePasteElement}>粘贴</Button>}
+                {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 0 }) }}>上方放置</Button>}
+                {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 1 }) }}>下方放置</Button>}
+                {isElementActive && <Button className='mb-2 mt-2' type="primary" danger size='small' onClick={handleDeleteElement}>删除</Button>}
             </div>
         </div>
     );
