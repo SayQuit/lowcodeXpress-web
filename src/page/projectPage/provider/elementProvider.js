@@ -3,11 +3,10 @@ import React, { createContext, useCallback, useEffect, useMemo, useReducer, useS
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { getProjectDetailRequest, setProjectDetailRequest } from '../../../request';
 import { parseElementToComponent } from '../utils/componentParser'
-import { getRandomID } from '../../../utils/randomID';
 import { successMessage } from '../../../utils/message';
-import { elementMap } from '../utils/elementGroup';
 import { findActiveElement, findActiveComponent, findActiveIndex } from '../utils/findActive';
-import { pushElement, replaceElement, insertElement, deleteElement, mergeElement } from '../utils/dispatchUtil';
+import { pushElement, replaceElement, insertElement, deleteElement, mergeElement, nestElement, unnestElement } from '../utils/elementDispatchUtil';
+import { createElementByType, createElementByElement } from '../utils/elementCreate';
 
 export const ElementContext = createContext();
 
@@ -15,26 +14,6 @@ export const ElementProvider = ({ children }) => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const [detail, setDetail] = useState({})
-
-
-    const createElementByType = (type) => {
-        const id = getRandomID()
-        return {
-            type,
-            id,
-            style: '',
-            styleObject: {},
-            attr: elementMap[type].default
-        }
-    }
-    const createElementByElement = (el) => {
-        return {
-            ...el,
-            id: getRandomID(),
-            styleObject: { ...el.styleObject },
-            attr: { ...el.attr }
-        }
-    }
 
     const [activeElementID, setActiveElementID] = useState('')
     const [unnestWhenDelete, setUnnestWhenDelete] = useState(false)
@@ -63,6 +42,14 @@ export const ElementProvider = ({ children }) => {
             case 'merge':
                 {
                     return mergeElement(state, action.id, action.element || createElementByType(action.elementType))
+                }
+            case 'nest':
+                {
+                    return nestElement({ childrenElement: state }, action.id)
+                }
+            case 'unnest':
+                {
+                    return unnestElement({ childrenElement: state }, action.id)
                 }
             default:
                 return state

@@ -77,7 +77,7 @@ function ProjectHeader() {
                 <Button type="primary" className='mr-2 mb-2 mt-2' size='small'>导出文件</Button>
                 <Checkbox onChange={(e) => {setUnnestWhenDelete(e.target.checked)}} className='mt-2 mb-2' checked={unnestWhenDelete}>删除时解除嵌套</Checkbox>
                 {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { handleBubble() }}>冒泡</Button>}
-                {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { }}>嵌套</Button>}
+                {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => {elementDispatch({ type: 'nest', id: activeElementID })}}>嵌套</Button>}
                 {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { }}>解除嵌套</Button>}
                 {isElementActive && activeElement.type !== 'container' && !activeElement.childrenElement && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { handleCopyElement(activeElement) }}>复制</Button>}
                 {isElementActive && (activeElement.type === 'container' || activeElement.childrenElement) && copyElement && <Button className='mr-2 mb-2 mt-2' size='small' onClick={handlePasteElement}>粘贴</Button>}

@@ -1,12 +1,9 @@
-import { getRandomID } from "../../../utils/randomID"
+import { createNestElement } from "./elementCreate"
 export const replaceElement = (element, id, newElement) => {
     let res = []
     for (let i = 0; i < element.childrenElement.length; i++) {
         const item = element.childrenElement[i]
-        if (item.id === id) {
-            console.log(newElement);
-            res.push(newElement)
-        }
+        if (item.id === id) res.push(newElement)
         else {
             if (item.childrenElement) {
                 res.push({
@@ -51,7 +48,6 @@ export const insertElement = (element, id, newElement, offset) => {
             if (offset === 0) res.push(newElement, item)
             else if (offset === 1) res.push(item, newElement)
             else res.push(item)
-            console.log(res);
         }
         else if (item.childrenElement) res.push({
             ...item,
@@ -100,15 +96,33 @@ export const mergeElement = (element, id, newElement) => {
         })
         else {
             if (item.id === id) {
+                res.push(createNestElement([item, newElement]))
+            }
+            else res.push(item)
+        }
+    }
+    return res
+}
+
+export const nestElement = (element, id) => {
+    let res = []
+    for (let i = 0; i < element.childrenElement.length; i++) {
+        const item = element.childrenElement[i]
+        if (item.id === id)
+            res.push(createNestElement([item]))
+        else {
+            if (item.childrenElement) {
                 res.push({
-                    id: getRandomID(),
-                    childrenElement: [item, newElement],
-                    style: {},
-                    styleObject: {}
+                    ...item,
+                    childrenElement: nestElement(item, id)
                 })
             }
             else res.push(item)
         }
     }
     return res
+}
+
+export const unnestElement = () => {
+
 }
