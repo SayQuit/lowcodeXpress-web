@@ -7,6 +7,7 @@ import { successMessage } from '../../../utils/message';
 import { findActiveElement, findActiveComponent, findActiveIndex } from '../utils/findActive';
 import { pushElement, replaceElement, insertElement, deleteElement, mergeElement, nestElement, unnestElement } from '../utils/elementDispatchUtil';
 import { createElementByType, createElementByElement } from '../utils/elementCreate';
+import { getRandomID } from '../../../utils/randomID';
 
 export const ElementContext = createContext();
 
@@ -56,6 +57,62 @@ export const ElementProvider = ({ children }) => {
         }
     }, [])
 
+    const [variable, variableDispatch] = useReducer((state, action) => {
+        switch (action.type) {
+            case 'set':
+                return action.value
+            case 'push':
+                {
+                    return [...state, { ...action.variable, id: getRandomID() }]
+                }
+            case 'change':
+                {
+                    return state.map((item) => {
+                        if (item.id !== action.variable.id) return item
+                        else return {
+                            ...item,
+                            ...action.variable
+                        }
+                    })
+                }
+            case 'delete':
+                {
+                    return state.filter((item) => {
+                        return item.id !== action.id
+                    })
+                }
+            default: return state
+        }
+    }, [])
+
+    const [event, eventDispatch] = useReducer((state, action) => {
+        switch (action.type) {
+            case 'set':
+                return action.value
+            case 'push':
+                {
+                    return [...state, { ...action.event, id: getRandomID() }]
+                }
+            case 'bind':
+                {
+                    return state.map((item) => {
+                        if (item.id !== action.id) return item
+                        else return {
+                            ...item,
+                            bind: action.bind
+                        }
+                    })
+                }
+            case 'delete':
+                {
+                    return state.filter((item) => {
+                        return item.id !== action.id
+                    })
+                }
+            default: return state
+        }
+    }, [])
+
 
     const activeIndex = useMemo(() => {
         return findActiveIndex(element, activeElementID)
@@ -70,8 +127,8 @@ export const ElementProvider = ({ children }) => {
     }, [activeElement])
 
     const component = useMemo(() => {
-        return parseElementToComponent(element)
-    }, [element])
+        return parseElementToComponent(element, variable)
+    }, [element, variable])
     const activeComponent = useMemo(() => {
         return findActiveComponent(component, activeElementID)
     }, [component, activeElementID])
@@ -86,14 +143,16 @@ export const ElementProvider = ({ children }) => {
             return
         }
         setDetail(res.data)
+        console.log(res.data);
         elementDispatch({ type: 'set', value: res.data.element })
+        variableDispatch({ type: 'set', value: res.data.variable })
     }, [navigate])
 
     const setProjectDetail = useCallback(async () => {
-        const res = await setProjectDetailRequest(detail, element)
+        const res = await setProjectDetailRequest(detail, element, variable)
         if (!res) return
         successMessage('保存成功')
-    }, [element, detail])
+    }, [element, detail, variable])
 
     useEffect(() => {
         const id = searchParams.get('id')
@@ -143,7 +202,11 @@ export const ElementProvider = ({ children }) => {
                 createElementByElement,
                 activeElementParent,
                 setUnnestWhenDelete,
-                unnestWhenDelete
+                unnestWhenDelete,
+                variable,
+                variableDispatch,
+                event,
+                eventDispatch
             }}>
             {children}
         </ElementContext.Provider>

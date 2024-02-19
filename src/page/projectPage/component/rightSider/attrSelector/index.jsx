@@ -9,7 +9,7 @@ import CheckoutMode from '../component/checkoutMode'
 import { elementMap } from '../../../utils/elementGroup';
 function AttrSelector() {
 
-    const { elementDispatch, activeElement, activeElementID, isElementActive } = useContext(ElementContext);
+    const { elementDispatch, activeElement, activeElementID } = useContext(ElementContext);
 
     const onChange = (e) => {
         const { type, value } = e;
@@ -30,7 +30,7 @@ function AttrSelector() {
     }
 
     return (
-        isElementActive && <Flex gap="small" vertical className='right-tab'>
+        <Flex gap="small" vertical className='right-tab'>
             {attrGroup.map(item => {
                 return elementMap[activeElement.type].attrSelector.includes(item.type) &&
                     <React.Fragment key={item.type}>
@@ -40,6 +40,7 @@ function AttrSelector() {
                                 defaultValue={activeElement.attr[item.type] || ''}
                                 name={item.name}
                                 type={item.type}
+                                tab={'attr'}
                             />
                         )}
                         {item.componentType === 'checkout' && (
@@ -48,8 +49,10 @@ function AttrSelector() {
                                 defaultValue={activeElement.attr[item.type] || false}
                                 name={item.name}
                                 type={item.type}
+                                tab={'attr'}
                             />
                         )}
+                        
                     </React.Fragment>
             })}
         </Flex>

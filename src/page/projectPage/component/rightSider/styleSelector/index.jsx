@@ -12,7 +12,7 @@ import ColorPickerMode from '../component/colorPickerMode';
 // import { elementMap } from '../../../utils/elementGroup';
 function StyleSelector() {
 
-    const { elementDispatch, activeElement, isElementActive, activeElementID } = useContext(ElementContext);
+    const { elementDispatch, activeElement, activeElementID } = useContext(ElementContext);
 
     const onChange = (e) => {
         const { type, value } = e;
@@ -45,7 +45,7 @@ function StyleSelector() {
     }
 
     return (
-        isElementActive && <Flex gap="small" vertical className='right-tab' key={activeElementID}>
+        <Flex gap="small" vertical className='right-tab' key={activeElementID}>
             {styleGroup.map(item => {
                 // todo
                 //  elementMap[activeElement.type].styleSelector.includes(item.type) &&
@@ -56,6 +56,7 @@ function StyleSelector() {
                             defaultValue={activeElement.styleObject[item.type] || ''}
                             name={item.name}
                             type={item.type}
+                            tab={'style'}
                         />
                     )}
                     {item.componentType === 'inputNumber' && (
@@ -65,6 +66,7 @@ function StyleSelector() {
                             addonAfter={item.addonAfter}
                             name={item.name}
                             type={item.type}
+                            tab={'style'}
                         />
                     )}
                     {item.componentType === 'select' && (
@@ -74,6 +76,7 @@ function StyleSelector() {
                             name={item.name}
                             type={item.type}
                             options={item.options}
+                            tab={'style'}
                         />
                     )}
                     {item.componentType === 'colorPicker' && (
@@ -82,6 +85,7 @@ function StyleSelector() {
                             defaultValue={activeElement.styleObject[item.type] || item.defaultValue}
                             name={item.name}
                             type={item.type}
+                            tab={'style'}
                         />
                     )}
                 </React.Fragment>

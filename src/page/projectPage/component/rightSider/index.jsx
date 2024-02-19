@@ -2,11 +2,12 @@ import { useState, useContext } from 'react';
 import '../../style/right.css'
 import StyleSelector from './styleSelector';
 import AttrSelector from './attrSelector'
+import ConfigSelector from './configSelector';
 import { Tabs, Empty } from 'antd';
 import { ElementContext } from '../../provider/elementProvider';
 
 function RightSider() {
-    const { isElementActive, activeElement,activeElementID } = useContext(ElementContext)
+    const { isElementActive, activeElement, activeElementID } = useContext(ElementContext)
     const [activeKey, setActiveKey] = useState('style')
     const items = [
         {
@@ -31,7 +32,8 @@ function RightSider() {
             <Tabs defaultActiveKey={activeKey} items={items} onChange={(key) => { setActiveKey(key) }} size='large' type="card" centered />
             {activeKey === 'style' && isElementActive && <StyleSelector></StyleSelector>}
             {activeKey === 'attr' && isElementActive && !activeElement.childrenElement && <AttrSelector></AttrSelector>}
-            {!isElementActive && <Empty className='right-empty'></Empty>}
+            {activeKey === 'config' && <ConfigSelector></ConfigSelector>}
+            {!isElementActive && activeKey !== 'config' && <Empty className='right-empty'></Empty>}
         </div>
     );
 }
