@@ -145,13 +145,14 @@ export const ElementProvider = ({ children }) => {
         setDetail(res.data)
         elementDispatch({ type: 'set', value: res.data.element })
         variableDispatch({ type: 'set', value: res.data.variable })
+        eventDispatch({ type: 'set', value: res.data.event })
     }, [navigate])
 
     const setProjectDetail = useCallback(async () => {
-        const res = await setProjectDetailRequest(detail, element, variable)
+        const res = await setProjectDetailRequest(detail, element, variable, event)
         if (!res) return
         successMessage('保存成功')
-    }, [element, detail, variable])
+    }, [element, detail, variable, event])
 
     useEffect(() => {
         const id = searchParams.get('id')
