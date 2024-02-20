@@ -143,7 +143,6 @@ export const ElementProvider = ({ children }) => {
             return
         }
         setDetail(res.data)
-        console.log(res.data);
         elementDispatch({ type: 'set', value: res.data.element })
         variableDispatch({ type: 'set', value: res.data.variable })
     }, [navigate])
