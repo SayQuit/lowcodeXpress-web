@@ -8,7 +8,7 @@ function BoardConatiner({ componentNode, boardRef }) {
 
 
     const { onElementSelectVisibleChange, elementSelectVisible } = useContext(LeftSiderContext);
-    const { elementDispatch, element, setActiveElementID, activeElementID } = useContext(ElementContext);
+    const { elementDispatch, element, setActiveElementID, activeElementID, component } = useContext(ElementContext);
 
     const itemRef = useRef(null)
 
@@ -32,7 +32,7 @@ function BoardConatiner({ componentNode, boardRef }) {
 
     useEffect(() => {
         setContainerRect()
-    }, [itemRef, element, elementSelectVisible, setContainerRect])
+    }, [itemRef, elementSelectVisible, setContainerRect, component])
 
     useEffect(() => {
         window.addEventListener('resize', setContainerRect);
