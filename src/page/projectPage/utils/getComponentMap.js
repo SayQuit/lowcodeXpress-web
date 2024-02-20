@@ -1,4 +1,4 @@
-import { elementGroup } from "../elementGroup";
+import { elementGroup } from "./elementGroup";
 export const getComponentMap = {}
 
 const initGetComponentMap = () => {

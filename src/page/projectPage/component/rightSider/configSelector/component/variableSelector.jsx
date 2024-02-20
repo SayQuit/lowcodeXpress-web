@@ -1,9 +1,9 @@
-import '../../../style/right.css'
+import '../../../../style/right.css'
 import React, { useMemo, useState, useContext } from 'react';
 import { Button, Modal } from 'antd';
 import VariableItem from './variableItem';
-import { confirmMessage, successMessage, warningMessage } from '../../../../../utils/message';
-import { ElementContext } from '../../../provider/elementProvider';
+import { confirmMessage, successMessage, warningMessage } from '../../../../../../utils/message';
+import { ElementContext } from '../../../../provider/elementProvider';
 function VariableSelector() {
     const { variable, variableDispatch, activeElementID, activeElement } = useContext(ElementContext)
 
@@ -40,7 +40,7 @@ function VariableSelector() {
     }
     const handleCreateNewVariable = () => {
         if (!newVariableValid) {
-            warningMessage('请填入基本信息')
+            warningMessage('信息未填写完整')
             return
         }
         variableDispatch({ type: 'push', variable: newVariable })
@@ -68,12 +68,12 @@ function VariableSelector() {
         successMessage('成功绑定')
     }
 
-    const handleDeleteVariable=(id)=>{
+    const handleDeleteVariable = (id) => {
         confirmMessage('确认删除吗')
-        .then(() => {
-            variableDispatch({ type: 'delete', id })
-        })
-        .catch(() => { })
+            .then(() => {
+                variableDispatch({ type: 'delete', id })
+            })
+            .catch(() => { })
     }
 
     return (
@@ -90,7 +90,7 @@ function VariableSelector() {
                     )
                 })
                     : ''}
-            {modalVisible && <Modal open={modalVisible} centered onCancel={() => { setModalVisible(false) }} okText={'确认'} cancelText={'取消'} onOk={handleCreateNewVariable}>
+            {modalVisible && <Modal width={700} open={modalVisible} centered onCancel={() => { setModalVisible(false) }} okText={'确认'} cancelText={'取消'} onOk={handleCreateNewVariable}>
                 <VariableItem onChange={onNewVariableChange} variable={newVariable}></VariableItem>
             </Modal>}
         </>

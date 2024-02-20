@@ -1,4 +1,4 @@
-import '../../../style/right.css'
+import '../../../../style/right.css'
 import { Flex, Input, InputNumber, Select } from 'antd';
 
 const typeOptions = [

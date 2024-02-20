@@ -21,7 +21,9 @@ function ProjectHeader() {
         createElementByElement,
         activeElementParent,
         unnestWhenDelete,
-        setUnnestWhenDelete
+        setUnnestWhenDelete,
+        setElementFloat,
+        elementFloat
     } = useContext(ElementContext)
 
     const tagList = useMemo(() => {
@@ -102,6 +104,8 @@ function ProjectHeader() {
                 <Button type="primary" className='mr-2 mb-2 mt-2' size='small'>上线</Button>
                 <Button type="primary" className='mr-2 mb-2 mt-2' size='small'>导出文件</Button>
                 <Button type="primary" className='mr-2 mb-2 mt-2' size='small'>导出JSON</Button>
+                {(!elementFloat) && <Button type="primary" className='mr-2 mb-2 mt-2' size='small' onClick={() => { setElementFloat(true) }}>元素上浮</Button>}
+                {elementFloat && <Button type="primary" className='mr-2 mb-2 mt-2' size='small' onClick={() => { setElementFloat(false) }}>元素下沉</Button>}
                 <Checkbox onChange={(e) => { setUnnestWhenDelete(e.target.checked) }} className='mt-2 mb-2' checked={unnestWhenDelete}>删除时解除嵌套</Checkbox>
                 {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { handleBubble() }}>冒泡</Button>}
                 {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { handleNest() }}>嵌套</Button>}

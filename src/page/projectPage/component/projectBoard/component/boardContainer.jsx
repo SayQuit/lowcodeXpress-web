@@ -8,7 +8,7 @@ function BoardConatiner({ componentNode, boardRef }) {
 
 
     const { onElementSelectVisibleChange, elementSelectVisible } = useContext(LeftSiderContext);
-    const { elementDispatch, element, setActiveElementID, activeElementID, component } = useContext(ElementContext);
+    const { elementDispatch, element, setActiveElementID, activeElementID, component, elementFloat } = useContext(ElementContext);
 
     const itemRef = useRef(null)
 
@@ -94,7 +94,7 @@ function BoardConatiner({ componentNode, boardRef }) {
                 ${componentNode && (componentNode.value || componentNode.childrenElement) && isOver ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''} 
                 ${isOver || (componentNode && activeElementID === componentNode.id) ? 'board-container-active' : ''}`}
                 ref={dropRef}
-                style={{ height: height + 'px', width: width + 'px', top: top + 'px', left: left + 'px' }}
+                style={{ height: height + 'px', width: width + 'px', top: top + 'px', left: left + 'px', zIndex: elementFloat ? '-1' : '1' }}
                 onClick={() => { if (componentNode) setActiveElementID(componentNode.id) }}
             >
             </div>

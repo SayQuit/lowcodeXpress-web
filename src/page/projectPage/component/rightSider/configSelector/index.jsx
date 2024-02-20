@@ -1,8 +1,8 @@
 import '../../../style/right.css'
 import React, { useContext } from 'react';
 import { Flex, Button } from 'antd';
-import VariableSelector from './variableSelector';
-import EventSelector from './eventSelector';
+import VariableSelector from './component/variableSelector';
+import EventSelector from './component/eventSelector';
 import { ElementContext } from '../../../provider/elementProvider';
 function ConfigSelector() {
     const {

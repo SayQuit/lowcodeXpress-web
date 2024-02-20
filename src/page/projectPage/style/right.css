@@ -57,8 +57,14 @@
 
 .right-table-value {
     flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .right-tab :where(.css-dev-only-do-not-override-dkbvqv).ant-input-sm{
     padding: 0;
+}
+
+.ant-select-selector{
+    width: 100%;
 }
