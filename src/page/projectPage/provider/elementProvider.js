@@ -167,15 +167,25 @@ export const ElementProvider = ({ children }) => {
                 }
                 else if (item.type === 'request') {
                     const { url, method, params, set } = item.request
-                    xhrRequest(url, method, params)
-                        .then((res) => {
-                            if (set) {
-                                const data = JSON.parse(res).data
-                                variable.forEach(item => {
-                                    if (data[item.name]) variableDispatch({ type: 'change', variable: { ...item, value: data[item.name] } })
-                                });
+                    const param={}
+                    variable.forEach((variableItem)=>{
+                        params.forEach((paramsItem)=>{
+                            if(paramsItem===variableItem.name){
+                                param[paramsItem]=variableItem.value
                             }
                         })
+                    })
+                    fn = () => {
+                        xhrRequest(url, method, param)
+                            .then((res) => {
+                                if (set) {
+                                    const data = JSON.parse(res).data
+                                    variable.forEach(item => {
+                                        if (data[item.name]) variableDispatch({ type: 'change', variable: { ...item, value: data[item.name] } })
+                                    });
+                                }
+                            })
+                    }
                 }
                 else { }
                 eventAttr[item.bindEvent] = fn
