@@ -60,7 +60,7 @@ function EventSelector() {
 
     }
 
-    const handleChangeEvent = (e,item) => {
+    const handleChangeEvent = (e, item) => {
         let event = item
         if (e.ty === 'type') event = initEvent()
         eventDispatch({
@@ -113,17 +113,15 @@ function EventSelector() {
     return (
         <>
             <Button type='primary' onClick={() => setModalVisible(!modalVisible)}>添加函数</Button>
-            <div className='right-table'>
-                {
-                    event.map(item => {
-                        return <React.Fragment key={item.id}>
-                            <EventItem onChange={(e)=>{handleChangeEvent(e,item)}} event={item}></EventItem>
-                            <Button size='small' className='w-full mt-2' onClick={() => { handleBindElement(item) }}>绑定选中元素</Button>
-                            <Button size='small' danger type='primary' className='w-full mt-2' onClick={() => { handleDeleteEvent(item.id) }}>删除</Button>
-                        </React.Fragment>
-                    })
-                }
-            </div>
+            {
+                event.map(item => {
+                    return <div className='right-table' key={item.id}>
+                        <EventItem onChange={(e) => { handleChangeEvent(e, item) }} event={item}></EventItem>
+                        <Button size='small' className='w-full mt-2' onClick={() => { handleBindElement(item) }}>绑定选中元素</Button>
+                        <Button size='small' danger type='primary' className='w-full mt-2' onClick={() => { handleDeleteEvent(item.id) }}>删除</Button>
+                    </div>
+                })
+            }
             {modalVisible && <Modal width={700} open={modalVisible} centered onCancel={() => { setModalVisible(false) }} okText={'确认'} cancelText={'取消'} onOk={handleCreateNewEvent}>
                 <EventItem event={newEvent} onChange={handleChangeNewEvent}></EventItem>
             </Modal>}
