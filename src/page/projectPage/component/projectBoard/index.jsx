@@ -12,7 +12,7 @@ function ProjectBoard() {
         <div className="main-board" onClickCapture={() => { setActiveElementID('') }} ref={boardRef}>
             {component.map((children) => {
                 return (
-                    <BoardConatiner key={children.id} componentNode={children} boardRef={boardRef}></BoardConatiner>
+                    <BoardConatiner key={children.id} id={children.id} componentNode={children} boardRef={boardRef}></BoardConatiner>
                 )
             })}
             <BoardConatiner componentNode={''} boardRef={boardRef}></BoardConatiner>

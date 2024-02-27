@@ -4,7 +4,8 @@ import { useDrop } from 'react-dnd';
 import { LeftSiderContext } from '../../../provider/leftSiderProvider';
 import { ElementContext } from '../../../provider/elementProvider';
 import { warningMessage } from '../../../../../utils/message';
-function BoardConatiner({ componentNode, boardRef }) {
+
+function BoardConatiner({ componentNode, boardRef, id }) {
 
 
     const { onElementSelectVisibleChange, elementSelectVisible } = useContext(LeftSiderContext);
@@ -21,14 +22,16 @@ function BoardConatiner({ componentNode, boardRef }) {
 
     const setContainerRect = useCallback(() => {
         if (!itemRef || !itemRef.current || !boardRef || !boardRef.current) return;
+        let current = itemRef.current
+        if (!itemRef.current.getBoundingClientRect) current = document.getElementById(id)
         const parentRect = boardRef.current.getBoundingClientRect();
-        const { top, left } = itemRef.current.getBoundingClientRect();
+        const { top, left } = current.getBoundingClientRect();
         const scrollTop = boardRef.current.scrollTop
-        setHeight(itemRef.current.clientHeight);
-        setWidth(itemRef.current.offsetWidth);
+        setHeight(current.clientHeight);
+        setWidth(current.offsetWidth);
         setTop(top - parentRect.top + scrollTop);
         setLeft(left - parentRect.left);
-    }, [itemRef, boardRef]);
+    }, [itemRef, boardRef, id]);
 
     useEffect(() => {
         setContainerRect()
@@ -101,7 +104,7 @@ function BoardConatiner({ componentNode, boardRef }) {
             {
                 componentNode &&
                 <React.Fragment>
-                    {componentNode.value && React.cloneElement(componentNode.value, { ref: itemRef })}
+                    {componentNode.value && React.cloneElement(componentNode.value, { ref: itemRef, id })}
                     {componentNode.childrenElement &&
                         <div ref={itemRef} style={componentNode.styleObject}>
                             {
