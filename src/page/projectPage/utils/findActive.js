@@ -9,13 +9,6 @@ export const findActiveElement = (element, activeID) => {
         }
         else {
             if (item.childrenElement) res = findActiveElement(item.childrenElement, activeID)
-            else if (item.circleElement) {
-                console.log(item.circleElement);
-                console.log('--------------------------------');
-                res = findActiveElement([item.circleElement], activeID)
-                console.log('--------------------------------');
-                console.log(res);
-            }
             if (res) break
         }
     }
