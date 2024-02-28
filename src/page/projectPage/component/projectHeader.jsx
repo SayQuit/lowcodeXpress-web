@@ -19,6 +19,7 @@ function ProjectHeader() {
         setActiveElementID,
         activeElementID,
         createElementByElement,
+        createElementByNestElement,
         activeElementParent,
         unnestWhenDelete,
         setUnnestWhenDelete,
@@ -42,12 +43,12 @@ function ProjectHeader() {
     const handlePasteElement = () => {
         setActiveElementID('')
         elementDispatch({ type: 'replace', element: copyElement, id: activeElementID })
-        setCopyElement(createElementByElement(copyElement))
+        setCopyElement(copyElement.type === 'nest' ? createElementByNestElement(copyElement) : createElementByElement(copyElement))
         successMessage('粘贴成功')
     }
 
     const handleCopyElement = () => {
-        setCopyElement(createElementByElement(activeElement))
+        setCopyElement(activeElement.type === 'nest' ? createElementByNestElement(activeElement) : createElementByElement(activeElement))
         successMessage('复制成功')
     }
 
@@ -110,7 +111,7 @@ function ProjectHeader() {
                 {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { handleBubble() }}>冒泡</Button>}
                 {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { handleNest() }}>嵌套</Button>}
                 {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { handleUnnest() }}>解除父级嵌套</Button>}
-                {isElementActive && activeElement.type !== 'container' && !activeElement.childrenElement && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { handleCopyElement(activeElement) }}>复制</Button>}
+                {isElementActive && activeElement.type !== 'container' && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { handleCopyElement(activeElement) }}>复制</Button>}
                 {isElementActive && copyElement && <Button className='mr-2 mb-2 mt-2' size='small' onClick={handlePasteElement}>粘贴</Button>}
                 {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 0 }) }}>上方放置</Button>}
                 {isElementActive && <Button className='mr-2 mb-2 mt-2' size='small' onClick={() => { elementDispatch({ type: 'insert', elementType: 'container', id: activeElementID, offset: 1 }) }}>下方放置</Button>}

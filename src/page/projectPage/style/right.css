@@ -68,3 +68,9 @@
 .ant-select-selector{
     width: 100%;
 }
+
+.circle-selector{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+}

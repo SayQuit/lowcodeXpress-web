@@ -1,5 +1,6 @@
 export const findActiveElement = (element, activeID) => {
     let res = null
+    console.log(element,activeID);
     for (let i = 0; i < element.length; i++) {
         const item = element[i]
         if (activeID === item.id) {
@@ -8,6 +9,13 @@ export const findActiveElement = (element, activeID) => {
         }
         else {
             if (item.childrenElement) res = findActiveElement(item.childrenElement, activeID)
+            else if (item.circleElement) {
+                console.log(item.circleElement);
+                console.log('--------------------------------');
+                res = findActiveElement([item.circleElement], activeID)
+                console.log('--------------------------------');
+                console.log(res);
+            }
             if (res) break
         }
     }

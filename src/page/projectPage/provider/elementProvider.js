@@ -5,7 +5,7 @@ import { getProjectDetailRequest, setProjectDetailRequest } from '../../../reque
 import { successMessage } from '../../../utils/message';
 import { findActiveElement, findActiveComponent, findActiveIndex } from '../utils/findActive';
 import { pushElement, replaceElement, insertElement, deleteElement, mergeElement, nestElement, unnestElement } from '../utils/elementDispatchUtil';
-import { createElementByType, createElementByElement } from '../utils/elementCreate';
+import { createElementByType, createElementByElement, createElementByNestElement } from '../utils/elementCreate';
 import { getRandomID } from '../../../utils/randomID';
 import { getComponentMap } from '../utils/getComponentMap'
 import { xhrRequest } from '../utils/xhrRequest';
@@ -87,6 +87,14 @@ export const ElementProvider = ({ children }) => {
         }
     }, [])
 
+    const variableMap = useMemo(() => {
+        const map = {}
+        variable.map((item) => {
+            return map[item.name] = item
+        })
+        return map
+    }, [variable])
+
     const [event, eventDispatch] = useReducer((state, action) => {
         switch (action.type) {
             case 'set':
@@ -167,11 +175,11 @@ export const ElementProvider = ({ children }) => {
                 }
                 else if (item.type === 'request') {
                     const { url, method, params, set } = item.request
-                    const param={}
-                    variable.forEach((variableItem)=>{
-                        params.forEach((paramsItem)=>{
-                            if(paramsItem===variableItem.name){
-                                param[paramsItem]=variableItem.value
+                    const param = {}
+                    variable.forEach((variableItem) => {
+                        params.forEach((paramsItem) => {
+                            if (paramsItem === variableItem.name) {
+                                param[paramsItem] = variableItem.value
                             }
                         })
                     })
@@ -192,14 +200,14 @@ export const ElementProvider = ({ children }) => {
             })
 
 
-            if (item.childrenElement) {
+            if (item.type === 'nest') {
                 childrenElement = parseElementToComponent(item.childrenElement, variable, event)
                 containerStyle = {
                     style: item.style,
                     styleObject: item.styleObject,
                 }
             }
-            else if (item.type !== 'container') {
+            else if (item.type !== 'container' && item.type !== 'circle') {
                 const attribute = {
                     style: item.styleObject,
                     key: item.id,
@@ -217,7 +225,37 @@ export const ElementProvider = ({ children }) => {
 
                 );
             }
+            else if (item.type === 'circle' && item.target.length) {
+                const value = variableMap[item.circleArrayVariableName].value[item.circleArrayKey]
+
+                const temp = []
+
+                value.forEach((item2) => {
+                    let copied = item.circleElement.childrenElement ? createElementByNestElement(item.circleElement) : createElementByElement(item.circleElement)
+                    item.target.forEach((item3) => {
+                        let from = item2
+                        let to = copied
+                        item3.fromArray.forEach((item4) => {
+                            from = from[item4]
+                        })
+                        item3.toArray.forEach((item4, index) => {
+                            if (index <= item3.toArray.length - 2) to = to[item4]
+                        })
+                        const lastKey = item3.toArray[item3.toArray.length - 1]
+                        to[lastKey] = from
+
+                    })
+                    temp.push(copied)
+                })
+
+                childrenElement = parseElementToComponent(temp, variable, event)
+                containerStyle = {
+                    style: item.style,
+                    styleObject: item.styleObject,
+                }
+            }
             res.push({
+                type: item.type,
                 value,
                 id: item.id,
                 childrenElement,
@@ -225,7 +263,7 @@ export const ElementProvider = ({ children }) => {
             })
         })
         return res
-    }, [set])
+    }, [set, variableMap])
 
     const activeIndex = useMemo(() => {
         return findActiveIndex(element, activeElementID)
@@ -295,6 +333,10 @@ export const ElementProvider = ({ children }) => {
         return res
     }, [element, getActiveElementParent])
 
+    const pasteCircleElement = () => {
+        elementDispatch({ type: 'replace', id: activeElement.id, element: { ...activeElement, circleElement: copyElement } })
+    }
+
 
 
 
@@ -315,6 +357,7 @@ export const ElementProvider = ({ children }) => {
                 copyElement,
                 setCopyElement,
                 createElementByElement,
+                createElementByNestElement,
                 activeElementParent,
                 setUnnestWhenDelete,
                 unnestWhenDelete,
@@ -324,7 +367,8 @@ export const ElementProvider = ({ children }) => {
                 eventDispatch,
                 elementFloat,
                 setElementFloat,
-                get
+                get,
+                pasteCircleElement
             }}>
             {children}
         </ElementContext.Provider>

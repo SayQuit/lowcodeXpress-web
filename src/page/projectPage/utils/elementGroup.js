@@ -56,6 +56,7 @@ import {
     HeatMapOutlined,
     CheckCircleOutlined,
     SketchOutlined,
+    RetweetOutlined
 } from '@ant-design/icons';
 
 import {
@@ -146,8 +147,18 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
+            },
+            {
+                name: '循环渲染',
+                type: 'circle',
+                icon: <RetweetOutlined />,
+                getComponent: () => {
+                    return ''
+                },
+                styleSelector: [],
+                attrSelector: [],
+                default: {},
             },
         ]
     },
@@ -164,7 +175,6 @@ export const elementGroup = [
                 },
                 styleSelector: ['display', 'width', 'height', 'fontSize', 'textAlign', 'color', 'backgroundColor'],
                 attrSelector: ['children', 'html'],
-                containerStyleSelector: [],
                 default: {
                     children: '文本'
                 }
@@ -178,7 +188,6 @@ export const elementGroup = [
                 },
                 styleSelector: ['display', 'width', 'height', 'fontSize', 'color', 'backgroundColor'],
                 attrSelector: ['children'],
-                containerStyleSelector: [],
                 default: {
                     children: '按钮'
                 }
@@ -192,7 +201,6 @@ export const elementGroup = [
                 },
                 styleSelector: ['display', 'width', 'height'],
                 attrSelector: ['src'],
-                containerStyleSelector: [],
                 default: {
                     src: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
                 }
@@ -206,7 +214,6 @@ export const elementGroup = [
                 },
                 styleSelector: ['display', 'width', 'height', 'fontSize', 'textAlign', 'color', 'backgroundColor'],
                 attrSelector: ['children', 'href'],
-                containerStyleSelector: [],
                 default: {
                     href: '/',
                     children: '链接'
@@ -222,7 +229,6 @@ export const elementGroup = [
                 },
                 styleSelector: ['display', 'width', 'height'],
                 attrSelector: ['src', 'autoPlay', 'controls', 'loop'],
-                containerStyleSelector: [],
                 default: {
                     src: 'https://terra-1-g.djicdn.com/851d20f7b9f64838a34cd02351370894/skypixel-2024/PC.mp4',
                     controls: true,
@@ -245,7 +251,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -257,7 +262,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -269,7 +273,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -289,7 +292,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -315,7 +317,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -327,7 +328,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -339,7 +339,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -351,7 +350,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -363,7 +361,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -375,7 +372,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -387,7 +383,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -399,7 +394,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -411,7 +405,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -423,7 +416,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -435,7 +427,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -447,7 +438,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -459,7 +449,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -471,7 +460,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -498,7 +486,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -520,7 +507,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -532,7 +518,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -547,7 +532,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -559,7 +543,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -571,7 +554,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -583,7 +565,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -595,7 +576,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -607,7 +587,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -619,7 +598,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -631,7 +609,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -643,7 +620,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -655,7 +631,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -667,7 +642,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
             {
@@ -679,7 +653,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
         ]
@@ -699,7 +672,6 @@ export const elementGroup = [
                 },
                 styleSelector: [],
                 attrSelector: [],
-                containerStyleSelector: [],
                 default: {}
             },
         ]
