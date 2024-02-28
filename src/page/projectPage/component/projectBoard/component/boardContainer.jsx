@@ -97,7 +97,7 @@ function BoardConatiner({ componentNode, boardRef, id }) {
                 ${componentNode && (componentNode.value || componentNode.childrenElement) && isOver ? `${dropArea === 'middle' ? 'board-container-right' : ''}` : ''} 
                 ${isOver || (componentNode && activeElementID === componentNode.id) ? 'board-container-active' : ''}`}
                 ref={dropRef}
-                style={{ height: height + 'px', width: width + 'px', top: top + 'px', left: left + 'px', zIndex: componentNode.type === 'circle' ? '2' : (elementFloat ? '-1' : '1') }}
+                style={{ height: height + 'px', width: width + 'px', top: top + 'px', left: left + 'px', zIndex: elementFloat ? '-1' : (componentNode.type === 'circle' ? '2' : '1') }}
                 onClick={() => { if (componentNode) setActiveElementID(componentNode.id) }}
             >
             </div>
