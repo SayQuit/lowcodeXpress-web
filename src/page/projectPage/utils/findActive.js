@@ -1,6 +1,5 @@
 export const findActiveElement = (element, activeID) => {
     let res = null
-    console.log(element,activeID);
     for (let i = 0; i < element.length; i++) {
         const item = element[i]
         if (activeID === item.id) {
