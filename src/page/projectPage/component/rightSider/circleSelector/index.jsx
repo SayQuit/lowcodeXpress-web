@@ -1,12 +1,13 @@
 import '../../../style/right.css'
 import React, { useContext, useMemo, useState } from 'react';
-import { Button, Flex } from 'antd';
+import { Button, Flex, Input, Select } from 'antd';
 import { ElementContext } from '../../../provider/elementProvider';
-import { Input, Select } from 'antd';
 import CircleSelectorItem from './circleSelectorItem';
 import { successMessage } from '../../../../../utils/message';
+import ReactJson from 'react-json-view';
+const { TextArea } = Input;
 function CircleSelector() {
-    const { pasteCircleElement, activeElement, variable, elementDispatch } = useContext(ElementContext)
+    const { pasteCircleElement, activeElement, variable, elementDispatch, variableMap } = useContext(ElementContext)
 
 
     const [circleArrayKey, setCircleArrayKey] = useState('')
@@ -16,6 +17,11 @@ function CircleSelector() {
         if (!circleArrayVariable) return []
         else return circleArrayVariable[circleArrayKey] || []
     }, [circleArrayVariable, circleArrayKey])
+
+    const currentCircleArray = useMemo(() => {
+        if(!variableMap[activeElement.circleArrayVariableName]||!variableMap[activeElement.circleArrayVariableName].value)return []
+        return variableMap[activeElement.circleArrayVariableName].value[activeElement.circleArrayKey] || []
+    }, [variableMap, activeElement])
 
     const [target, setTarget] = useState([])
 
@@ -42,7 +48,11 @@ function CircleSelector() {
 
     return (
         <Flex vertical gap='small' className='ml-2 mr-2'>
-            <Button className='flex-1 ' onClick={pasteCircleElement}>粘贴</Button>
+            {activeElement.circleElement && <div>指向元素</div>}
+            {activeElement.circleElement && <ReactJson src={activeElement.circleElement} style={{ fontSize: '16px' }} displayObjectSize={false} displayDataTypes={false} collapsed={true} />}
+            {(circleArray || currentCircleArray) && <div>数据来源</div>}
+            {(circleArray || currentCircleArray) && <ReactJson src={circleArray.length===0?currentCircleArray : circleArray} style={{ fontSize: '16px' }} displayObjectSize={false} displayDataTypes={false} collapsed={true} />}
+            <Button className='flex-1' onClick={pasteCircleElement}>粘贴</Button>
             <Button type='primary' className='flex-1' onClick={handleConfirm}>确认</Button>
             <Select className='flex-1'
                 placeholder='添加数组'
@@ -52,7 +62,7 @@ function CircleSelector() {
                         value: index
                     }
                 })}
-                onChange={(index) => { setCircleArrayVariableName(variable[index].name);setCircleArrayVariable(variable[index].value) }}
+                onChange={(index) => { setCircleArrayVariableName(variable[index].name); setCircleArrayVariable(variable[index].value) }}
             >
             </Select>
             <Input className='flex-1' onChange={(e) => { setCircleArrayKey(e.target.value) }}></Input>

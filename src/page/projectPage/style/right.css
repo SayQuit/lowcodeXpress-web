@@ -61,16 +61,20 @@
     justify-content: center;
 }
 
-.right-tab :where(.css-dev-only-do-not-override-dkbvqv).ant-input-sm{
+.right-tab :where(.css-dev-only-do-not-override-dkbvqv).ant-input-sm {
     padding: 0;
 }
 
-.ant-select-selector{
+.ant-select-selector {
     width: 100%;
 }
 
-.circle-selector{
+.circle-selector {
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
+}
+
+.copy-icon {
+    display: none !important;
 }

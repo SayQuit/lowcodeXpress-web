@@ -368,7 +368,8 @@ export const ElementProvider = ({ children }) => {
                 elementFloat,
                 setElementFloat,
                 get,
-                pasteCircleElement
+                pasteCircleElement,
+                variableMap
             }}>
             {children}
         </ElementContext.Provider>
