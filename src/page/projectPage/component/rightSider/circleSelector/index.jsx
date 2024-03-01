@@ -1,9 +1,9 @@
 import '../../../style/right.css'
 import React, { useContext, useMemo, useState } from 'react';
-import { Button, Flex, Input, Select } from 'antd';
+import { Button, Flex, Select } from 'antd';
 import { ElementContext } from '../../../provider/elementProvider';
 import CircleSelectorItem from './circleSelectorItem';
-import { successMessage, warningMessage } from '../../../../../utils/message';
+import { successMessage } from '../../../../../utils/message';
 import ReactJson from 'react-json-view';
 function CircleSelector() {
     const { pasteCircleElement, activeElement, variable, elementDispatch, variableMap, props, propsMap } = useContext(ElementContext)

@@ -24,7 +24,8 @@ function ProjectHeader() {
         unnestWhenDelete,
         setUnnestWhenDelete,
         setElementFloat,
-        elementFloat
+        elementFloat,
+        openPreviewPage
     } = useContext(ElementContext)
 
     const tagList = useMemo(() => {
@@ -101,7 +102,7 @@ function ProjectHeader() {
             </div>
             <div className='flex items-center flex-wrap'>
                 <Button type="primary" className='mr-2 mb-2 mt-2' size='small' onClick={setProjectDetail}>保存</Button>
-                <Button type="primary" className='mr-2 mb-2 mt-2' size='small'>预览</Button>
+                <Button type="primary" className='mr-2 mb-2 mt-2' size='small' onClick={openPreviewPage}>预览</Button>
                 <Button type="primary" className='mr-2 mb-2 mt-2' size='small'>上线</Button>
                 <Button type="primary" className='mr-2 mb-2 mt-2' size='small'>导出文件</Button>
                 <Button type="primary" className='mr-2 mb-2 mt-2' size='small'>导出JSON</Button>

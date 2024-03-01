@@ -1,59 +1,16 @@
+import { useCallback, useEffect, useMemo, useReducer } from 'react'
+import React from 'react';
+import './index.css'
+import { xhrRequest } from '../projectPage/utils/xhrRequest';
+import { getComponentMap } from '../projectPage/utils/getComponentMap';
+import { createElementByNestElement, createElementByElement } from '../projectPage/utils/elementCreate';
+import PreviewBoard from './component/previewBoard';
 
-import React, { createContext, useCallback, useEffect, useMemo, useReducer, useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { getProjectDetailRequest, setProjectDetailRequest } from '../../../request';
-import { successMessage } from '../../../utils/message';
-import { findActiveElement, findActiveComponent, findActiveIndex } from '../utils/findActive';
-import { pushElement, replaceElement, insertElement, deleteElement, mergeElement, nestElement, unnestElement } from '../utils/elementDispatchUtil';
-import { createElementByType, createElementByElement, createElementByNestElement } from '../utils/elementCreate';
-import { getRandomID } from '../../../utils/randomID';
-import { getComponentMap } from '../utils/getComponentMap'
-import { xhrRequest } from '../utils/xhrRequest';
-
-export const ElementContext = createContext();
-
-export const ElementProvider = ({ children }) => {
-    const [searchParams] = useSearchParams();
-    const navigate = useNavigate();
-    const [detail, setDetail] = useState({})
-
-    const [activeElementID, setActiveElementID] = useState('')
-    const [elementFloat, setElementFloat] = useState(false)
-    const [unnestWhenDelete, setUnnestWhenDelete] = useState(false)
-
+function PreviewPage() {
     const [element, elementDispatch] = useReducer((state, action) => {
         switch (action.type) {
             case 'set':
                 return action.value
-            case 'push':
-                {
-                    if (!action.id) return [...state, action.element || createElementByType(action.elementType)]
-                    else return pushElement(state, action.id, action.element || createElementByType(action.elementType))
-                }
-            case 'insert':
-                {
-                    return insertElement({ childrenElement: state }, action.id, action.element || createElementByType(action.elementType), action.offset)
-                }
-            case 'delete':
-                {
-                    return deleteElement({ childrenElement: state }, action.id, unnestWhenDelete)
-                }
-            case 'replace':
-                {
-                    return replaceElement({ childrenElement: state }, action.id, action.element || createElementByType(action.elementType))
-                }
-            case 'merge':
-                {
-                    return mergeElement(state, action.id, action.element || createElementByType(action.elementType))
-                }
-            case 'nest':
-                {
-                    return nestElement({ childrenElement: state }, action.id)
-                }
-            case 'unnest':
-                {
-                    return unnestElement({ childrenElement: state }, action.id)
-                }
             default:
                 return state
         }
@@ -63,10 +20,6 @@ export const ElementProvider = ({ children }) => {
         switch (action.type) {
             case 'set':
                 return action.value
-            case 'push':
-                {
-                    return [...state, { ...action.variable, id: getRandomID() }]
-                }
             case 'change':
                 {
                     return state.map((item) => {
@@ -86,15 +39,10 @@ export const ElementProvider = ({ children }) => {
             default: return state
         }
     }, [])
-
     const [props, propsDispatch] = useReducer((state, action) => {
         switch (action.type) {
             case 'set':
                 return action.value
-            case 'push':
-                {
-                    return [...state, { ...action.props, id: getRandomID() }]
-                }
             case 'change':
                 {
                     return state.map((item) => {
@@ -102,6 +50,30 @@ export const ElementProvider = ({ children }) => {
                         else return {
                             ...item,
                             ...action.props
+                        }
+                    })
+                }
+            case 'delete':
+                {
+                    return state.filter((item) => {
+                        return item.id !== action.id
+                    })
+                }
+            default: return state
+        }
+    }, [])
+
+    const [event, eventDispatch] = useReducer((state, action) => {
+        switch (action.type) {
+            case 'set':
+                return action.value
+            case 'change':
+                {
+                    return state.map((item) => {
+                        if (item.id !== action.event.id) return item
+                        else return {
+                            ...item,
+                            ...action.event
                         }
                     })
                 }
@@ -130,34 +102,6 @@ export const ElementProvider = ({ children }) => {
         })
         return map
     }, [props])
-
-    const [event, eventDispatch] = useReducer((state, action) => {
-        switch (action.type) {
-            case 'set':
-                return action.value
-            case 'push':
-                {
-                    return [...state, { ...action.event, id: getRandomID() }]
-                }
-            case 'change':
-                {
-                    return state.map((item) => {
-                        if (item.id !== action.event.id) return item
-                        else return {
-                            ...item,
-                            ...action.event
-                        }
-                    })
-                }
-            case 'delete':
-                {
-                    return state.filter((item) => {
-                        return item.id !== action.id
-                    })
-                }
-            default: return state
-        }
-    }, [])
 
     const get = useCallback((key) => {
         return variableMap[key] || propsMap[key] || null
@@ -305,143 +249,30 @@ export const ElementProvider = ({ children }) => {
         return res
     }, [set, variableMap, propsMap])
 
-    const activeIndex = useMemo(() => {
-        return findActiveIndex(element, activeElementID)
-    }, [element, activeElementID])
-
-    const activeElement = useMemo(() => {
-        return findActiveElement(element, activeElementID)
-    }, [element, activeElementID])
-
-    const isElementActive = useMemo(() => {
-        return activeElement ? true : false
-    }, [activeElement])
-
     const component = useMemo(() => {
         return parseElementToComponent(element, variable, event, props)
     }, [element, variable, event, parseElementToComponent, props])
-    const activeComponent = useMemo(() => {
-        return findActiveComponent(component, activeElementID)
-    }, [component, activeElementID])
-
-
-    const [copyElement, setCopyElement] = useState(null)
-
-    const getProjectDetail = useCallback(async (id) => {
-        const res = await getProjectDetailRequest(id)
-        if (!res) {
-            navigate('/')
-            return
-        }
-        setDetail(res.data)
-        elementDispatch({ type: 'set', value: res.data.element })
-        variableDispatch({ type: 'set', value: res.data.variable })
-        propsDispatch({ type: 'set', value: res.data.props || [] })
-        eventDispatch({ type: 'set', value: res.data.event })
-    }, [navigate])
-
-    const setProjectDetail = useCallback(async () => {
-        const res = await setProjectDetailRequest(detail, element, variable, event, props)
-        if (!res) return
-        successMessage('保存成功')
-    }, [element, detail, variable, event, props])
 
     useEffect(() => {
-        const id = searchParams.get('id')
-        if (!id) navigate('/')
-        else getProjectDetail(id)
-    }, [searchParams, navigate, getProjectDetail])
-
-    const getActiveElementParent = useCallback((el) => {
-        let res = null
-        for (let i = 0; i < el.childrenElement.length; i++) {
-            const item = el.childrenElement[i]
-            if (item.id === activeElementID) {
-                res = el
-                break
-            }
-            if (item.childrenElement) {
-                res = getActiveElementParent(item)
-                if (res) break
-            }
-        }
-        return res
-    }, [activeElementID])
-
-    const activeElementParent = useMemo(() => {
-        let res = getActiveElementParent({ childrenElement: element })
-        if (res && !res.id) res = null
-        return res
-    }, [element, getActiveElementParent])
-
-    const pasteCircleElement = () => {
-        elementDispatch({ type: 'replace', id: activeElement.id, element: { ...activeElement, circleElement: copyElement } })
-    }
-
-    const [previewRef, setPreviewRef] = useState(null)
-    useEffect(() => {
-        if (!previewRef) return
-        const messageData = {
-            element,
-            variable,
-            event,
-            props,
+        const handleMessage = (e) => {
+            const { element, props, variable, event } = e.data
+            if (!(element && props && variable && event)) return
+            elementDispatch({ type: 'set', value: element })
+            variableDispatch({ type: 'set', value: variable })
+            propsDispatch({ type: 'set', value: props })
+            eventDispatch({ type: 'set', value: event })
         };
-        previewRef.postMessage(messageData, '*');
-    }, [element, variable, event, props, detail, previewRef])
+        window.addEventListener('message', handleMessage);
+        return () => {
+            window.removeEventListener('message', handleMessage);
+        };
+    }, []);
 
-
-    const openPreviewPage = () => {
-        const previewRef = window.open(`http://localhost:3000/#/preview?id=${detail.id}`);
-        previewRef.addEventListener('load', function () {
-            const messageData = {
-                element,
-                variable,
-                event,
-                props,
-            };
-            previewRef.postMessage(messageData, `http://localhost:3000/#/preview?id=${detail.id}`);
-        });
-
-        setPreviewRef(previewRef);
-    }
+    
 
     return (
-        <ElementContext.Provider
-            value={{
-                detail,
-                component,
-                element,
-                elementDispatch,
-                activeElementID,
-                setActiveElementID,
-                activeIndex,
-                activeElement,
-                activeComponent,
-                setProjectDetail,
-                isElementActive,
-                copyElement,
-                setCopyElement,
-                createElementByElement,
-                createElementByNestElement,
-                activeElementParent,
-                setUnnestWhenDelete,
-                unnestWhenDelete,
-                variable,
-                variableDispatch,
-                event,
-                eventDispatch,
-                elementFloat,
-                setElementFloat,
-                get,
-                pasteCircleElement,
-                variableMap,
-                props,
-                propsDispatch,
-                propsMap,
-                openPreviewPage
-            }}>
-            {children}
-        </ElementContext.Provider>
+        <PreviewBoard component={component}></PreviewBoard>
     );
-};
+}
+
+export default PreviewPage;

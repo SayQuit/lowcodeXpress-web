@@ -3,6 +3,7 @@ import MainPage from '../page/mainPage'
 import RegisterPage from '../page/registerPage';
 import ProjectSetup from '../page/projectSetup';
 import ProjectPage from '../page/projectPage';
+import PreviewPage from '../page/previewPage';
 const router = [
     {
         path: '/',
@@ -23,6 +24,10 @@ const router = [
     {
         path: '/project',
         element: <ProjectPage></ProjectPage>
+    },
+    {
+        path: '/preview',
+        element: <PreviewPage></PreviewPage>
     },
 
 ]
