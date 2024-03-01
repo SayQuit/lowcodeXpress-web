@@ -87,6 +87,34 @@ export const ElementProvider = ({ children }) => {
         }
     }, [])
 
+    const [props, propsDispatch] = useReducer((state, action) => {
+        switch (action.type) {
+            case 'set':
+                return action.value
+            case 'push':
+                {
+                    return [...state, { ...action.props, id: getRandomID() }]
+                }
+            case 'change':
+                {
+                    return state.map((item) => {
+                        if (item.id !== action.props.id) return item
+                        else return {
+                            ...item,
+                            ...action.props
+                        }
+                    })
+                }
+            case 'delete':
+                {
+                    return state.filter((item) => {
+                        return item.id !== action.id
+                    })
+                }
+            default: return state
+        }
+    }, [])
+
     const variableMap = useMemo(() => {
         const map = {}
         variable.map((item) => {
@@ -94,6 +122,14 @@ export const ElementProvider = ({ children }) => {
         })
         return map
     }, [variable])
+
+    const propsMap = useMemo(() => {
+        const map = {}
+        props.map((item) => {
+            return map[item.name] = item
+        })
+        return map
+    }, [props])
 
     const [event, eventDispatch] = useReducer((state, action) => {
         switch (action.type) {
@@ -124,13 +160,8 @@ export const ElementProvider = ({ children }) => {
     }, [])
 
     const get = useCallback((key) => {
-        let value = null
-        variable.forEach((item) => {
-            if (item.name === key) value = item
-        })
-        if (value) return value.value
-        else return null
-    }, [variable])
+        return variableMap[key] || propsMap[key] || null
+    }, [variableMap, propsMap])
 
     const set = useCallback((key, value) => {
         let varItem = null
@@ -141,7 +172,7 @@ export const ElementProvider = ({ children }) => {
 
     }, [variable])
 
-    const parseElementToComponent = useCallback((element, variable, event) => {
+    const parseElementToComponent = useCallback((element, variable, event, props) => {
         const res = []
         element.forEach((item) => {
             let value = null
@@ -153,6 +184,15 @@ export const ElementProvider = ({ children }) => {
             const variableAttr = {}
             variableArr.forEach((item) => {
                 variableAttr[item.bind] = item.value
+            })
+
+
+            const propsArr = props.filter((varItem) => {
+                return varItem.bindElement === item.id
+            })
+            const propsAttr = {}
+            propsArr.forEach((item) => {
+                propsAttr[item.bind] = item.value
             })
 
             const eventArr = event.filter((eventItem) => {
@@ -201,7 +241,7 @@ export const ElementProvider = ({ children }) => {
 
 
             if (item.type === 'nest') {
-                childrenElement = parseElementToComponent(item.childrenElement, variable, event)
+                childrenElement = parseElementToComponent(item.childrenElement, variable, event, props)
                 containerStyle = {
                     style: item.style,
                     styleObject: item.styleObject,
@@ -213,7 +253,8 @@ export const ElementProvider = ({ children }) => {
                     key: item.id,
                     ...item.attr,
                     ...variableAttr,
-                    ...eventAttr
+                    ...eventAttr,
+                    ...propsAttr
                 }
                 if (item.attr.html) {
                     if (attribute['children']) delete attribute['children']
@@ -226,7 +267,10 @@ export const ElementProvider = ({ children }) => {
                 );
             }
             else if (item.type === 'circle' && item.target.length) {
-                const value = variableMap[item.circleArrayVariableName].value[item.circleArrayKey]
+                let value
+                if (variableMap[item.circleVariableName]) value = variableMap[item.circleVariableName].value || []
+                else if (propsMap[item.circleVariableName]) value = propsMap[item.circleVariableName].value || []
+                else value = []
 
                 const temp = []
 
@@ -248,7 +292,7 @@ export const ElementProvider = ({ children }) => {
                     temp.push(copied)
                 })
 
-                childrenElement = parseElementToComponent(temp, variable, event)
+                childrenElement = parseElementToComponent(temp, variable, event, props)
                 containerStyle = {
                     style: item.style,
                     styleObject: item.styleObject,
@@ -278,8 +322,8 @@ export const ElementProvider = ({ children }) => {
     }, [activeElement])
 
     const component = useMemo(() => {
-        return parseElementToComponent(element, variable, event)
-    }, [element, variable, event, parseElementToComponent])
+        return parseElementToComponent(element, variable, event, props)
+    }, [element, variable, event, parseElementToComponent, props])
     const activeComponent = useMemo(() => {
         return findActiveComponent(component, activeElementID)
     }, [component, activeElementID])
@@ -296,14 +340,15 @@ export const ElementProvider = ({ children }) => {
         setDetail(res.data)
         elementDispatch({ type: 'set', value: res.data.element })
         variableDispatch({ type: 'set', value: res.data.variable })
+        propsDispatch({ type: 'set', value: res.data.props || [] })
         eventDispatch({ type: 'set', value: res.data.event })
     }, [navigate])
 
     const setProjectDetail = useCallback(async () => {
-        const res = await setProjectDetailRequest(detail, element, variable, event)
+        const res = await setProjectDetailRequest(detail, element, variable, event, props)
         if (!res) return
         successMessage('保存成功')
-    }, [element, detail, variable, event])
+    }, [element, detail, variable, event, props])
 
     useEffect(() => {
         const id = searchParams.get('id')
@@ -369,7 +414,10 @@ export const ElementProvider = ({ children }) => {
                 setElementFloat,
                 get,
                 pasteCircleElement,
-                variableMap
+                variableMap,
+                props,
+                propsDispatch,
+                propsMap
             }}>
             {children}
         </ElementContext.Provider>
