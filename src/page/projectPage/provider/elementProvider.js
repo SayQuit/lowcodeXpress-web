@@ -307,7 +307,7 @@ export const ElementProvider = ({ children }) => {
             })
         })
         return res
-    }, [set, variableMap])
+    }, [set, variableMap, propsMap])
 
     const activeIndex = useMemo(() => {
         return findActiveIndex(element, activeElementID)
@@ -322,6 +322,7 @@ export const ElementProvider = ({ children }) => {
     }, [activeElement])
 
     const component = useMemo(() => {
+        console.log(props);
         return parseElementToComponent(element, variable, event, props)
     }, [element, variable, event, parseElementToComponent, props])
     const activeComponent = useMemo(() => {

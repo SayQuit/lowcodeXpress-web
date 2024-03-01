@@ -3,7 +3,7 @@ import React, { useContext, useMemo, useState } from 'react';
 import { Button, Flex, Input, Select } from 'antd';
 import { ElementContext } from '../../../provider/elementProvider';
 import CircleSelectorItem from './circleSelectorItem';
-import { successMessage } from '../../../../../utils/message';
+import { successMessage, warningMessage } from '../../../../../utils/message';
 import ReactJson from 'react-json-view';
 function CircleSelector() {
     const { pasteCircleElement, activeElement, variable, elementDispatch, variableMap, props, propsMap } = useContext(ElementContext)
@@ -42,10 +42,21 @@ function CircleSelector() {
 
     }
 
+    const handleSetCircle = (item) => {
+        let name = ''
+        let value = []
+        if (item) {
+            name = JSON.parse(item).name
+            value = JSON.parse(item).value
+        }
+        setCircleArray(value)
+        setCircleVariableName(name)
+    }
+
     return (
         <Flex vertical gap='small' className='ml-2 mr-2'>
             {activeElement.circleElement && <div>指向元素</div>}
-            {activeElement.circleElement && <ReactJson src={activeElement.circleElement} style={{ fontSize: '16px' }} displayObjectSize={false} displayDataTypes={false} collapsed={true} />}
+            {activeElement.circleElement && <ReactJson src={activeElement.circleElement || []} style={{ fontSize: '16px' }} displayObjectSize={false} displayDataTypes={false} collapsed={true} />}
             {(circleArray || currentCircleArray) && <div>数据来源</div>}
             {(circleArray || currentCircleArray) && <ReactJson src={circleArray.length === 0 ? currentCircleArray : circleArray} style={{ fontSize: '16px' }} displayObjectSize={false} displayDataTypes={false} collapsed={true} />}
             <Button className='flex-1' onClick={pasteCircleElement}>粘贴</Button>
@@ -54,30 +65,15 @@ function CircleSelector() {
                 className='flex-1'
                 allowClear
                 placeholder='添加数组'
-                options={variable.filter((item) => {
+                options={[...variable, ...props].filter((item) => {
                     return item.value instanceof Array
-                }).map((item, index) => {
+                }).map((item) => {
                     return {
                         label: item.name,
-                        value: index
+                        value: JSON.stringify(item)
                     }
                 })}
-                onChange={(index) => { if (!index) return; setCircleVariableName(variable[index].name); setCircleArray(variable[index].value) }}
-            >
-            </Select>
-            <Select
-                className='flex-1'
-                allowClear
-                placeholder='添加props数组'
-                options={props.filter((item) => {
-                    return item.value instanceof Array
-                }).map((item, index) => {
-                    return {
-                        label: item.name,
-                        value: index
-                    }
-                })}
-                onChange={(index) => { if (!index) return; setCircleVariableName(props[index].name); setCircleArray(props[index].value) }}
+                onChange={(item) => { handleSetCircle(item) }}
             >
             </Select>
             {activeElement.circleElement && circleArray[0] && <Button type='primary' className='flex-1' onClick={() => { setTarget([...target, { from: [], to: [] }]) }}>增加映射关系</Button>}
