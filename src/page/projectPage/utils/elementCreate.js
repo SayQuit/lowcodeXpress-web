@@ -11,6 +11,7 @@ export const createElementByType = (type) => {
             attr: elementMap[type].default
         }
     }
+    // todo 这里加一个业务组件的判断
     else {
         return {
             type,

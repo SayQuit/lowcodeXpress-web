@@ -99,7 +99,7 @@ function ProjectHeader() {
                     successMessage('上线成功')
                     confirmMessage('上线成功，是否前往上线页面？')
                         .then(() => {
-                            navigate(`/online?id=${res.data.id}`)
+                            navigate(`/onlineProject?id=${res.data.id}`)
                         })
                 }
                 else errorMessage('上线失败')
