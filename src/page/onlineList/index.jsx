@@ -20,7 +20,7 @@ function OnlineList() {
         <div className='mt-2 mb-2'>
             {
                 list.map((item) =>
-                    (<NavCard pathname={'/'} projectID={item.id} title={item.name} description={item.description} tags={item.tags} key={item.id}></NavCard>))
+                    (<NavCard pathname={'/online'} projectID={item.id} title={item.name} description={item.description} tags={item.tags} key={item.id}></NavCard>))
             }
             {list.length === 0 && <Empty></Empty>}
         </div>

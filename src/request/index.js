@@ -104,7 +104,7 @@ export const getOnlineListRequest = async () => {
 export const getOnlineDetailRequest = async (id) => {
     let res = null
     try {
-        res = await service.post('/project/online', { id })
+        res = await service.post('/online/detail', { id })
     } finally {
         return res || null
     }

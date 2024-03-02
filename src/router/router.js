@@ -34,6 +34,10 @@ const router = [
         path: '/onlineList',
         element: <OnlineList></OnlineList>
     },
+    {
+        path: '/online',
+        element: <div>123</div>
+    },
 
 ]
 
