@@ -117,8 +117,8 @@ function EventSelector() {
                 event.map(item => {
                     return <div className='right-table' key={item.id}>
                         <EventItem onChange={(e) => { handleChangeEvent(e, item) }} event={item}></EventItem>
-                        <Button size='small' className='w-full mt-2' onClick={() => { handleBindElement(item) }}>绑定选中元素</Button>
-                        <Button size='small' danger type='primary' className='w-full mt-2' onClick={() => { handleDeleteEvent(item.id) }}>删除</Button>
+                        <Button className='w-full mt-2' onClick={() => { handleBindElement(item) }}>绑定选中元素</Button>
+                        <Button danger type='primary' className='w-full mt-2' onClick={() => { handleDeleteEvent(item.id) }}>删除</Button>
                     </div>
                 })
             }

@@ -84,8 +84,8 @@ function PropsSelector() {
                     return (
                         <div className='right-table' key={item.id}>
                             <PropsItem onChange={(e) => handlePropsChange(e, item)} props={item}></PropsItem>
-                            <Button size='small' className='w-full mt-2' onClick={() => { handleBingElement(item) }}>绑定选中元素</Button>
-                            <Button size='small' danger type='primary' className='w-full mt-2' onClick={() => { handleDeleteProps(item.id) }}>删除</Button>
+                            <Button className='w-full mt-2' onClick={() => { handleBingElement(item) }}>绑定选中元素</Button>
+                            <Button danger type='primary' className='w-full mt-2' onClick={() => { handleDeleteProps(item.id) }}>删除</Button>
                         </div>
                     )
                 })

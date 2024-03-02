@@ -30,13 +30,13 @@ function PropsItem({ onChange, props }) {
                 <div className='right-table-title mb-2'>绑定属性</div>
             </Flex>
             <Flex gap="small">
-                <Input className='right-table-value' size='small' defaultValue={props.name} onChange={(e) => { onChange({ val: e.target.value, ty: 'name' }) }}></Input>
-                <Select className='right-table-value' size='small' defaultValue={props.type} onChange={(e) => onChange({ val: e, ty: 'type' })} options={typeOptions}></Select>
-                {props.type === 'string' && <Input className='right-table-value' size='small' defaultValue={props.value} onChange={(e) => { onChange({ val: e.target.value, ty: 'value' }) }}></Input>}
-                {props.type === 'number' && <InputNumber className='right-table-value' size='small' defaultValue={props.value} onChange={(e) => { onChange({ val: e, ty: 'value' }) }}></InputNumber>}
-                {props.type === 'boolean' && <Select className='right-table-value' size='small' options={[{ label: 'true', value: true }, { label: 'false', value: false }]} defaultValue={props.value} onChange={(e) => { onChange({ val: e, ty: 'value' }) }} allowClear></Select>}
-                {props.type === 'object' && <Input className='right-table-value' size='small' defaultValue={JSON.stringify(props.value)} onChange={(e) => { onChange({ val: JSON.parse(e.target.value), ty: 'value' }) }}></Input>}
-                <Input className='right-table-value' size='small' defaultValue={props.bind} onChange={(e) => { onChange({ val: e.target.value, ty: 'bind' }) }}></Input>
+                <Input className='right-table-value' defaultValue={props.name} onChange={(e) => { onChange({ val: e.target.value, ty: 'name' }) }}></Input>
+                <Select className='right-table-value' defaultValue={props.type} onChange={(e) => onChange({ val: e, ty: 'type' })} options={typeOptions}></Select>
+                {props.type === 'string' && <Input className='right-table-value' defaultValue={props.value} onChange={(e) => { onChange({ val: e.target.value, ty: 'value' }) }}></Input>}
+                {props.type === 'number' && <InputNumber className='right-table-value' defaultValue={props.value} onChange={(e) => { onChange({ val: e, ty: 'value' }) }}></InputNumber>}
+                {props.type === 'boolean' && <Select className='right-table-value' options={[{ label: 'true', value: true }, { label: 'false', value: false }]} defaultValue={props.value} onChange={(e) => { onChange({ val: e, ty: 'value' }) }} allowClear></Select>}
+                {props.type === 'object' && <Input className='right-table-value' defaultValue={JSON.stringify(props.value)} onChange={(e) => { onChange({ val: JSON.parse(e.target.value), ty: 'value' }) }}></Input>}
+                <Input className='right-table-value' defaultValue={props.bind} onChange={(e) => { onChange({ val: e.target.value, ty: 'bind' }) }}></Input>
             </Flex>
         </>
     );
