@@ -39,6 +39,7 @@ function PreviewPage() {
             default: return state
         }
     }, [])
+    
     const [props, propsDispatch] = useReducer((state, action) => {
         switch (action.type) {
             case 'set':

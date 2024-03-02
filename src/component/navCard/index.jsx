@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import '../index.css'
+import './index.css'
 import { Card } from 'antd'
-import TypeTag from '../../../component/typeTag'
-import { getTags } from '../../../utils/optionsTags';
+import TypeTag from '../typeTag'
+import { getTags } from '../../utils/optionsTags';
 import { useMemo } from 'react';
 
 function NavCard({ pathname, projectID, title, description, tags }) {
@@ -11,14 +11,14 @@ function NavCard({ pathname, projectID, title, description, tags }) {
     }, [tags])
     return (
         <NavLink to={{ pathname, search: projectID ? `?id=${projectID}` : '' }}>
-            <div className='main-item'>
-                <div className='main-item-block'>
+            <div className='nav'>
+                <div className='nav-block'>
                     <Card bordered={true}>
-                        <div className='main-item-block-img'>
+                        <div className='nav-block-img'>
                             <img src="https://gw.alipayobjects.com/zos/bmw-prod/1c363c0b-17c6-4b00-881a-bc774df1ebeb.svg" alt="" />
                         </div>
-                        <div className='main-item-block-title'>{title}</div>
-                        <div className='main-item-block-desc'>{description}</div>
+                        <div className='nav-block-title'>{title}</div>
+                        <div className='nav-block-desc'>{description}</div>
                         {
                             tagList.map((item) => {
                                 return (

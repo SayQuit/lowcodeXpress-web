@@ -82,3 +82,30 @@ export const getProjectDetailRequest = async (id) => {
         return res || null
     }
 }
+
+export const createOnlineRequest = async (id) => {
+    let res = null
+    try {
+        res = await service.post('/online/create', { id })
+    } finally {
+        return res || null
+    }
+}
+
+export const getOnlineListRequest = async () => {
+    let res = null
+    try {
+        res = await service.post('/online/list')
+    } finally {
+        return res || null
+    }
+}
+
+export const getOnlineDetailRequest = async (id) => {
+    let res = null
+    try {
+        res = await service.post('/project/online', { id })
+    } finally {
+        return res || null
+    }
+}

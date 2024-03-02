@@ -4,6 +4,7 @@ import RegisterPage from '../page/registerPage';
 import ProjectSetup from '../page/projectSetup';
 import ProjectPage from '../page/projectPage';
 import PreviewPage from '../page/previewPage';
+import OnlineList from '../page/onlineList';
 const router = [
     {
         path: '/',
@@ -28,6 +29,10 @@ const router = [
     {
         path: '/preview',
         element: <PreviewPage></PreviewPage>
+    },
+    {
+        path: '/onlineList',
+        element: <OnlineList></OnlineList>
     },
 
 ]
