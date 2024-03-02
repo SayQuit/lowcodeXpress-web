@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useReducer } from 'react'
+import { useCallback, useEffect, useMemo, useReducer, useState } from 'react'
 import React from 'react';
 import './index.css'
 import { xhrRequest } from '../projectPage/utils/xhrRequest';
@@ -39,7 +39,7 @@ function PreviewPage() {
             default: return state
         }
     }, [])
-    
+
     const [props, propsDispatch] = useReducer((state, action) => {
         switch (action.type) {
             case 'set':
@@ -88,6 +88,8 @@ function PreviewPage() {
         }
     }, [])
 
+    const [onload, setOnload] = useState('')
+
     const variableMap = useMemo(() => {
         const map = {}
         variable.map((item) => {
@@ -104,6 +106,14 @@ function PreviewPage() {
         return map
     }, [props])
 
+    const eventMap = useMemo(() => {
+        const map = {}
+        event.map((item) => {
+            return map[item.name] = item
+        })
+        return map
+    }, [event])
+
     const get = useCallback((key) => {
         return variableMap[key] || propsMap[key] || null
     }, [variableMap, propsMap])
@@ -112,6 +122,46 @@ function PreviewPage() {
         let varItem = get(key)
         if (varItem) variableDispatch({ type: 'change', variable: { ...varItem, value } })
     }, [get])
+
+    const createFunction = (item, set, variable) => {
+        let fn = () => { }
+        if (item.type === 'setValue') {
+            if (item.setValue.useE) {
+                if (item.setValue.value === 'e') fn = (e) => { set(item.setValue.variable, e) }
+                if (item.setValue.value === 'e.target.value') fn = (e) => { set(item.setValue.variable, e.target.value) }
+                if (item.setValue.value === 'e.target.checked') fn = (e) => { set(item.setValue.variable, e.target.checked) }
+            }
+            else fn = () => { set(item.setValue.variable, item.setValue.newValue) }
+        }
+        else if (item.type === 'custom') {
+            // eslint-disable-next-line no-eval
+            fn = () => { eval(item.custom.code) }
+        }
+        else if (item.type === 'request') {
+            const { url, method, params, set } = item.request
+            const param = {}
+            variable.forEach((variableItem) => {
+                params.forEach((paramsItem) => {
+                    if (paramsItem === variableItem.name) {
+                        param[paramsItem] = variableItem.value
+                    }
+                })
+            })
+            fn = () => {
+                xhrRequest(url, method, param)
+                    .then((res) => {
+                        if (set) {
+                            const data = JSON.parse(res).data
+                            variable.forEach(item => {
+                                if (data[item.name]) variableDispatch({ type: 'change', variable: { ...item, value: data[item.name] } })
+                            });
+                        }
+                    })
+            }
+        }
+        else { }
+        return fn
+    }
 
     const parseElementToComponent = useCallback((element, variable, event, props) => {
         const res = []
@@ -141,43 +191,7 @@ function PreviewPage() {
             })
             const eventAttr = {}
             eventArr.forEach((item) => {
-                let fn = () => { }
-                if (item.type === 'setValue') {
-                    if (item.setValue.useE) {
-                        if (item.setValue.value === 'e') fn = (e) => { set(item.setValue.variable, e) }
-                        if (item.setValue.value === 'e.target.value') fn = (e) => { set(item.setValue.variable, e.target.value) }
-                        if (item.setValue.value === 'e.target.checked') fn = (e) => { set(item.setValue.variable, e.target.checked) }
-                    }
-                    else fn = () => { set(item.setValue.variable, item.setValue.newValue) }
-                }
-                else if (item.type === 'custom') {
-                    // eslint-disable-next-line no-eval
-                    fn = () => { eval(item.custom.code) }
-                }
-                else if (item.type === 'request') {
-                    const { url, method, params, set } = item.request
-                    const param = {}
-                    variable.forEach((variableItem) => {
-                        params.forEach((paramsItem) => {
-                            if (paramsItem === variableItem.name) {
-                                param[paramsItem] = variableItem.value
-                            }
-                        })
-                    })
-                    fn = () => {
-                        xhrRequest(url, method, param)
-                            .then((res) => {
-                                if (set) {
-                                    const data = JSON.parse(res).data
-                                    variable.forEach(item => {
-                                        if (data[item.name]) variableDispatch({ type: 'change', variable: { ...item, value: data[item.name] } })
-                                    });
-                                }
-                            })
-                    }
-                }
-                else { }
-                eventAttr[item.bindEvent] = fn
+                eventAttr[item.bindEvent] = createFunction(item, set, variable)
             })
 
 
@@ -256,12 +270,13 @@ function PreviewPage() {
 
     useEffect(() => {
         const handleMessage = (e) => {
-            const { element, props, variable, event } = e.data
+            const { element, props, variable, event, onload } = e.data
             if (!(element && props && variable && event)) return
             elementDispatch({ type: 'set', value: element })
             variableDispatch({ type: 'set', value: variable })
             propsDispatch({ type: 'set', value: props })
             eventDispatch({ type: 'set', value: event })
+            setOnload(onload || '')
         };
         window.addEventListener('message', handleMessage);
         return () => {
@@ -269,7 +284,10 @@ function PreviewPage() {
         };
     }, []);
 
-    
+    useEffect(() => {
+        if (onload && eventMap[onload]) createFunction(eventMap[onload], set, variable)()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [onload])
 
     return (
         <PreviewBoard component={component}></PreviewBoard>

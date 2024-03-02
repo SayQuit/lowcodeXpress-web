@@ -54,10 +54,10 @@ export const createProjectRequest = async (element, name, description, type, tec
     }
 }
 
-export const setProjectDetailRequest = async (detail, element, variable, event, props) => {
+export const setProjectDetailRequest = async (detail, element, variable, event, props, onload) => {
     let res = null
     try {
-        res = await service.post('/project/set', { ...detail, element, variable, event, props })
+        res = await service.post('/project/set', { ...detail, element, variable, event, props, onload })
     } catch (error) {
         errorMessage('保存失败，请重试')
     } finally {

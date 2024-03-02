@@ -112,13 +112,13 @@ function EventSelector() {
 
     return (
         <>
-            <Button type='primary' onClick={() => setModalVisible(!modalVisible)}>添加函数</Button>
+            <Button type='primary' onClick={() => setModalVisible(!modalVisible)} style={{backgroundColor:'#F1CA7D'}}>添加函数</Button>
             {
                 event.map(item => {
                     return <div className='right-table' key={item.id}>
                         <EventItem onChange={(e) => { handleChangeEvent(e, item) }} event={item}></EventItem>
                         <Button className='w-full mt-2' onClick={() => { handleBindElement(item) }}>绑定选中元素</Button>
-                        <Button danger type='primary' className='w-full mt-2' onClick={() => { handleDeleteEvent(item.id) }}>删除</Button>
+                        <Button danger type='primary' className='w-full mt-2' onClick={() => { handleDeleteEvent(item.id) }} style={{backgroundColor:'#C1974A'}}>删除</Button>
                     </div>
                 })
             }

@@ -85,7 +85,7 @@ function VariableSelector() {
                         <div className='right-table' key={item.id}>
                             <VariableItem onChange={(e) => handleVariableChange(e, item)} variable={item}></VariableItem>
                             <Button className='w-full mt-2' onClick={() => { handleBingElement(item) }}>绑定选中元素</Button>
-                            <Button danger type='primary' className='w-full mt-2' onClick={() => { handleDeleteVariable(item.id) }}>删除</Button>
+                            <Button danger type='primary' className='w-full mt-2' onClick={() => { handleDeleteVariable(item.id) }} style={{backgroundColor:'#0344CC'}}>删除</Button>
                         </div>
                     )
                 })

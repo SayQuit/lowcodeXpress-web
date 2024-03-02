@@ -78,3 +78,9 @@
 .copy-icon {
     display: none !important;
 }
+
+
+.right-tab :where(.css-dev-only-do-not-override-dkbvqv).ant-divider-horizontal {
+    border:1px dashed #eee;
+    background-color: #ccc;
+}
