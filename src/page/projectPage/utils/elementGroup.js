@@ -239,7 +239,7 @@ export const elementGroup = [
     },
 
     {
-        title: 'ANTD组件',
+        title: 'ant-design 组件',
         type: 'ant-design',
         items: [
             {
@@ -660,7 +660,7 @@ export const elementGroup = [
     },
 
     {
-        title: 'ELEMENTUI组件',
+        title: 'element-ui 组件',
         type: 'element-ui',
         items: [
             {
