@@ -109,3 +109,12 @@ export const getOnlineDetailRequest = async (id) => {
         return res || null
     }
 }
+
+export const exportFileRequest = async (id) => {
+    let res = null
+    try {
+        res = await service.post('/export', { id })
+    } finally {
+        return res || null
+    }
+}

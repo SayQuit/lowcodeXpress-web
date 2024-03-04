@@ -168,7 +168,7 @@ export const elementGroup = [
         items: [
             {
                 name: '文本',
-                type: 'text',
+                type: 'div',
                 icon: <FontSizeOutlined />,
                 getComponent: () => {
                     return <div></div>
@@ -194,7 +194,7 @@ export const elementGroup = [
             },
             {
                 name: '图片',
-                type: 'image',
+                type: 'img',
                 icon: <FileImageOutlined />,
                 getComponent: () => {
                     return <img alt="" />
@@ -207,7 +207,7 @@ export const elementGroup = [
             },
             {
                 name: '链接',
-                type: 'link',
+                type: 'a',
                 icon: <LinkOutlined />,
                 getComponent: () => {
                     return <a href='/'> </a>
