@@ -178,13 +178,13 @@ export const ElementProvider = ({ children }) => {
         if (varItem) variableDispatch({ type: 'change', variable: { ...varItem, value } })
     }, [get])
 
-    const createFunction = (item, set, variable) => {
+    const createFunction = useCallback((item) => {
         let fn = () => { }
         if (item.type === 'setValue') {
             if (item.setValue.useE) {
-                if (item.setValue.value === 'e') fn = (e) => { set(item.setValue.variable, e) }
-                if (item.setValue.value === 'e.target.value') fn = (e) => { set(item.setValue.variable, e.target.value) }
-                if (item.setValue.value === 'e.target.checked') fn = (e) => { set(item.setValue.variable, e.target.checked) }
+                if (item.setValue.newValue === 'e') fn = (e) => { set(item.setValue.variable, e) }
+                if (item.setValue.newValue === 'e.target.value') fn = (e) => { set(item.setValue.variable, e.target.value) }
+                if (item.setValue.newValue === 'e.target.checked') fn = (e) => { set(item.setValue.variable, e.target.checked) }
             }
             else fn = () => { set(item.setValue.variable, item.setValue.newValue) }
         }
@@ -217,7 +217,7 @@ export const ElementProvider = ({ children }) => {
         }
         else { }
         return fn
-    }
+    }, [set, variable])
 
     const parseElementToComponent = useCallback((element, variable, event, props) => {
         const res = []
@@ -247,7 +247,7 @@ export const ElementProvider = ({ children }) => {
             })
             const eventAttr = {}
             eventArr.forEach((item) => {
-                eventAttr[item.bindEvent] = createFunction(item, set, variable)
+                eventAttr[item.bindEvent] = createFunction(item)
             })
 
 
@@ -318,7 +318,7 @@ export const ElementProvider = ({ children }) => {
             })
         })
         return res
-    }, [set, variableMap, propsMap])
+    }, [variableMap, propsMap, createFunction])
 
     const activeIndex = useMemo(() => {
         return findActiveIndex(element, activeElementID)
@@ -408,7 +408,7 @@ export const ElementProvider = ({ children }) => {
     }, [element, variable, event, props, detail, previewRef, onload])
 
     useEffect(() => {
-        if (onload && eventMap[onload]) createFunction(eventMap[onload], set, variable)()
+        if (onload && eventMap[onload]) createFunction(eventMap[onload])()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [onload])
 

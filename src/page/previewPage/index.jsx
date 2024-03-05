@@ -123,13 +123,13 @@ function PreviewPage() {
         if (varItem) variableDispatch({ type: 'change', variable: { ...varItem, value } })
     }, [get])
 
-    const createFunction = (item, set, variable) => {
+    const createFunction = useCallback((item) => {
         let fn = () => { }
         if (item.type === 'setValue') {
             if (item.setValue.useE) {
-                if (item.setValue.value === 'e') fn = (e) => { set(item.setValue.variable, e) }
-                if (item.setValue.value === 'e.target.value') fn = (e) => { set(item.setValue.variable, e.target.value) }
-                if (item.setValue.value === 'e.target.checked') fn = (e) => { set(item.setValue.variable, e.target.checked) }
+                if (item.setValue.newValue === 'e') fn = (e) => { set(item.setValue.variable, e) }
+                if (item.setValue.newValue === 'e.target.value') fn = (e) => { set(item.setValue.variable, e.target.value) }
+                if (item.setValue.newValue === 'e.target.checked') fn = (e) => { set(item.setValue.variable, e.target.checked) }
             }
             else fn = () => { set(item.setValue.variable, item.setValue.newValue) }
         }
@@ -148,6 +148,7 @@ function PreviewPage() {
                 })
             })
             fn = () => {
+                // todo return promise
                 xhrRequest(url, method, param)
                     .then((res) => {
                         if (set) {
@@ -161,7 +162,7 @@ function PreviewPage() {
         }
         else { }
         return fn
-    }
+    }, [set, variable])
 
     const parseElementToComponent = useCallback((element, variable, event, props) => {
         const res = []
@@ -191,7 +192,7 @@ function PreviewPage() {
             })
             const eventAttr = {}
             eventArr.forEach((item) => {
-                eventAttr[item.bindEvent] = createFunction(item, set, variable)
+                eventAttr[item.bindEvent] = createFunction(item)
             })
 
 
@@ -262,7 +263,7 @@ function PreviewPage() {
             })
         })
         return res
-    }, [set, variableMap, propsMap])
+    }, [variableMap, propsMap, createFunction])
 
     const component = useMemo(() => {
         return parseElementToComponent(element, variable, event, props)
@@ -285,7 +286,7 @@ function PreviewPage() {
     }, []);
 
     useEffect(() => {
-        if (onload && eventMap[onload]) createFunction(eventMap[onload], set, variable)()
+        if (onload && eventMap[onload]) createFunction(eventMap[onload])()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [onload])
 

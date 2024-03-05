@@ -6,7 +6,7 @@ import { getComponentMap } from '../projectPage/utils/getComponentMap';
 import { createElementByNestElement, createElementByElement } from '../projectPage/utils/elementCreate';
 import OnlineBoard from './component/onlineBoard';
 import { getOnlineDetailRequest } from '../../request';
-import { useSearchParams,useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 function OnlinePage() {
     const [searchParams] = useSearchParams();
@@ -128,13 +128,13 @@ function OnlinePage() {
         if (varItem) variableDispatch({ type: 'change', variable: { ...varItem, value } })
     }, [get])
 
-    const createFunction = (item, set, variable) => {
+    const createFunction = useCallback((item) => {
         let fn = () => { }
         if (item.type === 'setValue') {
             if (item.setValue.useE) {
-                if (item.setValue.value === 'e') fn = (e) => { set(item.setValue.variable, e) }
-                if (item.setValue.value === 'e.target.value') fn = (e) => { set(item.setValue.variable, e.target.value) }
-                if (item.setValue.value === 'e.target.checked') fn = (e) => { set(item.setValue.variable, e.target.checked) }
+                if (item.setValue.newValue === 'e') fn = (e) => { set(item.setValue.variable, e) }
+                if (item.setValue.newValue === 'e.target.value') fn = (e) => { set(item.setValue.variable, e.target.value) }
+                if (item.setValue.newValue === 'e.target.checked') fn = (e) => { set(item.setValue.variable, e.target.checked) }
             }
             else fn = () => { set(item.setValue.variable, item.setValue.newValue) }
         }
@@ -153,6 +153,7 @@ function OnlinePage() {
                 })
             })
             fn = () => {
+                // todo return promise
                 xhrRequest(url, method, param)
                     .then((res) => {
                         if (set) {
@@ -166,7 +167,7 @@ function OnlinePage() {
         }
         else { }
         return fn
-    }
+    }, [set, variable])
 
     const parseElementToComponent = useCallback((element, variable, event, props) => {
         const res = []
@@ -196,7 +197,7 @@ function OnlinePage() {
             })
             const eventAttr = {}
             eventArr.forEach((item) => {
-                eventAttr[item.bindEvent] = createFunction(item, set, variable)
+                eventAttr[item.bindEvent] = createFunction(item)
             })
 
 
@@ -267,7 +268,7 @@ function OnlinePage() {
             })
         })
         return res
-    }, [set, variableMap, propsMap])
+    }, [variableMap, propsMap, createFunction])
 
     const component = useMemo(() => {
         return parseElementToComponent(element, variable, event, props)
@@ -287,9 +288,10 @@ function OnlinePage() {
 
     useEffect(() => {
         getOnlineDetail()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     useEffect(() => {
-        if (onload && eventMap[onload]) createFunction(eventMap[onload], set, variable)()
+        if (onload && eventMap[onload]) createFunction(eventMap[onload])()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [onload])
 
