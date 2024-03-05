@@ -31,10 +31,11 @@ function RightSider() {
     return (
         (
             <div className="right" key={activeElementID}>
-                {(activeElement && activeElement.type === 'circle') ?
+                {(isElementActive && activeElement.type === 'circle') ?
                     <>
-                        <Tabs defaultActiveKey={'circle'} items={[{ key: 'circle', label: '循环依赖配置' }]} size='large' type="card" centered />
-                        <CircleSelector></CircleSelector>
+                        <Tabs defaultActiveKey={'style'} items={[{ key: 'circle', label: '循环依赖配置' }, { key: 'style', label: '样式', }]} size='large' type="card" centered onChange={(key) => { setActiveKey(key) }}/>
+                        {activeKey === 'style' && <StyleSelector></StyleSelector>}
+                        {activeKey === 'circle' && <CircleSelector></CircleSelector>}
                     </>
                     :
                     <>
