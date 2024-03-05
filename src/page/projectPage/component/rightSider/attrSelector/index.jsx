@@ -37,7 +37,7 @@ function AttrSelector() {
                         {item.componentType === 'input' && (
                             <InputMode
                                 onChange={onChange}
-                                defaultValue={activeElement.attr[item.type] || ''}
+                                value={activeElement.attr[item.type] || ''}
                                 name={item.name}
                                 type={item.type}
                                 tab={'attr'}
@@ -46,7 +46,7 @@ function AttrSelector() {
                         {item.componentType === 'checkout' && (
                             <CheckoutMode
                                 onChange={onChange}
-                                defaultValue={activeElement.attr[item.type] || false}
+                                value={activeElement.attr[item.type] || false}
                                 name={item.name}
                                 type={item.type}
                                 tab={'attr'}
