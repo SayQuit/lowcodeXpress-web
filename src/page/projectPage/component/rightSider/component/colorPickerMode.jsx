@@ -1,7 +1,7 @@
 import '../../../style/right.css'
 import { Flex, ColorPicker } from 'antd';
 
-function ColorPickerMode({ onChange, defaultValue, name, type, tab }) {
+function ColorPickerMode({ onChange, value, name, type, tab }) {
     const handleOnChange = (value) => {
         onChange({
             type,
@@ -11,7 +11,7 @@ function ColorPickerMode({ onChange, defaultValue, name, type, tab }) {
     return (
         <Flex>
             <div className='right-tab-font line-h-22'>{tab === 'attr' ? name + ' ' + type : name}</div>
-            <ColorPicker defaultValue={defaultValue} className='flex-1' onChange={handleOnChange} size="small" showText disabledAlpha allowClear></ColorPicker>
+            <ColorPicker value={value} className='flex-1' onChange={handleOnChange} size="small" showText disabledAlpha allowClear></ColorPicker>
         </Flex>
     );
 }

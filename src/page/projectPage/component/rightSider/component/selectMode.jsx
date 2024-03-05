@@ -1,7 +1,7 @@
 import '../../../style/right.css'
 import { Flex, Select } from 'antd';
 
-function SelectMode({ onChange, defaultValue, name, type, options, tab }) {
+function SelectMode({ onChange, value, name, type, options, tab }) {
     const handleOnChange = (value) => {
         onChange({
             type,
@@ -11,7 +11,7 @@ function SelectMode({ onChange, defaultValue, name, type, options, tab }) {
     return (
         <Flex>
             <div className='right-tab-font line-h-22'>{tab === 'attr' ? name + ' ' + type : name}</div>
-            <Select size='small' className='flex-1' options={options} defaultValue={defaultValue} onChange={handleOnChange} allowClear></Select>
+            <Select size='small' className='flex-1' options={options} value={value} onChange={handleOnChange} allowClear></Select>
         </Flex>
     );
 }

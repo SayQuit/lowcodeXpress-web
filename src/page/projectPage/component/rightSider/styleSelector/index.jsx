@@ -53,7 +53,7 @@ function StyleSelector() {
                     {item.componentType === 'input' && (
                         <InputMode
                             onChange={onChange}
-                            defaultValue={activeElement.styleObject[item.type] || ''}
+                            value={activeElement.styleObject[item.type] || ''}
                             name={item.name}
                             type={item.type}
                             tab={'style'}
@@ -62,7 +62,7 @@ function StyleSelector() {
                     {item.componentType === 'inputNumber' && (
                         <InputNumberMode
                             onChange={onChange}
-                            defaultValue={removePxFromString(activeElement.styleObject[item.type] || '')}
+                            value={removePxFromString(activeElement.styleObject[item.type] || '')}
                             addonAfter={item.addonAfter}
                             name={item.name}
                             type={item.type}
@@ -72,7 +72,7 @@ function StyleSelector() {
                     {item.componentType === 'select' && (
                         <SelectMode
                             onChange={onChange}
-                            defaultValue={activeElement.styleObject[item.type] || ''}
+                            value={activeElement.styleObject[item.type] || ''}
                             name={item.name}
                             type={item.type}
                             options={item.options}
@@ -82,7 +82,7 @@ function StyleSelector() {
                     {item.componentType === 'colorPicker' && (
                         <ColorPickerMode
                             onChange={onChange}
-                            defaultValue={activeElement.styleObject[item.type] || item.defaultValue}
+                            value={activeElement.styleObject[item.type] || item.defaultValue}
                             name={item.name}
                             type={item.type}
                             tab={'style'}
