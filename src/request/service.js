@@ -19,9 +19,13 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-    if (response.status === 200 && response.data.msg === 'success') {
+    if (response.status === 200 && (response.data.msg === 'success')) {
       return Promise.resolve(response.data)
-    } else {
+    }
+    else if (response.status === 200 && response.data.type === 'text/jsx') {
+      return Promise.resolve(response)
+    }
+    else {
       return Promise.reject(response.data)
     }
   },
