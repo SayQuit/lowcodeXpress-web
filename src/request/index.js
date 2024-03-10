@@ -112,7 +112,7 @@ export const getOnlineDetailRequest = async (id) => {
 
 export const exportFileRequest = async (id) => {
     try {
-        const res = await service.post('/export', { id }, { responseType: 'blob' });
+        const res = await service.post('/export/file', { id }, { responseType: 'blob' });
         const blob = new Blob([res.data], { type: res.headers['content-type'] });
 
         const contentDisposition = res.headers['content-disposition'];
@@ -139,3 +139,12 @@ export const exportFileRequest = async (id) => {
         console.error(error);
     }
 };
+
+export const exportProjectRequest = async (id) => {
+    let res = null
+    try {
+        res = await service.post('/export/project', { id })
+    } finally {
+        return res || null
+    }
+}

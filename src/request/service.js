@@ -25,6 +25,9 @@ service.interceptors.response.use(
     else if (response.status === 200 && response.data.type === 'text/jsx') {
       return Promise.resolve(response)
     }
+    else if (response.status === 200) {
+      console.log(response);
+    }
     else {
       return Promise.reject(response.data)
     }
