@@ -5,7 +5,7 @@ import { ElementContext } from '../provider/elementProvider';
 import { useContext, useMemo } from 'react';
 import { getTags } from '../../../utils/optionsTags';
 import { confirmMessage, errorMessage, successMessage, warningMessage } from '../../../utils/message';
-import { createOnlineRequest, exportFileRequest,exportProjectRequest } from '../../../request';
+import { createOnlineRequest, exportDistRequest, exportFileRequest,exportProjectRequest } from '../../../request';
 import { useNavigate } from 'react-router-dom';
 
 function ProjectHeader() {
@@ -106,6 +106,7 @@ function ProjectHeader() {
             })
             .catch(() => { })
     }
+
     return (
         <div className="header">
             <div className='flex items-center mb-2 mt-2'>
@@ -125,6 +126,7 @@ function ProjectHeader() {
                 <Button type="primary" className='mr-2 mb-2 mt-2' size='small' onClick={createOnline}>上线</Button>
                 <Button type="primary" className='mr-2 mb-2 mt-2' size='small' onClick={()=>{exportFileRequest(detail.id)}}>导出文件</Button>
                 <Button type="primary" className='mr-2 mb-2 mt-2' size='small' onClick={()=>{exportProjectRequest(detail.id)}}>导出项目</Button>
+                <Button type="primary" className='mr-2 mb-2 mt-2' size='small' onClick={()=>{exportDistRequest(detail.id)}}>导出打包</Button>
                 {(!elementFloat) && <Button type="primary" className='mr-2 mb-2 mt-2' size='small' onClick={() => { setElementFloat(true) }}>隐藏容器</Button>}
                 {elementFloat && <Button type="primary" className='mr-2 mb-2 mt-2' size='small' onClick={() => { setElementFloat(false) }}>显示容器</Button>}
                 <Checkbox onChange={(e) => { setUnnestWhenDelete(e.target.checked) }} className='mt-2 mb-2' checked={unnestWhenDelete}>删除时解除嵌套</Checkbox>

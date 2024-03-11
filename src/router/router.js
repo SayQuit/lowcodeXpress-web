@@ -6,6 +6,7 @@ import ProjectPage from '../page/projectPage';
 import PreviewPage from '../page/previewPage';
 import OnlineList from '../page/onlineList';
 import OnlineProject from '../page/onlineProject'
+import DownloadProject from '../page/downloadPage';
 const router = [
     {
         path: '/',
@@ -38,6 +39,10 @@ const router = [
     {
         path: '/onlineProject',
         element: <OnlineProject></OnlineProject>
+    },
+    {
+        path: '/downloadProject',
+        element: <DownloadProject></DownloadProject>
     },
 
 ]

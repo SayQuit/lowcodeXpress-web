@@ -13,6 +13,7 @@ function PageHeader() {
       <div>
         <NavLink className='pageHeader-button' to={{ pathname: '/' }}>首页</NavLink>
         <NavLink className='pageHeader-button' to={{ pathname: '/onlineList' }}>上线</NavLink>
+        <NavLink className='pageHeader-button' to={{ pathname: '/downloadProject' }}>下载</NavLink>
       </div>
       <div className='flex mr-4'>
         {!user && <NavLink className='pageHeader-button' to={{ pathname: '/login' }}>登录</NavLink>}

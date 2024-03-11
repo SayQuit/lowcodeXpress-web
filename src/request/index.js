@@ -1,5 +1,6 @@
 import service from "./service";
 import { errorMessage } from "../utils/message";
+import { downloadFile } from "../utils/file";
 
 export const testRequest = async () => {
     let res = null
@@ -113,28 +114,7 @@ export const getOnlineDetailRequest = async (id) => {
 export const exportFileRequest = async (id) => {
     try {
         const res = await service.post('/export/file', { id }, { responseType: 'blob' });
-        const blob = new Blob([res.data], { type: res.headers['content-type'] });
-
-        const contentDisposition = res.headers['content-disposition'];
-        const match = contentDisposition && contentDisposition.match(/attachment; filename=([^"]+)/);
-        const filename = match ? match[1] : `${id}.jsx`;
-
-        if (window.navigator.msSaveOrOpenBlob) {
-            window.navigator.msSaveOrOpenBlob(blob, filename);
-        } else {
-            const link = document.createElement('a');
-
-            link.href = window.URL.createObjectURL(blob);
-            link.setAttribute('download', filename);
-
-            if (typeof link.download === 'undefined') {
-                link.setAttribute('target', '_blank');
-            }
-
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
+        downloadFile(res, id, 'jsx')
     } catch (error) {
         console.error(error);
     }
@@ -148,3 +128,30 @@ export const exportProjectRequest = async (id) => {
         return res || null
     }
 }
+
+export const exportProjectListRequest = async () => {
+    let res = null
+    try {
+        res = await service.post('/export/list')
+    } finally {
+        return res || null
+    }
+}
+
+export const exportDownloadRequest = async (id) => {
+    try {
+        const res = await service.post('/export/download', { id }, { responseType: 'blob' });
+        downloadFile(res, id, 'zip')
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export const exportDistRequest = async (id) => {
+    let res = null
+    try {
+        res = await service.post('/export/dist', { id })
+    } finally {
+        return res || null
+    }
+};
