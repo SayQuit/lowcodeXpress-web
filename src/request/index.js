@@ -1,6 +1,6 @@
 import service from "./service";
 import { errorMessage } from "../utils/message";
-import { downloadFile } from "../utils/file";
+import { downloadFile } from "../utils/download";
 
 export const testRequest = async () => {
     let res = null
