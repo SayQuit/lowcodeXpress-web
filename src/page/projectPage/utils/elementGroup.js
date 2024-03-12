@@ -2,7 +2,6 @@ import {
     Button as AntButton,
     Checkbox as AntCheckbox,
     Input as AntInput,
-    Divider as AntDivider,
     Steps as AntSteps,
     Cascader as AntCascader,
     ColorPicker as AntColorPicker,
@@ -10,27 +9,18 @@ import {
     InputNumber as AntInputNumber,
     Rate as AntRate,
     Select as AntSelect,
-    Slider as AntSlider,
     Switch as AntSwitch,
     TimePicker as AntTimePicker,
-    Transfer as AntTransfer,
     TreeSelect as AntTreeSelect,
-    Calendar as AntCalendar,
     Card as AntCard,
     Collapse as AntCollapse,
     Descriptions as AntDescriptions,
     Empty as AntEmpty,
     Image as AntImage,
-    QRCode as AntQRCode,
-    Statistic as AntStatistic,
     Table as AntTable,
     Tag as AntTag,
     Timeline as AntTimeline,
-    Tree as AntTree,
-    Alert as AntAlert,
     Progress as AntProgress,
-    Result as AntResult,
-    Skeleton as AntSkeleton,
     Spin as AntSpin,
 
 } from 'antd';
@@ -42,26 +32,15 @@ import {
     LinkOutlined,
     VideoCameraOutlined,
     ContainerOutlined,
-    SwapOutlined,
-    NumberOutlined,
     CreditCardOutlined,
     UnorderedListOutlined,
     SolutionOutlined,
     FileImageTwoTone,
-    QrcodeOutlined,
     BorderOutlined,
-    OrderedListOutlined,
     TableOutlined,
     LineHeightOutlined,
-    HeatMapOutlined,
-    CheckCircleOutlined,
-    SketchOutlined,
     RetweetOutlined
 } from '@ant-design/icons';
-
-import {
-    Button as EuiButton,
-} from 'element-react';
 
 const dataSource = [
     {
@@ -93,43 +72,6 @@ const columns = [
         title: '住址',
         dataIndex: 'address',
         key: 'address',
-    },
-];
-
-const treeData = [
-    {
-        title: 'parent 1',
-        key: '0-0',
-        children: [
-            {
-                title: 'parent 1-0',
-                key: '0-0-0',
-                disabled: true,
-                children: [
-                    {
-                        title: 'leaf',
-                        key: '0-0-0-0',
-                        disableCheckbox: true,
-                    },
-                    {
-                        title: 'leaf',
-                        key: '0-0-0-1',
-                    },
-                ],
-            },
-            {
-                title: 'parent 1-1',
-                key: '0-0-1',
-                children: [
-                    {
-                        title: (
-                            '1'
-                        ),
-                        key: '0-0-1-0',
-                    },
-                ],
-            },
-        ],
     },
 ];
 
@@ -540,25 +482,6 @@ export const elementGroup = [
         ]
 
     },
-
-    {
-        title: 'element-ui 组件',
-        type: 'element-ui',
-        items: [
-            {
-                name: '按钮',
-                type: 'eui-button',
-                icon: <EuiButton type='primary' size='small'>Button</EuiButton>,
-                getComponent: () => {
-                    return <EuiButton type='primary' >Button</EuiButton>
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-        ]
-
-    }
 ]
 
 const getElementMap = () => {
