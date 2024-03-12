@@ -276,25 +276,6 @@ export const elementGroup = [
                 default: {}
             },
             {
-                name: '分割线',
-                type: 'ant-devider',
-                icon:
-                    <AntDivider
-                        style={{
-                            border: '1px solid',
-                            width: '50%',
-                            minWidth: '50%',
-                            margin: '0 auto'
-                        }}>
-                    </AntDivider>,
-                getComponent: () => {
-                    return <AntDivider></AntDivider>
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
                 name: '步骤条',
                 type: 'ant-steps',
                 icon: <AntSteps size='small' items={[{}]}></AntSteps>,
@@ -386,17 +367,6 @@ export const elementGroup = [
                 default: {}
             },
             {
-                name: '滑动条',
-                type: 'ant-slider',
-                icon: <AntSlider />,
-                getComponent: () => {
-                    return <AntSlider />
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
                 name: '开关',
                 type: 'ant-switch',
                 icon: <AntSwitch size='small' />,
@@ -419,33 +389,11 @@ export const elementGroup = [
                 default: {}
             },
             {
-                name: '穿梭',
-                type: 'ant-transfer',
-                icon: <SwapOutlined />,
-                getComponent: () => {
-                    return <AntTransfer />
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
                 name: '树',
                 type: 'ant-treeselect',
                 icon: <AntTreeSelect />,
                 getComponent: () => {
                     return <AntTreeSelect />
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
-                name: '日期',
-                type: 'ant-calender',
-                icon: <NumberOutlined />,
-                getComponent: () => {
-                    return <AntCalendar />
                 },
                 styleSelector: [],
                 attrSelector: [],
@@ -535,28 +483,6 @@ export const elementGroup = [
                 default: {}
             },
             {
-                name: '二维码',
-                type: 'ant-qrcode',
-                icon: <QrcodeOutlined />,
-                getComponent: () => {
-                    return <AntQRCode value={'-'} />
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
-                name: '统计数值',
-                type: 'ant-statistic',
-                icon: <OrderedListOutlined />,
-                getComponent: () => {
-                    return <AntStatistic title="Feedback" value={1128} />
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
                 name: '表格',
                 type: 'ant-table',
                 icon: <TableOutlined />,
@@ -568,7 +494,7 @@ export const elementGroup = [
                 default: {}
             },
             {
-                name: '表格',
+                name: '标签',
                 type: 'ant-tag',
                 icon: <AntTag color="#87d068" size="small">tag</AntTag>,
                 getComponent: () => {
@@ -590,55 +516,11 @@ export const elementGroup = [
                 default: {}
             },
             {
-                name: '树',
-                type: 'ant-tree',
-                icon: <HeatMapOutlined />,
-                getComponent: () => {
-                    return <AntTree checkable treeData={treeData} />
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
-                name: '警告',
-                type: 'ant-alert',
-                icon: <AntAlert message="Alert" type="success" />,
-                getComponent: () => {
-                    return <AntAlert message="Alert" type="success" />
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
                 name: '进度条',
                 type: 'ant-progress',
                 icon: <AntProgress percent={30} />,
                 getComponent: () => {
                     return <AntProgress percent={30} />
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
-                name: '结果',
-                type: 'ant-result',
-                icon: <CheckCircleOutlined />,
-                getComponent: () => {
-                    return <AntResult status="success" />
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
-                name: '骨架',
-                type: 'ant-skeleton',
-                icon: <SketchOutlined />,
-                getComponent: () => {
-                    return <AntSkeleton />
                 },
                 styleSelector: [],
                 attrSelector: [],
