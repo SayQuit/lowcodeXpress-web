@@ -21,9 +21,10 @@ function BoardConatiner({ componentNode, boardRef, id }) {
     const [left, setLeft] = useState(0)
 
     const setContainerRect = useCallback(() => {
-        if (!itemRef || !itemRef.current || !boardRef || !boardRef.current) return;
-        let current = itemRef.current
-        if (!itemRef.current.getBoundingClientRect) current = document.getElementById(id)
+        if (!boardRef || !boardRef.current) return;
+        let current = document.getElementById(id)
+        if (!current) current = itemRef.current
+        if (!current || !current.getBoundingClientRect) return
         const parentRect = boardRef.current.getBoundingClientRect();
         const { top, left } = current.getBoundingClientRect();
         const scrollTop = boardRef.current.scrollTop
@@ -121,6 +122,7 @@ function BoardConatiner({ componentNode, boardRef, id }) {
                 (!componentNode || (!componentNode.value && !componentNode.childrenElement)) &&
                 <div
                     ref={itemRef}
+                    id={id}
                     className='board-container-tips'
                     onClick={onElementSelectVisibleChange}>
                     {(!componentNode || componentNode.type === 'container') ? (elementSelectVisible ? '拖拽元素至此处' : '点击添加元素') : '添加循环依赖'}

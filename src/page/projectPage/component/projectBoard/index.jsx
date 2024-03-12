@@ -15,7 +15,7 @@ function ProjectBoard() {
                     <BoardConatiner key={children.id} id={children.id} componentNode={children} boardRef={boardRef}></BoardConatiner>
                 )
             })}
-            <BoardConatiner componentNode={''} boardRef={boardRef}></BoardConatiner>
+            <BoardConatiner componentNode={''} boardRef={boardRef} id={-1}></BoardConatiner>
         </div>
     );
 }
