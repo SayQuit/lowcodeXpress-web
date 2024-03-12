@@ -4,6 +4,7 @@ export const downloadFile = (res, id, type) => {
     const contentDisposition = res.headers['content-disposition'];
     const match = contentDisposition && contentDisposition.match(/attachment; filename=([^"]+)/);
     const filename = match ? match[1] : `${id}.${type}`;
+    console.log(filename);
 
     if (window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(blob, filename);

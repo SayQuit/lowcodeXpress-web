@@ -111,10 +111,10 @@ export const getOnlineDetailRequest = async (id) => {
     }
 }
 
-export const exportFileRequest = async (id) => {
+export const exportFileRequest = async (id, tech) => {
     try {
         const res = await service.post('/export/file', { id }, { responseType: 'blob' });
-        downloadFile(res, id, 'jsx')
+        downloadFile(res, id, tech === 'react' ? 'jsx' : 'vue')
     } catch (error) {
         console.error(error);
     }

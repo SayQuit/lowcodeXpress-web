@@ -22,7 +22,7 @@ service.interceptors.response.use(
     if (response.status === 200 && (response.data.msg === 'success')) {
       return Promise.resolve(response.data)
     }
-    else if (response.status === 200 && ['text/jsx', 'application/x-zip-compressed'].includes(response.data.type)) {
+    else if (response.status === 200 && ['text/jsx', 'application/x-zip-compressed','application/javascript'].includes(response.data.type)) {
       return Promise.resolve(response)
     }
     else if (response.status === 200) {
