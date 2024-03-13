@@ -62,7 +62,7 @@
 }
 
 .right-tab :where(.css-dev-only-do-not-override-dkbvqv).ant-input-sm {
-    padding: 0;
+    /* padding: 0; */
 }
 
 .ant-select-selector {
