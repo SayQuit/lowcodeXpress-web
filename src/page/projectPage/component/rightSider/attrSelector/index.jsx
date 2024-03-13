@@ -7,6 +7,9 @@ import { attrGroup } from '../utils/group/attrGroup';
 import InputMode from '../component/inputMode'
 import CheckoutMode from '../component/checkoutMode'
 import { elementMap } from '../../../utils/elementGroup';
+import SelectMode from '../component/selectMode';
+import InputNumberMode from '../component/inputNumberMode';
+import InputJSONMode from '../component/inputJSONMode';
 function AttrSelector() {
 
     const { elementDispatch, activeElement, activeElementID } = useContext(ElementContext);
@@ -42,6 +45,14 @@ function AttrSelector() {
                                 type={item.type}
                                 tab={'attr'}
                             />
+                        )}{item.componentType === 'inputNumber' && (
+                            <InputNumberMode
+                                onChange={onChange}
+                                value={activeElement.attr[item.type] || ''}
+                                name={item.name}
+                                type={item.type}
+                                tab={'attr'}
+                            />
                         )}
                         {item.componentType === 'checkout' && (
                             <CheckoutMode
@@ -52,7 +63,25 @@ function AttrSelector() {
                                 tab={'attr'}
                             />
                         )}
-                        
+                        {item.componentType === 'select' && (
+                            <SelectMode
+                                onChange={onChange}
+                                value={activeElement.attr[item.type] || ''}
+                                name={item.name}
+                                type={item.type}
+                                options={item.options}
+                                tab={'attr'}
+                            />
+                        )}
+                        {item.componentType === 'inputJSON' && (
+                            <InputJSONMode
+                                onChange={onChange}
+                                value={activeElement.attr[item.type] || ''}
+                                name={item.name}
+                                type={item.type}
+                                tab={'attr'}
+                            />
+                        )}
                     </React.Fragment>
             })}
         </Flex>
