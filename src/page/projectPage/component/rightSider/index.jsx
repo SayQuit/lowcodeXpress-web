@@ -20,10 +20,6 @@ function RightSider() {
             label: '配置',
         },
         {
-            key: 'props',
-            label: '组件参数',
-        },
-        {
             key: 'attr',
             label: '属性',
         },
