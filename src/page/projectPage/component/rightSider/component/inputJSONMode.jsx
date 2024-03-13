@@ -3,9 +3,11 @@ import { Flex, Input } from 'antd';
 
 function InputJSONMode({ onChange, value, name, type, tab }) {
     const handleOnChange = (value) => {
+        let val = value.target.value
+        if (val === '') val = '""'
         onChange({
             type,
-            value: JSON.parse(value.target.value)
+            value: JSON.parse(val)
         })
     }
     return (
