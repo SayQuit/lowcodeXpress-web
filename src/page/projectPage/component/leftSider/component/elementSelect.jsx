@@ -24,7 +24,9 @@ function ElementSelect({ onClose }) {
                 <div key={item.type}>
                     <div className='mb-2 mt-6'>{item.title}</div>
                     {item.items.map(el => (
-                        <ElementItem item={el} key={el.type}></ElementItem>
+                        (
+                            !(detail.tech === 'vue' && (el.attrSelector.includes('items') || el.type === 'ant-colorpicker'))
+                        ) && <ElementItem item={el} key={el.type}></ElementItem>
                     ))}
                 </div>
             ))}
