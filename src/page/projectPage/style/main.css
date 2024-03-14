@@ -57,7 +57,13 @@
     background-color: #1677ff11;
 }
 
-.board-container-right{
+.board-container-right {
     border-right: 6px solid #1677ff;
     background-color: #1677ff11;
+}
+
+.mini-750-rpx {
+    width: 750px;
+    left: 50%;
+    transform: translateX(-50%);
 }

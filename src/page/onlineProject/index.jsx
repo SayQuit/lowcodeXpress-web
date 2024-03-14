@@ -7,6 +7,7 @@ import { createElementByNestElement, createElementByElement } from '../projectPa
 import OnlineBoard from './component/onlineBoard';
 import { getOnlineDetailRequest } from '../../request';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { replaceRpxWithPx } from '../../utils/style';
 
 function OnlinePage() {
     const [searchParams] = useSearchParams();
@@ -210,7 +211,7 @@ function OnlinePage() {
             }
             else if (item.type !== 'container' && item.type !== 'circle') {
                 const attribute = {
-                    style: item.styleObject,
+                    style: replaceRpxWithPx({styleObject:item.styleObject}).styleObject,
                     key: item.id,
                     ...item.attr,
                     ...variableAttr,
@@ -264,7 +265,7 @@ function OnlinePage() {
                 value,
                 id: item.id,
                 childrenElement,
-                ...containerStyle
+                ...replaceRpxWithPx(containerStyle)
             })
         })
         return res

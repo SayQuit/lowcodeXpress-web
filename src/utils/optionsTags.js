@@ -17,12 +17,6 @@ export const options = {
     ],
     projectTech: [
         {
-            value: 'html',
-            label: '原生html',
-            color: '#FFFFFF',
-            backgroundColor: '#F26527',
-            name: 'HTML'
-        }, {
             value: 'vue',
             label: 'Vue.js',
             color: '#33495D',
@@ -38,12 +32,6 @@ export const options = {
     ],
     projectLib: [
         {
-            value: 'element-ui',
-            label: 'Element-UI',
-            color: '#FFFFFF',
-            backgroundColor: '#409EFF',
-            name: 'Element'
-        }, {
             value: 'ant-design',
             label: 'Ant-Design',
             color: '#FFFFFF',

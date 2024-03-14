@@ -25,9 +25,6 @@ service.interceptors.response.use(
     else if (response.status === 200 && ['text/jsx', 'application/x-zip-compressed','application/javascript'].includes(response.data.type)) {
       return Promise.resolve(response)
     }
-    else if (response.status === 200) {
-      console.log(response);
-    }
     else {
       return Promise.reject(response.data)
     }

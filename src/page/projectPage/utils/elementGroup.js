@@ -80,7 +80,7 @@ export const elementGroup = [
                 getComponent: () => {
                     return <div></div>
                 },
-                styleSelector: ['display', 'width', 'height', 'fontSize', 'textAlign', 'color', 'backgroundColor'],
+                styleSelector: [],
                 attrSelector: ['children', 'html'],
                 default: {
                     children: '文本'
@@ -93,7 +93,7 @@ export const elementGroup = [
                 getComponent: () => {
                     return <button></button>
                 },
-                styleSelector: ['display', 'width', 'height', 'fontSize', 'color', 'backgroundColor'],
+                styleSelector: [],
                 attrSelector: ['children'],
                 default: {
                     children: '按钮'
@@ -106,7 +106,7 @@ export const elementGroup = [
                 getComponent: () => {
                     return <img alt="" />
                 },
-                styleSelector: ['display', 'width', 'height'],
+                styleSelector: [],
                 attrSelector: ['src'],
                 default: {
                     src: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
@@ -119,7 +119,7 @@ export const elementGroup = [
                 getComponent: () => {
                     return <a href='/'> </a>
                 },
-                styleSelector: ['display', 'width', 'height', 'fontSize', 'textAlign', 'color', 'backgroundColor'],
+                styleSelector: [],
                 attrSelector: ['children', 'href'],
                 default: {
                     href: '/',
@@ -134,8 +134,55 @@ export const elementGroup = [
                 getComponent: () => {
                     return <video></video>
                 },
-                styleSelector: ['display', 'width', 'height'],
+                styleSelector: [],
                 attrSelector: ['src', 'autoPlay', 'controls', 'loop'],
+                default: {
+                    src: 'https://terra-1-g.djicdn.com/851d20f7b9f64838a34cd02351370894/skypixel-2024/PC.mp4',
+                    controls: true,
+                    autoPlay: true
+                }
+            }
+        ]
+    },
+    {
+        title: '微信小程序标签',
+        type: 'wechat mini program',
+        items: [
+            {
+                name: '文本',
+                type: 'wxml',
+                icon: <FontSizeOutlined />,
+                getComponent: () => {
+                    return <div></div>
+                },
+                styleSelector: [],
+                attrSelector: ['children', 'html'],
+                default: {
+                    children: '文本'
+                }
+            },
+            {
+                name: '图片',
+                type: 'image',
+                icon: <FileImageOutlined />,
+                getComponent: () => {
+                    return <img alt="" />
+                },
+                styleSelector: [],
+                attrSelector: ['src'],
+                default: {
+                    src: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
+                }
+            },
+            {
+                name: '视频',
+                type: 'video',
+                icon: <VideoCameraOutlined />,
+                getComponent: () => {
+                    return <video></video>
+                },
+                styleSelector: [],
+                attrSelector: ['src', 'controls', 'loop'],
                 default: {
                     src: 'https://terra-1-g.djicdn.com/851d20f7b9f64838a34cd02351370894/skypixel-2024/PC.mp4',
                     controls: true,

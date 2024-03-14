@@ -9,6 +9,7 @@ import { createElementByType, createElementByElement, createElementByNestElement
 import { getRandomID } from '../../../utils/randomID';
 import { getComponentMap } from '../utils/getComponentMap'
 import { xhrRequest } from '../utils/xhrRequest';
+import { replaceRpxWithPx } from '../../../utils/style';
 
 export const ElementContext = createContext();
 
@@ -260,7 +261,7 @@ export const ElementProvider = ({ children }) => {
             }
             else if (item.type !== 'container' && item.type !== 'circle') {
                 const attribute = {
-                    style: item.styleObject,
+                    style: replaceRpxWithPx({styleObject:item.styleObject}).styleObject,
                     key: item.id,
                     ...item.attr,
                     ...variableAttr,
@@ -271,6 +272,7 @@ export const ElementProvider = ({ children }) => {
                     if (attribute['children']) delete attribute['children']
                     attribute['dangerouslySetInnerHTML'] = { __html: item.attr.html }
                 }
+                console.log(attribute);
                 value = React.cloneElement(
                     getComponentMap[item.type](),
                     attribute,
@@ -308,13 +310,13 @@ export const ElementProvider = ({ children }) => {
                     style: item.style,
                     styleObject: item.styleObject,
                 }
-            }
+            };
             res.push({
                 type: item.type,
                 value,
                 id: item.id,
                 childrenElement,
-                ...containerStyle
+                ...replaceRpxWithPx(containerStyle)
             })
         })
         return res

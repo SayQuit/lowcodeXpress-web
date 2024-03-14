@@ -5,6 +5,7 @@ import { xhrRequest } from '../projectPage/utils/xhrRequest';
 import { getComponentMap } from '../projectPage/utils/getComponentMap';
 import { createElementByNestElement, createElementByElement } from '../projectPage/utils/elementCreate';
 import PreviewBoard from './component/previewBoard';
+import { replaceRpxWithPx } from '../../utils/style';
 
 function PreviewPage() {
     const [element, elementDispatch] = useReducer((state, action) => {
@@ -205,7 +206,7 @@ function PreviewPage() {
             }
             else if (item.type !== 'container' && item.type !== 'circle') {
                 const attribute = {
-                    style: item.styleObject,
+                    style: replaceRpxWithPx({styleObject:item.styleObject}).styleObject,
                     key: item.id,
                     ...item.attr,
                     ...variableAttr,
@@ -259,7 +260,7 @@ function PreviewPage() {
                 value,
                 id: item.id,
                 childrenElement,
-                ...containerStyle
+                ...replaceRpxWithPx(containerStyle)
             })
         })
         return res

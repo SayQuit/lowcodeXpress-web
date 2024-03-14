@@ -5,11 +5,11 @@ import { useContext, useRef } from 'react';
 
 function ProjectBoard() {
 
-    const boardRef=useRef(null)
+    const boardRef = useRef(null)
 
-    const { component, setActiveElementID } = useContext(ElementContext)
+    const { component, setActiveElementID, detail } = useContext(ElementContext)
     return (
-        <div className="main-board" onClickCapture={() => { setActiveElementID('') }} ref={boardRef}>
+        <div onClickCapture={() => { setActiveElementID('') }} ref={boardRef} className={detail.type === 'wechat mini program' ? 'main-board mini-750-rpx' : 'main-board'}>
             {component.map((children) => {
                 return (
                     <BoardConatiner key={children.id} id={children.id} componentNode={children} boardRef={boardRef}></BoardConatiner>

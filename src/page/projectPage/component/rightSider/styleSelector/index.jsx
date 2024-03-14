@@ -1,7 +1,7 @@
 import '../../../style/right.css'
 import React from 'react';
 import { Flex } from 'antd';
-import { convertToHyphenated, removePxFromString } from '../../../../../utils/style';
+import { convertToHyphenated, removePxFromString, removeUnitFromString } from '../../../../../utils/style';
 import { ElementContext } from '../../../provider/elementProvider';
 import { useContext } from 'react';
 import { styleGroup } from '../utils/group/styleGroup';
@@ -12,10 +12,10 @@ import ColorPickerMode from '../component/colorPickerMode';
 // import { elementMap } from '../../../utils/elementGroup';
 function StyleSelector() {
 
-    const { elementDispatch, activeElement, activeElementID } = useContext(ElementContext);
+    const { elementDispatch, activeElement, activeElementID, detail } = useContext(ElementContext);
 
     const onChange = (e) => {
-        const { type, value } = e;
+        const { type, value, addonAfter } = e;
         const newStyleObject = {
             ...activeElement.styleObject,
         }
@@ -24,7 +24,9 @@ function StyleSelector() {
 
         if (value) {
             styleGroup.forEach(item => {
-                if (item.type === type && item.addonAfter) newStyleObject[type] += item.addonAfter
+                let add = addonAfter || item.addonAfter
+                if (detail.type !== 'wechat mini program' && add === 'rpx') add = 'px'
+                if (item.type === type && item.addonAfter) newStyleObject[type] += add
             })
         }
 
@@ -63,10 +65,10 @@ function StyleSelector() {
                         <InputNumberMode
                             onChange={onChange}
                             value={removePxFromString(activeElement.styleObject[item.type] || '')}
-                            addonAfter={item.addonAfter}
                             name={item.name}
                             type={item.type}
                             tab={'style'}
+                            initialAddonAfter={removeUnitFromString(activeElement.styleObject[item.type] || '')}
                         />
                     )}
                     {item.componentType === 'select' && (
