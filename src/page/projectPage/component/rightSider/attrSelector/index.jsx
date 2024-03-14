@@ -10,6 +10,7 @@ import { elementMap } from '../../../utils/elementGroup';
 import SelectMode from '../component/selectMode';
 import InputNumberMode from '../component/inputNumberMode';
 import InputJSONMode from '../component/inputJSONMode';
+import ColorPickerMode from '../component/colorPickerMode';
 function AttrSelector() {
 
     const { elementDispatch, activeElement, activeElementID } = useContext(ElementContext);
@@ -75,6 +76,15 @@ function AttrSelector() {
                         )}
                         {item.componentType === 'inputJSON' && (
                             <InputJSONMode
+                                onChange={onChange}
+                                value={activeElement.attr[item.type] || ''}
+                                name={item.name}
+                                type={item.type}
+                                tab={'attr'}
+                            />
+                        )}
+                        {item.componentType === 'colorPicker' && (
+                            <ColorPickerMode
                                 onChange={onChange}
                                 value={activeElement.attr[item.type] || ''}
                                 name={item.name}

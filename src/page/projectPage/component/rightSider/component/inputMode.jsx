@@ -10,7 +10,8 @@ function InputMode({ onChange, value, name, type, tab }) {
     }
     return (
         <Flex>
-            <div className='right-tab-font line-h-22'>{tab === 'attr' ? name + ' ' + type : name}</div>
+            <div className='right-tab-font line-h-22'>{name}</div>
+            {tab === 'attr' && <div className='right-tab-font line-h-22'>{type}</div>}
             <Input size='small' className='flex-1' onChange={handleOnChange} value={value}></Input>
         </Flex>
     );

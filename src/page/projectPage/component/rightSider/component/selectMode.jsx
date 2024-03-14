@@ -10,7 +10,8 @@ function SelectMode({ onChange, value, name, type, options, tab }) {
     }
     return (
         <Flex>
-            <div className='right-tab-font line-h-22'>{tab === 'attr' ? name + ' ' + type : name}</div>
+            <div className='right-tab-font line-h-22'>{name}</div>
+            {tab === 'attr' && <div className='right-tab-font line-h-22'>{type}</div>}
             <Select size='small' className='flex-1' options={options} value={value} onChange={handleOnChange} allowClear></Select>
         </Flex>
     );

@@ -11,8 +11,6 @@ import {
     Select as AntSelect,
     Switch as AntSwitch,
     TimePicker as AntTimePicker,
-    TreeSelect as AntTreeSelect,
-    Card as AntCard,
     Collapse as AntCollapse,
     Descriptions as AntDescriptions,
     Empty as AntEmpty,
@@ -32,7 +30,6 @@ import {
     LinkOutlined,
     VideoCameraOutlined,
     ContainerOutlined,
-    CreditCardOutlined,
     UnorderedListOutlined,
     SolutionOutlined,
     FileImageTwoTone,
@@ -42,38 +39,6 @@ import {
     RetweetOutlined
 } from '@ant-design/icons';
 
-const dataSource = [
-    {
-        key: '1',
-        name: '胡彦斌',
-        age: 32,
-        address: '西湖区湖底公园1号',
-    },
-    {
-        key: '2',
-        name: '胡彦祖',
-        age: 42,
-        address: '西湖区湖底公园1号',
-    },
-];
-
-const columns = [
-    {
-        title: '姓名',
-        dataIndex: 'name',
-        key: 'name',
-    },
-    {
-        title: '年龄',
-        dataIndex: 'age',
-        key: 'age',
-    },
-    {
-        title: '住址',
-        dataIndex: 'address',
-        key: 'address',
-    },
-];
 
 export const elementGroup = [
     {
@@ -189,11 +154,14 @@ export const elementGroup = [
                 type: 'ant-button',
                 icon: <AntButton type='primary' size='small'>Button</AntButton>,
                 getComponent: () => {
-                    return <AntButton type='primary'>Button</AntButton>
+                    return <AntButton></AntButton>
                 },
                 styleSelector: [],
-                attrSelector: [],
-                default: {}
+                attrSelector: ['children', 'type', 'danger', 'disabled', 'loading', 'size'],
+                default: {
+                    children: 'Button',
+                    type: 'primary',
+                }
             },
             {
                 name: '选框',
@@ -203,7 +171,7 @@ export const elementGroup = [
                     return <AntCheckbox></AntCheckbox>
                 },
                 styleSelector: [],
-                attrSelector: [],
+                attrSelector: ['checked', 'defaultChecked', 'disabled'],
                 default: {}
             },
             {
@@ -214,7 +182,7 @@ export const elementGroup = [
                     return <AntInput></AntInput>
                 },
                 styleSelector: [],
-                attrSelector: [],
+                attrSelector: ['defaultValue', 'disabled', 'maxLength', 'showCount', 'size', 'value'],
                 default: {}
             },
             {
@@ -222,9 +190,14 @@ export const elementGroup = [
                 type: 'ant-steps',
                 icon: <AntSteps size='small' items={[{}]}></AntSteps>,
                 getComponent: () => {
-                    return <AntSteps
-                        current={1}
-                        items={[
+                    return <AntSteps />
+                },
+                styleSelector: [],
+                attrSelector: ['current', 'direction', 'initial', 'labelPlacement', 'percent', 'size', 'progressDot', 'type', 'items'],
+                default: {
+                    current: 1,
+                    items:
+                        [
                             {
                                 title: 'Finished',
                             },
@@ -235,34 +208,55 @@ export const elementGroup = [
                             {
                                 title: 'Waiting',
                             },
-                        ]}
-                    />
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
+                        ]
+                }
             },
             {
                 name: '级联',
                 type: 'ant-cascader',
                 icon: <AntCascader placeholder="Cascader" size='small' />,
                 getComponent: () => {
-                    return <AntCascader placeholder="Cascader" />
+                    return <AntCascader />
                 },
                 styleSelector: [],
-                attrSelector: [],
-                default: {}
+                attrSelector: ['allowClear', 'defaultValue', 'disabled', 'notFoundContent', 'options', 'placeholder', 'placement', 'showSearch', 'size', 'value', 'multiple', 'searchValue'],
+                default: {
+                    options: [
+                        {
+                            value: 'zhejiang',
+                            label: 'Zhejiang',
+                            children: [
+                                {
+                                    value: 'hangzhou',
+                                    label: 'Hangzhou',
+                                },
+                            ],
+                        },
+                        {
+                            value: 'jiangsu',
+                            label: 'Jiangsu',
+                            children: [
+                                {
+                                    value: 'nanjing',
+                                    label: 'Nanjing',
+                                },
+                            ],
+                        },
+                    ]
+                }
             },
             {
                 name: '颜色',
                 type: 'ant-colorpicker',
                 icon: <AntColorPicker defaultValue="#1677ff" size='small' />,
                 getComponent: () => {
-                    return <AntColorPicker defaultValue="#1677ff" />
+                    return <AntColorPicker />
                 },
                 styleSelector: [],
-                attrSelector: [],
-                default: {}
+                attrSelector: ['allowClear', 'defaultValue', 'defaultFormat', 'disabled', 'destoryTooltipOnHide', 'format', 'placement', 'showText', 'size', 'value'],
+                default: {
+                    defaultValue: "#1677ff"
+                }
             },
             {
                 name: '日期',
@@ -272,7 +266,7 @@ export const elementGroup = [
                     return <AntDatePicker />
                 },
                 styleSelector: [],
-                attrSelector: [],
+                attrSelector: ['allowClear', 'disabled', 'mode', 'picker', 'placeholder', 'placement', 'size', 'multiple', 'showNow', 'showTime', 'showWeek'],
                 default: {}
             },
             {
@@ -283,7 +277,7 @@ export const elementGroup = [
                     return <AntInputNumber />
                 },
                 styleSelector: [],
-                attrSelector: [],
+                attrSelector: ['placeholder', 'defaultValue', 'disabled', 'max', 'min', 'readOnly', 'size', 'steps', 'value'],
                 default: {}
             },
             {
@@ -294,7 +288,7 @@ export const elementGroup = [
                     return <AntRate />
                 },
                 styleSelector: [],
-                attrSelector: [],
+                attrSelector: ['allowClear', 'allowFocus', 'count', 'defaultValue', 'disabled', 'value'],
                 default: {}
             },
             {
@@ -305,8 +299,13 @@ export const elementGroup = [
                     return <AntSelect />
                 },
                 styleSelector: [],
-                attrSelector: [],
-                default: {}
+                attrSelector: ['allowClear', 'defaultValue', 'disabled', 'options', 'placeholder', 'placement', 'showSearch', 'showSearrch', 'size', 'value', 'loading'],
+                default: {
+                    options: [{ value: 'jack', label: 'Jack' },
+                    { value: 'lucy', label: 'Lucy' },
+                    { value: 'Yiminghe', label: 'yiminghe' },
+                    { value: 'disabled', label: 'Disabled', disabled: true },]
+                }
             },
             {
                 name: '开关',
@@ -316,7 +315,7 @@ export const elementGroup = [
                     return <AntSwitch />
                 },
                 styleSelector: [],
-                attrSelector: [],
+                attrSelector: ['checked', 'defaultChecked', 'defaultValue', 'disabled', 'size', 'loading', 'value'],
                 default: {}
             },
             {
@@ -327,29 +326,7 @@ export const elementGroup = [
                     return <AntTimePicker />
                 },
                 styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
-                name: '树',
-                type: 'ant-treeselect',
-                icon: <AntTreeSelect />,
-                getComponent: () => {
-                    return <AntTreeSelect />
-                },
-                styleSelector: [],
-                attrSelector: [],
-                default: {}
-            },
-            {
-                name: '卡片',
-                type: 'ant-card',
-                icon: <CreditCardOutlined />,
-                getComponent: () => {
-                    return <AntCard >Card</AntCard>
-                },
-                styleSelector: [],
-                attrSelector: [],
+                attrSelector: ['disabled', 'placeholder', 'placement', 'size', 'showNow'],
                 default: {}
             },
             {
@@ -357,47 +334,49 @@ export const elementGroup = [
                 type: 'ant-collapse',
                 icon: <UnorderedListOutlined />,
                 getComponent: () => {
-                    return <AntCollapse
-                        items={[{
-                            key: '1',
-                            label: 'This is panel header 1',
-                            children: '1',
-                        },
-                        {
-                            key: '2',
-                            label: 'This is panel header 2',
-                            children: '2',
-                        },
-                        {
-                            key: '3',
-                            label: 'This is panel header 3',
-                            children: '3',
-                        }]} />
+                    return <AntCollapse />
                 },
                 styleSelector: [],
-                attrSelector: [],
-                default: {}
+                attrSelector: ['defaultActiveKey', 'activeKey', 'centered', 'size', 'tabPositon', 'items'],
+                default: {
+                    items: [{
+                        key: '1',
+                        label: 'This is panel header 1',
+                        children: '1',
+                    },
+                    {
+                        key: '2',
+                        label: 'This is panel header 2',
+                        children: '2',
+                    },
+                    {
+                        key: '3',
+                        label: 'This is panel header 3',
+                        children: '3',
+                    }]
+                }
             },
             {
                 name: '描述',
                 type: 'ant-descriptions',
                 icon: <SolutionOutlined />,
                 getComponent: () => {
-                    return <AntDescriptions title="User Info"
-                        items={[{
-                            key: '1',
-                            label: 'UserName',
-                            children: 1,
-                        },
-                        {
-                            key: '2',
-                            label: 'Telephone',
-                            children: 2,
-                        }]} />;
+                    return <AntDescriptions title="User Info" />;
                 },
                 styleSelector: [],
-                attrSelector: [],
-                default: {}
+                attrSelector: ['column', 'items', 'layout', 'size', 'title'],
+                default: {
+                    items: [{
+                        key: '1',
+                        label: 'UserName',
+                        children: 1,
+                    },
+                    {
+                        key: '2',
+                        label: 'Telephone',
+                        children: 2,
+                    }]
+                }
             },
             {
                 name: '空页',
@@ -407,7 +386,7 @@ export const elementGroup = [
                     return <AntEmpty />;
                 },
                 styleSelector: [],
-                attrSelector: [],
+                attrSelector: ['description'],
                 default: {}
             },
             {
@@ -421,7 +400,7 @@ export const elementGroup = [
                     />
                 },
                 styleSelector: [],
-                attrSelector: [],
+                attrSelector: ['preview', 'src'],
                 default: {}
             },
             {
@@ -429,33 +408,70 @@ export const elementGroup = [
                 type: 'ant-table',
                 icon: <TableOutlined />,
                 getComponent: () => {
-                    return <AntTable dataSource={dataSource} columns={columns} />;
+                    return <AntTable />;
                 },
                 styleSelector: [],
-                attrSelector: [],
-                default: {}
+                attrSelector: ['dataSource','columns'],
+                default: {
+                     dataSource : [
+                        {
+                            key: '1',
+                            name: '胡彦斌',
+                            age: 32,
+                            address: '西湖区湖底公园1号',
+                        },
+                        {
+                            key: '2',
+                            name: '胡彦祖',
+                            age: 42,
+                            address: '西湖区湖底公园1号',
+                        },
+                    ],
+                    
+                     columns: [
+                        {
+                            title: '姓名',
+                            dataIndex: 'name',
+                            key: 'name',
+                        },
+                        {
+                            title: '年龄',
+                            dataIndex: 'age',
+                            key: 'age',
+                        },
+                        {
+                            title: '住址',
+                            dataIndex: 'address',
+                            key: 'address',
+                        },
+                    ]
+                }
             },
             {
                 name: '标签',
                 type: 'ant-tag',
-                icon: <AntTag color="#87d068" size="small">tag</AntTag>,
+                icon: <AntTag color="#87d068">TAG</AntTag>,
                 getComponent: () => {
-                    return <AntTag>tag</AntTag>
+                    return <AntTag></AntTag>
                 },
                 styleSelector: [],
-                attrSelector: [],
-                default: {}
+                attrSelector: ['color', 'children'],
+                default: {
+                    children: 'TAG',
+                }
             },
             {
                 name: '时间线',
                 type: 'ant-timeline',
                 icon: <LineHeightOutlined />,
                 getComponent: () => {
-                    return <AntTimeline items={[{ children: 'Create a services site 2015-09-01', }, { children: 'Solve initial network problems 2015-09-01', }, { children: 'Technical testing 2015-09-01', }, { children: 'Network problems being solved 2015-09-01', },]} />
+                    return <AntTimeline />
                 },
                 styleSelector: [],
-                attrSelector: [],
-                default: {}
+                attrSelector: ['items', 'reverse'],
+                default: {
+                    items: [{ children: 'Create a services site 2015-09-01', }, { children: 'Solve initial network problems 2015-09-01', }, { children: 'Technical testing 2015-09-01', }, { children: 'Network problems being solved 2015-09-01', },]
+                }
             },
             {
                 name: '进度条',
@@ -465,8 +481,10 @@ export const elementGroup = [
                     return <AntProgress percent={30} />
                 },
                 styleSelector: [],
-                attrSelector: [],
-                default: {}
+                attrSelector: ['percent','showInfo','strokeColor','size','type','trailColor','strokeLinecap'],
+                default: {
+
+                }
             },
             {
                 name: '加载中',
@@ -476,7 +494,7 @@ export const elementGroup = [
                     return <AntSpin />
                 },
                 styleSelector: [],
-                attrSelector: [],
+                attrSelector: ['delay','size','spinning','fullscreen'],
                 default: {}
             },
         ]
