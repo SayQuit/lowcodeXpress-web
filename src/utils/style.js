@@ -21,7 +21,6 @@ export const removeUnitFromString = (inputString) => {
 export const replaceRpxWithPx = (containerStyle) => {
     let { styleObject, style } = containerStyle;
     style = style || ''
-    console.log(styleObject, style );
 
     const updatedStyleObject = {};
     for (const key in styleObject) {

@@ -39,6 +39,8 @@ import {
     RetweetOutlined
 } from '@ant-design/icons';
 
+import EchartsGraph from '../../../component/echartsGraph'
+
 
 export const elementGroup = [
     {
@@ -458,9 +460,9 @@ export const elementGroup = [
                     return <AntTable />;
                 },
                 styleSelector: [],
-                attrSelector: ['dataSource','columns'],
+                attrSelector: ['dataSource', 'columns'],
                 default: {
-                     dataSource : [
+                    dataSource: [
                         {
                             key: '1',
                             name: '胡彦斌',
@@ -474,8 +476,8 @@ export const elementGroup = [
                             address: '西湖区湖底公园1号',
                         },
                     ],
-                    
-                     columns: [
+
+                    columns: [
                         {
                             title: '姓名',
                             dataIndex: 'name',
@@ -528,7 +530,7 @@ export const elementGroup = [
                     return <AntProgress percent={30} />
                 },
                 styleSelector: [],
-                attrSelector: ['percent','showInfo','strokeColor','size','type','trailColor','strokeLinecap'],
+                attrSelector: ['percent', 'showInfo', 'strokeColor', 'size', 'type', 'trailColor', 'strokeLinecap'],
                 default: {
 
                 }
@@ -541,12 +543,42 @@ export const elementGroup = [
                     return <AntSpin />
                 },
                 styleSelector: [],
-                attrSelector: ['delay','size','spinning','fullscreen'],
+                attrSelector: ['delay', 'size', 'spinning', 'fullscreen'],
                 default: {}
             },
         ]
 
     },
+    {
+
+        title: 'Echarts 图表组件',
+        type: 'echarts',
+        items: [
+            {
+                name: '折线图',
+                type: 'echarts-line',
+                icon: <EchartsGraph echartsStyle={{ width: '50px', height: '50px' }} option={{ xAxis: { type: 'category', data: ['Mon', 'Tue', 'Wed', 'Thu'] }, yAxis: { type: 'value', min: 50, max: 250, axisLine: { show: false }, axisTick: { show: false }, splitLine: { show: false } }, series: [{ data: [130, 150, 104, 111], type: 'line' }] }} />,
+                getComponent: () => {
+                    return <EchartsGraph />
+                },
+                styleSelector: [],
+                attrSelector: [],
+                default: {
+                    option: {
+                        xAxis: {
+                            type: 'category',
+                            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                            nameTextStyle: {
+                                color: '#FF0000',
+                            }
+                        },
+                        yAxis: { type: 'value' },
+                        series: [{ data: [130, 110, 104, 98, 115, 127, 140], type: 'line' }]
+                    },
+                }
+            }
+        ]
+    }
 ]
 
 const getElementMap = () => {

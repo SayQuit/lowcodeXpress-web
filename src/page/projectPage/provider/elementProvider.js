@@ -259,6 +259,37 @@ export const ElementProvider = ({ children }) => {
                     styleObject: item.styleObject,
                 }
             }
+            else if (item.type.startsWith('echarts-')) {
+                console.log(item.attr.option);
+                const attribute = {
+                    key: item.id,
+                    ...item.attr,
+                    option:{
+                        ...item.attr.option,
+                        xAxis:{
+                            ...item.attr.option.xAxis,
+                            nameTextStyle:{
+                                ...replaceRpxWithPx({ styleObject: item.styleObject }).styleObject
+                            }
+                        },
+                        yAxis:{
+                            ...item.attr.option.yAxis,
+                            nameTextStyle:{
+                                ...replaceRpxWithPx({ styleObject: item.styleObject }).styleObject
+                            }
+                        }
+                    },
+                    ...variableAttr,
+                    ...eventAttr,
+                    ...propsAttr,
+                    echartsStyle: replaceRpxWithPx({ styleObject: item.styleObject }).styleObject
+                }
+                console.log(attribute);
+                value = React.cloneElement(
+                    getComponentMap[item.type](),
+                    attribute,
+                );
+            }
             else if (item.type !== 'container' && item.type !== 'circle') {
                 const attribute = {
                     style: replaceRpxWithPx({styleObject:item.styleObject}).styleObject,
@@ -272,7 +303,6 @@ export const ElementProvider = ({ children }) => {
                     if (attribute['children']) delete attribute['children']
                     attribute['dangerouslySetInnerHTML'] = { __html: item.attr.html }
                 }
-                console.log(attribute);
                 value = React.cloneElement(
                     getComponentMap[item.type](),
                     attribute,

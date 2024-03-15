@@ -2,27 +2,34 @@ import { getRandomID } from "../../../utils/randomID"
 import { elementMap } from "./elementGroup"
 export const createElementByType = (type) => {
     const id = getRandomID()
-    if(type!=='circle'){
+    // todo 这里加一个业务组件的判断
+    if (type.startsWith('echarts-')) {
         return {
             type,
             id,
-            style: '',
-            styleObject: {},
+            style: 'width:400px;height:400px;',
+            styleObject: { width: '400px', height: '400px' },
             attr: elementMap[type].default
         }
     }
-    // todo 这里加一个业务组件的判断
-    else {
+    else if (type === 'circle') {
         return {
             type,
             id,
             style: '',
             styleObject: {},
             attr: elementMap[type].default,
-            circleElement:[],
-            circleArrayVariableName:'',
-            circleArrayKey:'',
-            target:[]
+            circleElement: [],
+            target: []
+        }
+    }
+    else {
+        return {
+            type,
+            id,
+            style: '',
+            styleObject: {},
+            attr: elementMap[type].default
         }
     }
 }
