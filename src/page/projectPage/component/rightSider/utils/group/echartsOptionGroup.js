@@ -83,21 +83,6 @@ export const echartsOptionGroup = [
                 ]
             },
             {
-                name: '最小值',
-                type: 'min', 
-                componentType: 'inputNumber',
-            },
-            {
-                name: '最大值',
-                type: 'max', 
-                componentType: 'inputNumber',
-            },
-            {
-                name: '间隔',
-                type: 'interval', 
-                componentType: 'inputNumber',
-            },
-            {
                 name: '名称和X轴距离',
                 type: 'nameGap', 
                 componentType: 'inputNumber',
@@ -183,11 +168,6 @@ export const echartsOptionGroup = [
             {
                 name: '最大值',
                 type: 'max', 
-                componentType: 'inputNumber',
-            },
-            {
-                name: '间隔',
-                type: 'interval', 
                 componentType: 'inputNumber',
             },
             {
