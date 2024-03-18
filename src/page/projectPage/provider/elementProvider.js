@@ -10,6 +10,7 @@ import { getRandomID } from '../../../utils/randomID';
 import { getComponentMap } from '../utils/getComponentMap'
 import { xhrRequest } from '../utils/xhrRequest';
 import { replaceRpxWithPx } from '../../../utils/style';
+import { filterProperties } from '../../../utils/object';
 
 export const ElementContext = createContext();
 
@@ -260,22 +261,20 @@ export const ElementProvider = ({ children }) => {
                 }
             }
             else if (item.type.startsWith('echarts-')) {
+                const properties = ['color', 'fontStyle', 'fontWeight', 'fontFamily', 'fontSize', 'verticalAlign', 'lineHeight', 'backgroundColor', 'borderColor', 'borderWidth', 'borderRadius', 'padding', 'width', 'height', 'overflow']
+                const nameTextStyle = filterProperties(replaceRpxWithPx({ styleObject: item.styleObject }).styleObject, properties)
                 const attribute = {
                     key: item.id,
                     ...item.attr,
-                    option:{
+                    option: {
                         ...item.attr.option,
-                        xAxis:{
+                        xAxis: {
                             ...item.attr.option.xAxis,
-                            nameTextStyle:{
-                                ...replaceRpxWithPx({ styleObject: item.styleObject }).styleObject
-                            }
+                            nameTextStyle
                         },
-                        yAxis:{
+                        yAxis: {
                             ...item.attr.option.yAxis,
-                            nameTextStyle:{
-                                ...replaceRpxWithPx({ styleObject: item.styleObject }).styleObject
-                            }
+                            nameTextStyle
                         }
                     },
                     ...variableAttr,
@@ -290,7 +289,7 @@ export const ElementProvider = ({ children }) => {
             }
             else if (item.type !== 'container' && item.type !== 'circle') {
                 const attribute = {
-                    style: replaceRpxWithPx({styleObject:item.styleObject}).styleObject,
+                    style: replaceRpxWithPx({ styleObject: item.styleObject }).styleObject,
                     key: item.id,
                     ...item.attr,
                     ...variableAttr,

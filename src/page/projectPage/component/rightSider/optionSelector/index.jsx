@@ -1,7 +1,6 @@
 import '../../../style/right.css'
 import React from 'react';
 import { Flex } from 'antd';
-import { removePxFromString, removeUnitFromString } from '../../../../../utils/style';
 import { ElementContext } from '../../../provider/elementProvider';
 import { useContext } from 'react';
 import { echartsOptionGroup } from '../utils/group/echartsOptionGroup';
@@ -11,7 +10,7 @@ import SelectMode from '../component/selectMode'
 import ColorPickerMode from '../component/colorPickerMode';
 function OptionSelector() {
 
-    const { elementDispatch, activeElement, activeElementID, detail } = useContext(ElementContext);
+    const { elementDispatch, activeElement, activeElementID } = useContext(ElementContext);
 
     const onChange = (e) => {
         const { type, value } = e;
