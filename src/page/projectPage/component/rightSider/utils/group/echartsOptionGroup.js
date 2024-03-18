@@ -44,7 +44,7 @@ export const echartsOptionGroup = [
                 ]
             },
             {
-                name: '位置',
+                name: '轴线位置',
                 type: 'position', 
                 componentType: 'select',
                 options: [
@@ -95,6 +95,11 @@ export const echartsOptionGroup = [
             {
                 name: '间隔',
                 type: 'interval', 
+                componentType: 'inputNumber',
+            },
+            {
+                name: '名称和X轴距离',
+                type: 'nameGap', 
                 componentType: 'inputNumber',
             },
         ]
@@ -132,7 +137,7 @@ export const echartsOptionGroup = [
                 ]
             },
             {
-                name: '位置',
+                name: '轴线位置',
                 type: 'position', 
                 componentType: 'select',
                 options: [
@@ -183,6 +188,11 @@ export const echartsOptionGroup = [
             {
                 name: '间隔',
                 type: 'interval', 
+                componentType: 'inputNumber',
+            },
+            {
+                name: '名称和X轴距离',
+                type: 'nameGap', 
                 componentType: 'inputNumber',
             },
         ]

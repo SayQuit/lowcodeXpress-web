@@ -567,15 +567,78 @@ export const elementGroup = [
                     option: {
                         xAxis: {
                             type: 'category',
-                            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                            nameTextStyle: {
-                                color: '#FF0000',
-                            },
                             boundaryGap: false,
                         },
                         yAxis: {
                             type: 'value',
                         },
+                    },
+                }
+            },
+            {
+                name: '柱状图',
+                type: 'echarts-bar',
+                icon: <EchartsGraph echartsStyle={{ width: '50px', height: '50px' }} option={{ xAxis: { type: 'category', data: ['Mon', 'Tue', 'Wed', 'Thu'] }, yAxis: { type: 'value', min: 50, max: 250, axisLine: { show: false }, axisTick: { show: false }, splitLine: { show: false } }, series: [{ data: [130, 150, 104, 111], type: 'bar' }] }} />,
+                getComponent: () => {
+                    return <EchartsGraph />
+                },
+                styleSelector: [],
+                attrSelector: [],
+                default: {
+                    option: {
+                        xAxis: {
+                            type: 'category',
+                        },
+                        yAxis: {
+                            type: 'value',
+                        },
+                        series: [{ type: 'bar' }]
+                    },
+                }
+            },
+
+            {
+                name: '散点图',
+                type: 'echarts-scatter',
+                icon: <EchartsGraph echartsStyle={{ width: '50px', height: '50px' }} option={{ xAxis: { type: 'category', data: ['Mon', 'Tue', 'Wed', 'Thu'] }, yAxis: { type: 'value', min: 50, max: 250, axisLine: { show: false }, axisTick: { show: false }, splitLine: { show: false } }, series: [{ data: [130, 150, 104, 111], type: 'scatter' }] }} />,
+                getComponent: () => {
+                    return <EchartsGraph />
+                },
+                styleSelector: [],
+                attrSelector: [],
+                default: {
+                    option: {
+                        xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                        },
+                        yAxis: {
+                            type: 'value',
+                        },
+                        series: [{ type: 'scatter' }]
+                    },
+                }
+            },
+
+            {
+                name: '饼状图',
+                type: 'echarts-pie',
+                icon: <EchartsGraph echartsStyle={{ width: '50px', height: '50px' }} option={{ xAxis: {}, yAxis: { axisLine: { show: false }, axisTick: { show: false } }, series: [{ data: [{ value: 1048, name: 'Search Engine' }, { value: 735, name: 'Direct' }, { value: 580, name: 'Email' }], type: 'pie' }] }} />,
+                getComponent: () => {
+                    return <EchartsGraph />
+                },
+                styleSelector: [],
+                attrSelector: [],
+                default: {
+                    option: {
+                        xAxis: {
+                            type: 'category',
+                            axisLine: { show: false }, axisTick: { show: false }
+                        },
+                        yAxis: {
+                            type: 'value',
+                        },
+                        series: [{ type: 'pie' }]
                     },
                 }
             }

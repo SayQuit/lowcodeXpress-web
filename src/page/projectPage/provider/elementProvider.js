@@ -278,10 +278,9 @@ export const ElementProvider = ({ children }) => {
                         yAxis: {
                             ...item.attr.option.yAxis,
                             nameTextStyle,
-                            // data: y.value || []
                         },
                         series: [
-                            { data: y.value || [] ,type:'line'}
+                            { data: y.value || [] ,type:item.type.split('-')[1]}
                         ]
                     },
                     ...variableAttr,

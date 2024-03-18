@@ -8,6 +8,7 @@ import InputMode from '../component/inputMode'
 import InputNumberMode from '../component/inputNumberMode';
 import SelectMode from '../component/selectMode'
 import ColorPickerMode from '../component/colorPickerMode';
+import CheckoutMode from '../component/checkoutMode';
 function OptionSelector() {
 
     const { elementDispatch, activeElement, activeElementID, variable, props } = useContext(ElementContext);
@@ -24,7 +25,10 @@ function OptionSelector() {
             if (value) newOption[prevKey][key] = value
             else if (newOption[prevKey][key]) delete newOption[prevKey][key]
         }
-        else newOption[prevKey][key] = value
+        else {
+            if (!newOption[prevKey]) newOption[prevKey] = {}
+            newOption[prevKey][key] = value
+        }
         const newElement = {
             ...activeElement,
             attr: {
@@ -37,8 +41,9 @@ function OptionSelector() {
     }
 
     const handleXData = (item) => {
-        let { name } = JSON.parse(item) || {}
-        if (!name) name = ''
+        let name
+        if (!item) name = ''
+        else name = JSON.parse(item).name
         const newElement = {
             ...activeElement,
             bindXElement: name || ''
@@ -48,8 +53,9 @@ function OptionSelector() {
 
 
     const handleYData = (item) => {
-        let { name } = JSON.parse(item) || {}
-        if (!name) name = ''
+        let name
+        if (!item) name = ''
+        else name = JSON.parse(item).name
         const newElement = {
             ...activeElement,
             bindYElement: name || ''
@@ -59,7 +65,7 @@ function OptionSelector() {
     }
 
     return (
-        <Flex gap="small" vertical className='right-tab' key={activeElementID}>
+        activeElement && <Flex gap="small" vertical className='right-tab' key={activeElementID}>
             <h3>绑定X轴数据</h3>
             <Select
                 allowClear
@@ -126,6 +132,15 @@ function OptionSelector() {
                             )}
                             {o_item.componentType === 'colorPicker' && (
                                 <ColorPickerMode
+                                    onChange={onChange}
+                                    value={activeElement.attr.option[item.type] ? activeElement.attr.option[item.type][o_item.type] || '' : ''}
+                                    name={o_item.name}
+                                    type={item.type + '.' + o_item.type}
+                                    tab={'option'}
+                                />
+                            )}
+                            {o_item.componentType === 'checkout' && (
+                                <CheckoutMode
                                     onChange={onChange}
                                     value={activeElement.attr.option[item.type] ? activeElement.attr.option[item.type][o_item.type] || '' : ''}
                                     name={o_item.name}
