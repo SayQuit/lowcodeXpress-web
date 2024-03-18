@@ -1,17 +1,27 @@
-import React, { useEffect, useRef, forwardRef } from 'react';
+import React, { useEffect, useRef, forwardRef, useContext } from 'react';
 import * as echarts from 'echarts';
+import { LeftSiderContext } from '../../page/projectPage/provider/leftSiderProvider';
 
 const EchartsGraph = forwardRef(({ option, echartsStyle }, ref) => {
     const chartRef = useRef(null);
+    const { elementSelectVisible } = useContext(LeftSiderContext);
 
     useEffect(() => {
-        const chart = echarts.init(chartRef.current);
-        chart.setOption(option);
-
+        let chart = echarts.init(chartRef.current);
+        const initCharts = () => {
+            chart = echarts.init(chartRef.current);
+            chart.setOption(option);
+        }
+        initCharts()
+        const handleResize = () => {
+            initCharts()
+        };
+        window.addEventListener('resize', handleResize);
         return () => {
             chart.dispose();
+            window.removeEventListener('resize', handleResize);
         };
-    }, [option, echartsStyle]);
+    }, [option, echartsStyle, elementSelectVisible]);
 
     useEffect(() => {
         if (ref) ref.current = chartRef.current;
