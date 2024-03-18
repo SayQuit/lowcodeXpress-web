@@ -260,7 +260,6 @@ export const ElementProvider = ({ children }) => {
                 }
             }
             else if (item.type.startsWith('echarts-')) {
-                console.log(item.attr.option);
                 const attribute = {
                     key: item.id,
                     ...item.attr,
@@ -284,7 +283,6 @@ export const ElementProvider = ({ children }) => {
                     ...propsAttr,
                     echartsStyle: replaceRpxWithPx({ styleObject: item.styleObject }).styleObject
                 }
-                console.log(attribute);
                 value = React.cloneElement(
                     getComponentMap[item.type](),
                     attribute,

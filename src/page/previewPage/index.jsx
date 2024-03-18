@@ -204,6 +204,35 @@ function PreviewPage() {
                     styleObject: item.styleObject,
                 }
             }
+            else if (item.type.startsWith('echarts-')) {
+                const attribute = {
+                    key: item.id,
+                    ...item.attr,
+                    option:{
+                        ...item.attr.option,
+                        xAxis:{
+                            ...item.attr.option.xAxis,
+                            nameTextStyle:{
+                                ...replaceRpxWithPx({ styleObject: item.styleObject }).styleObject
+                            }
+                        },
+                        yAxis:{
+                            ...item.attr.option.yAxis,
+                            nameTextStyle:{
+                                ...replaceRpxWithPx({ styleObject: item.styleObject }).styleObject
+                            }
+                        }
+                    },
+                    ...variableAttr,
+                    ...eventAttr,
+                    ...propsAttr,
+                    echartsStyle: replaceRpxWithPx({ styleObject: item.styleObject }).styleObject
+                }
+                value = React.cloneElement(
+                    getComponentMap[item.type](),
+                    attribute,
+                );
+            }
             else if (item.type !== 'container' && item.type !== 'circle') {
                 const attribute = {
                     style: replaceRpxWithPx({styleObject:item.styleObject}).styleObject,
@@ -254,7 +283,7 @@ function PreviewPage() {
                     style: item.style,
                     styleObject: item.styleObject,
                 }
-            }
+            };
             res.push({
                 type: item.type,
                 value,

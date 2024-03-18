@@ -15,22 +15,17 @@ function OptionSelector() {
 
     const onChange = (e) => {
         const { type, value } = e;
-        console.log(activeElement);
         const newOption = {
             ...activeElement.attr.option,
         }
-        console.log(newOption);
-        console.log(type.split('.'));
         const prevKey = type.split('.')[0]
         const key = type.split('.')[1]
         if (typeof (value) !== 'boolean') {
             newOption[prevKey] = newOption[prevKey] || {}
-            console.log(newOption);
             if (value) newOption[prevKey][key] = value
             else if (newOption[prevKey][key]) delete newOption[prevKey][key]
         }
         else newOption[prevKey][key] = value
-        console.log(newOption);
         const newElement = {
             ...activeElement,
             attr: {
@@ -39,7 +34,6 @@ function OptionSelector() {
             }
 
         }
-        console.log(newElement);
         elementDispatch({ type: 'replace', element: newElement, id: activeElementID })
     }
 

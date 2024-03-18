@@ -6,7 +6,6 @@ const EchartsGraph = forwardRef(({ option, echartsStyle }, ref) => {
 
     useEffect(() => {
         const chart = echarts.init(chartRef.current);
-        console.log(option);
         chart.setOption(option);
 
         return () => {
