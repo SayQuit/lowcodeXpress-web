@@ -4,7 +4,7 @@ import { LeftSiderContext } from '../../page/projectPage/provider/leftSiderProvi
 
 const EchartsGraph = forwardRef(({ option, echartsStyle }, ref) => {
     const chartRef = useRef(null);
-    const { elementSelectVisible } = useContext(LeftSiderContext);
+    const { elementSelectVisible } = useContext(LeftSiderContext) || {};
 
     useEffect(() => {
         let chart = echarts.init(chartRef.current);
