@@ -6,6 +6,7 @@ import { getComponentMap } from '../projectPage/utils/getComponentMap';
 import { createElementByNestElement, createElementByElement } from '../projectPage/utils/elementCreate';
 import PreviewBoard from './component/previewBoard';
 import { replaceRpxWithPx } from '../../utils/style';
+import { filterProperties } from '../../utils/object';
 
 function PreviewPage() {
     const [element, elementDispatch] = useReducer((state, action) => {
@@ -205,23 +206,28 @@ function PreviewPage() {
                 }
             }
             else if (item.type.startsWith('echarts-')) {
+                const properties = ['color', 'fontStyle', 'fontWeight', 'fontFamily', 'fontSize', 'verticalAlign', 'lineHeight', 'backgroundColor', 'borderColor', 'borderWidth', 'borderRadius', 'padding', 'width', 'height', 'overflow']
+                const nameTextStyle = filterProperties(replaceRpxWithPx({ styleObject: item.styleObject }).styleObject, properties)
+                const x = variableMap[item.bindXElement] || {}
+                const y = variableMap[item.bindYElement] || {}
                 const attribute = {
                     key: item.id,
                     ...item.attr,
-                    option:{
+                    option: {
                         ...item.attr.option,
-                        xAxis:{
+                        xAxis: {
                             ...item.attr.option.xAxis,
-                            nameTextStyle:{
-                                ...replaceRpxWithPx({ styleObject: item.styleObject }).styleObject
-                            }
+                            nameTextStyle,
+                            data: x.value || []
                         },
-                        yAxis:{
+                        yAxis: {
                             ...item.attr.option.yAxis,
-                            nameTextStyle:{
-                                ...replaceRpxWithPx({ styleObject: item.styleObject }).styleObject
-                            }
-                        }
+                            nameTextStyle,
+                            // data: y.value || []
+                        },
+                        series: [
+                            { data: y.value || [] ,type:'line'}
+                        ]
                     },
                     ...variableAttr,
                     ...eventAttr,
@@ -232,10 +238,11 @@ function PreviewPage() {
                     getComponentMap[item.type](),
                     attribute,
                 );
+                console.log(attribute);
             }
             else if (item.type !== 'container' && item.type !== 'circle') {
                 const attribute = {
-                    style: replaceRpxWithPx({styleObject:item.styleObject}).styleObject,
+                    style: replaceRpxWithPx({ styleObject: item.styleObject }).styleObject,
                     key: item.id,
                     ...item.attr,
                     ...variableAttr,
