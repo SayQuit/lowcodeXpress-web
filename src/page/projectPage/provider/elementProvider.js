@@ -263,6 +263,8 @@ export const ElementProvider = ({ children }) => {
             else if (item.type.startsWith('echarts-')) {
                 const properties = ['color', 'fontStyle', 'fontWeight', 'fontFamily', 'fontSize', 'verticalAlign', 'lineHeight', 'backgroundColor', 'borderColor', 'borderWidth', 'borderRadius', 'padding', 'width', 'height', 'overflow']
                 const nameTextStyle = filterProperties(replaceRpxWithPx({ styleObject: item.styleObject }).styleObject, properties)
+                const x = variableMap[item.bindXElement] || {}
+                const y = variableMap[item.bindYElement] || {}
                 const attribute = {
                     key: item.id,
                     ...item.attr,
@@ -270,12 +272,17 @@ export const ElementProvider = ({ children }) => {
                         ...item.attr.option,
                         xAxis: {
                             ...item.attr.option.xAxis,
-                            nameTextStyle
+                            nameTextStyle,
+                            data: x.value || []
                         },
                         yAxis: {
                             ...item.attr.option.yAxis,
-                            nameTextStyle
-                        }
+                            nameTextStyle,
+                            // data: y.value || []
+                        },
+                        series: [
+                            { data: y.value || [] ,type:'line'}
+                        ]
                     },
                     ...variableAttr,
                     ...eventAttr,
@@ -286,6 +293,7 @@ export const ElementProvider = ({ children }) => {
                     getComponentMap[item.type](),
                     attribute,
                 );
+                console.log(attribute);
             }
             else if (item.type !== 'container' && item.type !== 'circle') {
                 const attribute = {

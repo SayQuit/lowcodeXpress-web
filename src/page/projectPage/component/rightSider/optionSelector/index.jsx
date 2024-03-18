@@ -1,6 +1,6 @@
 import '../../../style/right.css'
 import React from 'react';
-import { Flex } from 'antd';
+import { Flex, Select } from 'antd';
 import { ElementContext } from '../../../provider/elementProvider';
 import { useContext } from 'react';
 import { echartsOptionGroup } from '../utils/group/echartsOptionGroup';
@@ -10,7 +10,7 @@ import SelectMode from '../component/selectMode'
 import ColorPickerMode from '../component/colorPickerMode';
 function OptionSelector() {
 
-    const { elementDispatch, activeElement, activeElementID } = useContext(ElementContext);
+    const { elementDispatch, activeElement, activeElementID, variable, props } = useContext(ElementContext);
 
     const onChange = (e) => {
         const { type, value } = e;
@@ -36,19 +36,71 @@ function OptionSelector() {
         elementDispatch({ type: 'replace', element: newElement, id: activeElementID })
     }
 
+    const handleXData = (item) => {
+        let { name } = JSON.parse(item) || {}
+        if (!name) name = ''
+        const newElement = {
+            ...activeElement,
+            bindXElement: name || ''
+        }
+        elementDispatch({ type: 'replace', element: newElement, id: activeElementID })
+    }
+
+
+    const handleYData = (item) => {
+        let { name } = JSON.parse(item) || {}
+        if (!name) name = ''
+        const newElement = {
+            ...activeElement,
+            bindYElement: name || ''
+        }
+        elementDispatch({ type: 'replace', element: newElement, id: activeElementID })
+
+    }
+
     return (
         <Flex gap="small" vertical className='right-tab' key={activeElementID}>
+            <h3>绑定X轴数据</h3>
+            <Select
+                allowClear
+                placeholder='添加数组'
+                options={[...variable, ...props].filter((item) => {
+                    return item.value instanceof Array
+                }).map((item) => {
+                    return {
+                        label: item.name,
+                        value: JSON.stringify(item)
+                    }
+                })}
+                onChange={(item) => { handleXData(item) }}
+                defaultValue={activeElement.bindXElement || ''}
+            ></Select>
+            <h3>绑定Y轴数据</h3>
+            <Select
+                allowClear
+                placeholder='添加数组'
+                options={[...variable, ...props].filter((item) => {
+                    return item.value instanceof Array
+                }).map((item) => {
+                    return {
+                        label: item.name,
+                        value: JSON.stringify(item)
+                    }
+                })}
+                onChange={(item) => { handleYData(item) }}
+                defaultValue={activeElement.bindYElement || ''}
+            ></Select>
             {echartsOptionGroup.map(item => {
                 return <React.Fragment key={item.type}>
                     <h3>{item.name}</h3>
                     {item.option.map(o_item => {
-                        return <React.Fragment key={item.type +'.'+ o_item.type}>
+                        return <React.Fragment key={item.type + '.' + o_item.type}>
                             {o_item.componentType === 'input' && (
                                 <InputMode
                                     onChange={onChange}
                                     value={activeElement.attr.option[item.type] ? activeElement.attr.option[item.type][o_item.type] || '' : ''}
                                     name={o_item.name}
-                                    type={item.type +'.'+ o_item.type}
+                                    type={item.type + '.' + o_item.type}
                                     tab={'option'}
                                 />
                             )}
@@ -57,7 +109,7 @@ function OptionSelector() {
                                     onChange={onChange}
                                     value={activeElement.attr.option[item.type] ? activeElement.attr.option[item.type][o_item.type] || '' : ''}
                                     name={o_item.name}
-                                    type={item.type +'.'+ o_item.type}
+                                    type={item.type + '.' + o_item.type}
                                     tab={'option'}
                                     initialAddonAfter={('')}
                                 />
@@ -67,7 +119,7 @@ function OptionSelector() {
                                     onChange={onChange}
                                     value={activeElement.attr.option[item.type] ? activeElement.attr.option[item.type][o_item.type] || '' : ''}
                                     name={o_item.name}
-                                    type={item.type +'.'+ o_item.type}
+                                    type={item.type + '.' + o_item.type}
                                     options={o_item.options}
                                     tab={'option'}
                                 />
@@ -77,7 +129,7 @@ function OptionSelector() {
                                     onChange={onChange}
                                     value={activeElement.attr.option[item.type] ? activeElement.attr.option[item.type][o_item.type] || '' : ''}
                                     name={o_item.name}
-                                    type={item.type +'.'+ o_item.type}
+                                    type={item.type + '.' + o_item.type}
                                     tab={'option'}
                                 />
                             )}

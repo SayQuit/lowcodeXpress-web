@@ -9,7 +9,9 @@ export const createElementByType = (type) => {
             id,
             style: 'width:400px;height:400px;',
             styleObject: { width: '400px', height: '400px' },
-            attr: elementMap[type].default
+            attr: elementMap[type].default,
+            bindXElement:'',
+            bindYElement:'',
         }
     }
     else if (type === 'circle') {

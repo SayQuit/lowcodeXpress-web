@@ -570,10 +570,12 @@ export const elementGroup = [
                             data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                             nameTextStyle: {
                                 color: '#FF0000',
-                            }
+                            },
+                            boundaryGap: false,
                         },
-                        yAxis: { type: 'value' },
-                        series: [{ data: [130, 110, 104, 98, 115, 127, 140], type: 'line' }]
+                        yAxis: {
+                            type: 'value',
+                        },
                     },
                 }
             }
