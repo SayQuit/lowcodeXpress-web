@@ -572,6 +572,7 @@ export const elementGroup = [
                         yAxis: {
                             type: 'value',
                         },
+                        series: [{ type: 'line' }]
                     },
                 }
             },
