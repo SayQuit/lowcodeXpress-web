@@ -59,7 +59,7 @@ export const createNestElement = (childrenElement) => {
         type: 'nest',
         id: getRandomID(),
         childrenElement: childrenElement,
-        style: {},
+        style: '',
         styleObject: {}
     }
 }
