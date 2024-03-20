@@ -152,7 +152,7 @@ export const elementGroup = [
         items: [
             {
                 name: '文本',
-                type: 'wxml',
+                type: 'view',
                 icon: <FontSizeOutlined />,
                 getComponent: () => {
                     return <div></div>
