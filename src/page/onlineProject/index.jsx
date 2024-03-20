@@ -23,6 +23,8 @@ function OnlinePage() {
         }
     }, [])
 
+    const [detail, setDetail] = useState(null)
+
     const [variable, variableDispatch] = useReducer((state, action) => {
         switch (action.type) {
             case 'set':
@@ -231,7 +233,7 @@ function OnlinePage() {
                             // data: y.value || []
                         },
                         series: [
-                            { data: y.value || [] ,type:'line'}
+                            { data: y.value || [], type: 'line' }
                         ]
                     },
                     ...variableAttr,
@@ -320,6 +322,7 @@ function OnlinePage() {
         variableDispatch({ type: 'set', value: variable })
         propsDispatch({ type: 'set', value: props })
         eventDispatch({ type: 'set', value: event })
+        setDetail(data)
         setOnload(onload || '')
     }
 
@@ -333,7 +336,9 @@ function OnlinePage() {
     }, [onload])
 
     return (
-        <OnlineBoard component={component}></OnlineBoard>
+        <div style={(detail && detail.type === 'wechat mini program') ? { width: '750px', margin: '0 auto' } : {}}>
+            <OnlineBoard component={component}></OnlineBoard>
+        </div>
     );
 }
 

@@ -18,6 +18,8 @@ function PreviewPage() {
         }
     }, [])
 
+    const [detail, setDetail] = useState(null)
+    
     const [variable, variableDispatch] = useReducer((state, action) => {
         switch (action.type) {
             case 'set':
@@ -226,7 +228,7 @@ function PreviewPage() {
                             // data: y.value || []
                         },
                         series: [
-                            { data: y.value || [] ,type:'line'}
+                            { data: y.value || [], type: 'line' }
                         ]
                     },
                     ...variableAttr,
@@ -308,12 +310,14 @@ function PreviewPage() {
 
     useEffect(() => {
         const handleMessage = (e) => {
-            const { element, props, variable, event, onload } = e.data
+            const { element, props, variable, event, onload, detail } = e.data
             if (!(element && props && variable && event)) return
             elementDispatch({ type: 'set', value: element })
             variableDispatch({ type: 'set', value: variable })
             propsDispatch({ type: 'set', value: props })
             eventDispatch({ type: 'set', value: event })
+            setDetail(detail)
+            console.log(detail);
             setOnload(onload || '')
         };
         window.addEventListener('message', handleMessage);
@@ -328,7 +332,9 @@ function PreviewPage() {
     }, [onload])
 
     return (
-        <PreviewBoard component={component}></PreviewBoard>
+        <div style={(detail && detail.type === 'wechat mini program') ? { width: '750px', margin: '0 auto' } : {}}>
+            <PreviewBoard component={component}></PreviewBoard>
+        </div>
     );
 }
 

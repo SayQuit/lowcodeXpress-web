@@ -457,6 +457,7 @@ export const ElementProvider = ({ children }) => {
                 variable,
                 event,
                 props,
+                detail
             };
             previewRef.postMessage(messageData, `http://localhost:3000/#/preview?id=${detail.id}`);
         });
