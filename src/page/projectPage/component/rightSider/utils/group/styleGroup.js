@@ -137,16 +137,16 @@ export const styleGroup = [
         name: '字体',
         options: [
             {
-                value: "'Courier New', Courier, monospace",
-                label: "'Courier New', Courier, monospace"
+                value: "Courier New, Courier, monospace",
+                label: "Courier New, Courier, monospace"
             },
             {
-                value: "'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif",
-                label: "'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"
+                value: "Franklin Gothic Medium, 'Arial Narrow', Arial, sans-serif",
+                label: "Franklin Gothic Medium, 'Arial Narrow', Arial, sans-serif"
             },
             {
-                value: "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
-                label: "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif"
+                value: "Gill Sans, Gill Sans MT, Calibri, 'Trebuchet MS', sans-serif",
+                label: "Gill Sans, Gill Sans MT, Calibri, 'Trebuchet MS', sans-serif"
             },
 
 
@@ -679,4 +679,15 @@ export const styleGroup = [
             },
         ]
     },
+
+    {
+        type: 'transition',
+        componentType: 'input',
+        name: '过渡',
+    },
+    {
+        type: 'transform',
+        componentType: 'input',
+        name: '转换',
+    },    
 ]

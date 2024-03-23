@@ -9,6 +9,7 @@ import InputMode from '../component/inputMode'
 import InputNumberMode from '../component/inputNumberMode';
 import SelectMode from '../component/selectMode'
 import ColorPickerMode from '../component/colorPickerMode';
+import InputNumberNoUnitMode from '../component/inputNumberNoUnitMode';
 // import { elementMap } from '../../../utils/elementGroup';
 function StyleSelector() {
 
@@ -69,6 +70,15 @@ function StyleSelector() {
                             type={item.type}
                             tab={'style'}
                             initialAddonAfter={removeUnitFromString(activeElement.styleObject[item.type] || '')}
+                        />
+                    )}
+                    {item.componentType === 'inputNumberNoUnit' && (
+                        <InputNumberNoUnitMode
+                            onChange={onChange}
+                            value={removePxFromString(activeElement.styleObject[item.type] || '')}
+                            name={item.name}
+                            type={item.type}
+                            tab={'style'}
                         />
                     )}
                     {item.componentType === 'select' && (

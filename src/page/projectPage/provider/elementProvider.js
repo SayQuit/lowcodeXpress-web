@@ -292,7 +292,6 @@ export const ElementProvider = ({ children }) => {
                     getComponentMap[item.type](),
                     attribute,
                 );
-                console.log(attribute);
             }
             else if (item.type !== 'container' && item.type !== 'circle') {
                 const attribute = {
