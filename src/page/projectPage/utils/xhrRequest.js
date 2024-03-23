@@ -1,4 +1,4 @@
-export const xhrRequest = (url, method, params) => {
+export const xhrReq = (url, method, params) => {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
 
@@ -20,7 +20,7 @@ export const xhrRequest = (url, method, params) => {
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (xhr.status >= 200 && xhr.status < 300) {
-          resolve(xhr.responseText);
+          resolve(JSON.parse(xhr.responseText));
         } else {
           reject(new Error(`Request failed with status ${xhr.status}`));
         }
@@ -34,7 +34,6 @@ export const xhrRequest = (url, method, params) => {
         requestData = JSON.stringify(params);
       }
     }
-
     xhr.send(requestData);
   });
 }

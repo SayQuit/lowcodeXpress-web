@@ -8,13 +8,20 @@ import { pushElement, replaceElement, insertElement, deleteElement, mergeElement
 import { createElementByType, createElementByElement, createElementByNestElement } from '../utils/elementCreate';
 import { getRandomID } from '../../../utils/randomID';
 import { getComponentMap } from '../utils/getComponentMap'
-import { xhrRequest } from '../utils/xhrRequest';
+import { xhrReq } from '../utils/xhrRequest';
 import { replaceRpxWithPx } from '../../../utils/style';
 import { filterProperties } from '../../../utils/object';
 
 export const ElementContext = createContext();
 
 export const ElementProvider = ({ children }) => {
+
+    const xhrRequest = (url, method, param) => {
+        return new Promise((resolve, reject) => {
+            xhrReq(url, method, param).then((res) => { resolve(res) }).catch((err) => { reject(err) })
+        })
+    }
+
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const [detail, setDetail] = useState({})
@@ -172,13 +179,19 @@ export const ElementProvider = ({ children }) => {
     }, [event])
 
     const get = useCallback((key) => {
+        if (variableMap[key]) return variableMap[key].value
+        if (propsMap[key]) return propsMap[key].value
+        return null
+    }, [variableMap, propsMap])
+
+    const getValueInfo = useCallback((key) => {
         return variableMap[key] || propsMap[key] || null
     }, [variableMap, propsMap])
 
     const set = useCallback((key, value) => {
-        let varItem = get(key)
+        let varItem = getValueInfo(key)
         if (varItem) variableDispatch({ type: 'change', variable: { ...varItem, value } })
-    }, [get])
+    }, [getValueInfo])
 
     const createFunction = useCallback((item) => {
         let fn = () => { }
@@ -205,11 +218,10 @@ export const ElementProvider = ({ children }) => {
                 })
             })
             fn = () => {
-                // todo return promise
                 xhrRequest(url, method, param)
                     .then((res) => {
                         if (set) {
-                            const data = JSON.parse(res).data
+                            const data = res.data
                             variable.forEach(item => {
                                 if (data[item.name]) variableDispatch({ type: 'change', variable: { ...item, value: data[item.name] } })
                             });
@@ -280,7 +292,7 @@ export const ElementProvider = ({ children }) => {
                             nameTextStyle,
                         },
                         series: [
-                            { data: y.value || [] ,type:item.type.split('-')[1]}
+                            { data: y.value || [], type: item.type.split('-')[1] }
                         ]
                     },
                     ...variableAttr,

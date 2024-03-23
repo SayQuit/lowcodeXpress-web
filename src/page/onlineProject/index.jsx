@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useReducer, useState } from 'react'
 import React from 'react';
 import './index.css'
-import { xhrRequest } from '../projectPage/utils/xhrRequest';
+import { xhrReq } from '../projectPage/utils/xhrRequest';
 import { getComponentMap } from '../projectPage/utils/getComponentMap';
 import { createElementByNestElement, createElementByElement } from '../projectPage/utils/elementCreate';
 import OnlineBoard from './component/onlineBoard';
@@ -11,6 +11,13 @@ import { replaceRpxWithPx } from '../../utils/style';
 import { filterProperties } from '../../utils/object';
 
 function OnlinePage() {
+
+    const xhrRequest = (url, method, param) => {
+        return new Promise((resolve, reject) => {
+            xhrReq(url, method, param).then((res) => { resolve(res) }).catch((err) => { reject(err) })
+        })
+    }
+
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
@@ -123,14 +130,21 @@ function OnlinePage() {
         return map
     }, [event])
 
+    // eslint-disable-next-line no-unused-vars
     const get = useCallback((key) => {
+        if (variableMap[key]) return variableMap[key].value
+        if (propsMap[key]) return propsMap[key].value
+        return null
+    }, [variableMap, propsMap])
+
+    const getValueInfo = useCallback((key) => {
         return variableMap[key] || propsMap[key] || null
     }, [variableMap, propsMap])
 
     const set = useCallback((key, value) => {
-        let varItem = get(key)
+        let varItem = getValueInfo(key)
         if (varItem) variableDispatch({ type: 'change', variable: { ...varItem, value } })
-    }, [get])
+    }, [getValueInfo])
 
     const createFunction = useCallback((item) => {
         let fn = () => { }
@@ -157,11 +171,10 @@ function OnlinePage() {
                 })
             })
             fn = () => {
-                // todo return promise
                 xhrRequest(url, method, param)
                     .then((res) => {
                         if (set) {
-                            const data = JSON.parse(res).data
+                            const data = res.data
                             variable.forEach(item => {
                                 if (data[item.name]) variableDispatch({ type: 'change', variable: { ...item, value: data[item.name] } })
                             });
@@ -230,10 +243,9 @@ function OnlinePage() {
                         yAxis: {
                             ...item.attr.option.yAxis,
                             nameTextStyle,
-                            // data: y.value || []
                         },
                         series: [
-                            { data: y.value || [], type: 'line' }
+                            { data: y.value || [], type: item.type.split('-')[1] }
                         ]
                     },
                     ...variableAttr,
@@ -245,7 +257,6 @@ function OnlinePage() {
                     getComponentMap[item.type](),
                     attribute,
                 );
-                console.log(attribute);
             }
             else if (item.type !== 'container' && item.type !== 'circle') {
                 const attribute = {
