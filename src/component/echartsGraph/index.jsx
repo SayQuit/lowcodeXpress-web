@@ -14,7 +14,7 @@ const EchartsGraph = forwardRef(({ option, echartsStyle }, ref) => {
         }
         initCharts()
         const handleResize = () => {
-            initCharts()
+            chart.setOption(option);
         };
         window.addEventListener('resize', handleResize);
         return () => {

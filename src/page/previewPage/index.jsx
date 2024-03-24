@@ -222,10 +222,11 @@ function PreviewPage() {
                 }
             }
             else if (item.type.startsWith('echarts-')) {
-                const properties = ['color', 'fontStyle', 'fontWeight', 'fontFamily', 'fontSize', 'verticalAlign', 'lineHeight', 'backgroundColor', 'borderColor', 'borderWidth', 'borderRadius', 'padding', 'width', 'height', 'overflow']
+                const properties = ['color', 'fontStyle', 'fontWeight', 'fontFamily', 'fontSize', 'verticalAlign', 'lineHeight', 'backgroundColor']
                 const nameTextStyle = filterProperties(replaceRpxWithPx({ styleObject: item.styleObject }).styleObject, properties)
                 const x = variableMap[item.bindXElement] || {}
                 const y = variableMap[item.bindYElement] || {}
+                const series = variableMap[item.bindSeriesElement] || {}
                 const attribute = {
                     key: item.id,
                     ...item.attr,
@@ -233,15 +234,20 @@ function PreviewPage() {
                         ...item.attr.option,
                         xAxis: {
                             ...item.attr.option.xAxis,
-                            nameTextStyle,
+                            axisLabel: {
+                                textStyle: nameTextStyle
+                            },
                             data: x.value || []
                         },
                         yAxis: {
                             ...item.attr.option.yAxis,
-                            nameTextStyle,
+                            axisLabel: {
+                                textStyle: nameTextStyle
+                            },
+                            data: y.value || []
                         },
                         series: [
-                            { data: y.value || [], type: item.type.split('-')[1] }
+                            { data: series.value || [], type: item.type.split('-')[1] }
                         ]
                     },
                     ...variableAttr,
@@ -329,7 +335,6 @@ function PreviewPage() {
             propsDispatch({ type: 'set', value: props })
             eventDispatch({ type: 'set', value: event })
             setDetail(detail)
-            console.log(detail);
             setOnload(onload || '')
         };
         window.addEventListener('message', handleMessage);

@@ -12,6 +12,7 @@ export const createElementByType = (type) => {
             attr: elementMap[type].default,
             bindXElement:'',
             bindYElement:'',
+            bindSeriesElement:''
         }
     }
     else if (type === 'circle') {

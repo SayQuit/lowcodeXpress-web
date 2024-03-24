@@ -593,7 +593,8 @@ export const elementGroup = [
                         yAxis: {
                             type: 'value',
                         },
-                        series: [{ type: 'bar' }]
+                        series: [{ type: 'bar' }],
+                        animation:false
                     },
                 }
             },

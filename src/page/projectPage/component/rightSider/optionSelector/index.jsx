@@ -51,7 +51,6 @@ function OptionSelector() {
         elementDispatch({ type: 'replace', element: newElement, id: activeElementID })
     }
 
-
     const handleYData = (item) => {
         let name
         if (!item) name = ''
@@ -59,6 +58,17 @@ function OptionSelector() {
         const newElement = {
             ...activeElement,
             bindYElement: name || ''
+        }
+        elementDispatch({ type: 'replace', element: newElement, id: activeElementID })
+    }
+
+    const handleSeriesData = (item) => {
+        let name
+        if (!item) name = ''
+        else name = JSON.parse(item).name
+        const newElement = {
+            ...activeElement,
+            bindSeriesElement: name || ''
         }
         elementDispatch({ type: 'replace', element: newElement, id: activeElementID })
 
@@ -94,6 +104,21 @@ function OptionSelector() {
                     }
                 })}
                 onChange={(item) => { handleYData(item) }}
+                defaultValue={activeElement.bindSeriesElement || ''}
+            ></Select>
+            <h3>series数据</h3>
+            <Select
+                allowClear
+                placeholder='添加数组'
+                options={[...variable, ...props].filter((item) => {
+                    return item.value instanceof Array
+                }).map((item) => {
+                    return {
+                        label: item.name,
+                        value: JSON.stringify(item)
+                    }
+                })}
+                onChange={(item) => { handleSeriesData(item) }}
                 defaultValue={activeElement.bindYElement || ''}
             ></Select>
             {echartsOptionGroup.map(item => {
