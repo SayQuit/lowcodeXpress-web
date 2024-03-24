@@ -6,7 +6,6 @@ import { getComponentMap } from '../projectPage/utils/getComponentMap';
 import { createElementByNestElement, createElementByElement } from '../projectPage/utils/elementCreate';
 import PreviewBoard from './component/previewBoard';
 import { replaceRpxWithPx } from '../../utils/style';
-import { filterProperties } from '../../utils/object';
 
 function PreviewPage() {
 
@@ -138,8 +137,16 @@ function PreviewPage() {
     }, [variableMap, propsMap])
 
     const set = useCallback((key, value) => {
-        let varItem = getValueInfo(key)
-        if (varItem) variableDispatch({ type: 'change', variable: { ...varItem, value } })
+        let item = getValueInfo(key)
+        if (item) variableDispatch({ type: 'change', variable: { ...item, value } })
+    }, [getValueInfo])
+
+    // eslint-disable-next-line no-unused-vars
+    const setState = useCallback((state) => {
+        for (let key in state) {
+            let item = getValueInfo(key)
+            if (item) variableDispatch({ type: 'change', variable: { ...item, value: state[key] } })
+        }
     }, [getValueInfo])
 
     const createFunction = useCallback((item) => {
@@ -222,8 +229,6 @@ function PreviewPage() {
                 }
             }
             else if (item.type.startsWith('echarts-')) {
-                const properties = ['color', 'fontStyle', 'fontWeight', 'fontFamily', 'fontSize', 'verticalAlign', 'lineHeight', 'backgroundColor']
-                const nameTextStyle = filterProperties(replaceRpxWithPx({ styleObject: item.styleObject }).styleObject, properties)
                 const x = variableMap[item.bindXElement] || {}
                 const y = variableMap[item.bindYElement] || {}
                 const series = variableMap[item.bindSeriesElement] || {}
@@ -234,16 +239,10 @@ function PreviewPage() {
                         ...item.attr.option,
                         xAxis: {
                             ...item.attr.option.xAxis,
-                            axisLabel: {
-                                textStyle: nameTextStyle
-                            },
                             data: x.value || []
                         },
                         yAxis: {
                             ...item.attr.option.yAxis,
-                            axisLabel: {
-                                textStyle: nameTextStyle
-                            },
                             data: y.value || []
                         },
                         series: [
