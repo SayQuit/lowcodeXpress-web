@@ -10,17 +10,17 @@ import OptionSelector from './optionSelector';
 const regularTabs = [
     { key: 'style', label: '样式' },
     { key: 'attr', label: '属性' },
-    { key: 'config', label: '配置' },
+    { key: 'config', label: '逻辑' },
 ];
 const circleTabs = [
     { key: 'style', label: '样式' },
     { key: 'circle', label: '循环依赖配置' },
-    { key: 'config', label: '配置' },
+    { key: 'config', label: '逻辑' },
 ];
 const echartsOptionTabs = [
     { key: 'style', label: '样式' },
     { key: 'echarts-options', label: '图表配置' },
-    { key: 'config', label: '配置' },
+    { key: 'config', label: '逻辑' },
 ];
 function RightSider() {
     const { isElementActive, activeElement } = useContext(ElementContext);
