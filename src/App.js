@@ -2,7 +2,7 @@ import './App.css'
 import PageHeader from './component/pageHeader';
 import RouterPage from './router/RouterPage'
 import { tokenLoginRequest } from './request';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, Profiler } from 'react';
 import { getLocalToken } from './utils/storage';
 import { useDispatch } from "react-redux";
 function App() {
@@ -22,15 +22,29 @@ function App() {
   }, [tokenLogin])
 
 
+const onRenderCallback = (
+  id,
+  phase,
+  actualDuration,
+  baseDuration,
+  startTime,
+  commitTime,
+  interactions
+) => {
+  console.log(`${id} ${phase} in ${actualDuration}ms`);
+};
+
   return (
-    <div className='app'>
-      <div className='app-header'>
-        <PageHeader></PageHeader>
+    <Profiler id="Profiler" onRender={onRenderCallback}>
+      <div className='app'>
+        <div className='app-header'>
+          <PageHeader></PageHeader>
+        </div>
+        <div className='app-main'>
+          <RouterPage></RouterPage>
+        </div>
       </div>
-      <div className='app-main'>
-        <RouterPage></RouterPage>
-      </div>
-    </div>
+    </Profiler>
   );
 }
 export default App;
