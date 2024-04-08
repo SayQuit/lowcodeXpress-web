@@ -36,7 +36,8 @@ import {
     BorderOutlined,
     TableOutlined,
     LineHeightOutlined,
-    RetweetOutlined
+    RetweetOutlined,
+    FormOutlined
 } from '@ant-design/icons';
 
 import EchartsGraph from '../../../component/echartsGraph'
@@ -143,6 +144,16 @@ export const elementGroup = [
                     controls: true,
                     autoPlay: true
                 }
+            },
+            {
+                name: '输入框',
+                type: 'input',
+                icon: <FormOutlined />,
+                getComponent: () => {
+                    return <input></input>
+                },
+                styleSelector: [],
+                attrSelector: ['value','placeholder'],
             }
         ]
     },
