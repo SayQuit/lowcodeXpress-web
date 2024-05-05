@@ -73,7 +73,7 @@ export const elementGroup = [
         ]
     },
     {
-        title: '浏览器标签',
+        title: '标签组件',
         type: 'web',
         items: [
             {
@@ -158,7 +158,7 @@ export const elementGroup = [
         ]
     },
     {
-        title: '微信小程序标签',
+        title: '标签组件',
         type: 'wechat mini program',
         items: [
             {
