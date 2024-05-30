@@ -58,7 +58,7 @@ function BoardConatiner({ componentNode, boardRef, id }) {
             if (componentNode.childrenElement) return
             if (!componentNode.value && !componentNode.childrenElement) {
                 if (item.type === 'container') {
-                    warningMessage('请勿重复防止容器')
+                    warningMessage('请勿重复放置容器')
                     return
                 }
                 elementDispatch({ type: 'replace', elementType: item.type, id: componentNode.id })
